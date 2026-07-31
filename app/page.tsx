@@ -1,11 +1,11 @@
 import { ArrowRight, CheckCircle2, TrendingUp, ShieldCheck, Users, Clock, Calendar, Star, CircleDot } from 'lucide-react';
 import Image from 'next/image';
-
-// ============================================================
-// CHANGE THIS ONE LINE to point both REGISTER buttons at your
-// Meta ad / lead form. Paste the full URL including https://
-// ============================================================
-const REGISTER_URL = 'https://www.facebook.com/';
+import CountdownTimer from '@/components/countdown-timer';
+import {
+  REGISTER_URL,
+  WEBINAR_DATE_DISPLAY,
+  WEBINAR_TIME_DISPLAY,
+} from '@/lib/webinar-config';
 
 export default function LandingPage() {
   return (
@@ -34,6 +34,9 @@ export default function LandingPage() {
           <p className="text-lg md:text-xl text-gray-200 max-w-2xl mb-10 leading-relaxed">
             Discover the exact blueprint top carriers use to optimize operations, stay compliant, and skyrocket profitability without working 80-hour weeks.
           </p>
+
+          <CountdownTimer />
+
           <a href={REGISTER_URL} className="inline-flex items-center justify-center bg-brand-red hover:bg-brand-red-hover text-white font-bold py-4 px-10 rounded-full text-lg transition-all duration-200 shadow-[0_0_20px_rgba(220,20,60,0.4)] hover:shadow-[0_0_30px_rgba(220,20,60,0.6)] transform hover:-translate-y-1">
             REGISTER FOR FREE WEBINAR
             <ArrowRight className="ml-2 w-5 h-5" />
@@ -122,7 +125,7 @@ export default function LandingPage() {
                   </div>
                   <div>
                     <h4 className="font-bold text-brand-navy text-lg">Date</h4>
-                    <p className="text-gray-600 font-medium">[DATE PLACEHOLDER]</p>
+                    <p className="text-gray-600 font-medium">{WEBINAR_DATE_DISPLAY}</p>
                   </div>
                 </div>
                 <div className="flex items-start">
@@ -131,7 +134,7 @@ export default function LandingPage() {
                   </div>
                   <div>
                     <h4 className="font-bold text-brand-navy text-lg">Time</h4>
-                    <p className="text-gray-600 font-medium">[TIME PLACEHOLDER]</p>
+                    <p className="text-gray-600 font-medium">{WEBINAR_TIME_DISPLAY}</p>
                   </div>
                 </div>
               </div>
