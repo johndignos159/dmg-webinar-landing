@@ -44,7 +44,7 @@ export default function LandingPage() {
 
           <CountdownTimer />
 
-          <a href={REGISTER_URL} className="inline-flex items-center justify-center bg-brand-red hover:bg-brand-red-hover text-white font-bold py-4 px-10 rounded-full text-lg transition-all duration-200 shadow-[0_0_20px_rgba(220,20,60,0.4)] hover:shadow-[0_0_30px_rgba(220,20,60,0.6)] transform hover:-translate-y-1">
+          <a href={REGISTER_URL} className="w-full sm:w-auto inline-flex items-center justify-center whitespace-nowrap bg-brand-red hover:bg-brand-red-hover text-white font-bold py-4 px-6 sm:px-10 rounded-full max-[359px]:text-sm text-base sm:text-lg transition-all duration-200 shadow-[0_0_20px_rgba(220,20,60,0.4)] hover:shadow-[0_0_30px_rgba(220,20,60,0.6)] transform hover:-translate-y-1">
             REGISTER FOR FREE WEBINAR
             <ArrowRight className="ml-2 w-5 h-5" />
           </a>
@@ -210,7 +210,7 @@ export default function LandingPage() {
           <p className="text-xl text-gray-300 mb-10">
             Stop leaving money on the table. Join the free masterclass and get the blueprint.
           </p>
-          <a href={REGISTER_URL} className="inline-flex items-center justify-center bg-brand-red hover:bg-brand-red-hover text-white font-bold py-4 px-10 rounded-full text-lg transition-all duration-200 shadow-[0_0_20px_rgba(220,20,60,0.4)] hover:shadow-[0_0_30px_rgba(220,20,60,0.6)] transform hover:-translate-y-1">
+          <a href={REGISTER_URL} className="w-full sm:w-auto inline-flex items-center justify-center whitespace-nowrap bg-brand-red hover:bg-brand-red-hover text-white font-bold py-4 px-6 sm:px-10 rounded-full max-[359px]:text-sm text-base sm:text-lg transition-all duration-200 shadow-[0_0_20px_rgba(220,20,60,0.4)] hover:shadow-[0_0_30px_rgba(220,20,60,0.6)] transform hover:-translate-y-1">
             REGISTER FOR FREE WEBINAR
             <ArrowRight className="ml-2 w-5 h-5" />
           </a>
