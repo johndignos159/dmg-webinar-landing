@@ -1,6 +1,8 @@
 import { ArrowRight, CheckCircle2, TrendingUp, ShieldCheck, Users, Clock, Calendar, Star, CircleDot } from 'lucide-react';
 import Image from 'next/image';
 import CountdownTimer from '@/components/countdown-timer';
+import SiteHeader from '@/components/site-header';
+import SiteFooter from '@/components/site-footer';
 import {
   REGISTER_URL,
   WEBINAR_DATE_DISPLAY,
@@ -12,6 +14,8 @@ export default function LandingPage() {
     <div className="min-h-screen bg-white">
       {/* HERO SECTION */}
       <section className="relative bg-brand-navy text-white overflow-hidden">
+        <SiteHeader />
+
         {/* Background Overlay */}
         <div className="absolute inset-0 z-0 bg-brand-navy">
           <Image
@@ -24,7 +28,8 @@ export default function LandingPage() {
           <div className="absolute inset-0 bg-gradient-to-r from-brand-navy via-brand-navy/80 to-brand-navy/40 mix-blend-multiply"></div>
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-6 py-24 md:py-32 lg:py-40 flex flex-col items-center text-center">
+        {/* Extra top padding clears the absolutely-positioned header. */}
+        <div className="relative z-10 max-w-7xl mx-auto px-6 pt-32 pb-24 md:pt-40 md:pb-32 lg:pt-44 lg:pb-40 flex flex-col items-center text-center">
           <div className="inline-block bg-brand-red/10 border border-brand-red text-brand-red px-4 py-1.5 rounded-full text-sm font-bold tracking-wider mb-6">
             FREE EXCLUSIVE WEBINAR
           </div>
@@ -213,6 +218,8 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
+
+      <SiteFooter />
     </div>
   );
 }
