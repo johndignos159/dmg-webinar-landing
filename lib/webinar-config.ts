@@ -65,3 +65,67 @@ export const WEBINAR_TIME_DISPLAY = `${TIME_FORMATTER.format(WEBINAR_DATE)} ${TI
 
 /** Epoch milliseconds — what the countdown counts down to. */
 export const WEBINAR_TIMESTAMP = WEBINAR_DATE.getTime();
+
+// ---------------------------------------------------------------------------
+// Calendar links
+//
+// Both formats are generated from WEBINAR_DATE_ISO above, so changing the date
+// in one place updates the countdown, the on-page text, and both calendar
+// buttons together.
+// ---------------------------------------------------------------------------
+
+/** How long the session runs, in minutes. */
+export const WEBINAR_DURATION_MINUTES = 60;
+
+export const WEBINAR_TITLE = 'DMG Agency Core — Free Trucking Masterclass';
+export const WEBINAR_SUMMARY =
+  'How to build a stronger trucking business and scale 3X in 12 months.';
+
+const WEBINAR_END = new Date(
+  WEBINAR_TIMESTAMP + WEBINAR_DURATION_MINUTES * 60_000,
+);
+
+/** Calendar formats want UTC as YYYYMMDDTHHMMSSZ with no punctuation. */
+function toCalendarStamp(d: Date): string {
+  return d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+}
+
+const START_STAMP = toCalendarStamp(WEBINAR_DATE);
+const END_STAMP = toCalendarStamp(WEBINAR_END);
+
+/** Google Calendar "add event" URL. Covers most attendees. */
+export const GOOGLE_CALENDAR_URL =
+  'https://calendar.google.com/calendar/render?action=TEMPLATE' +
+  `&text=${encodeURIComponent(WEBINAR_TITLE)}` +
+  `&dates=${START_STAMP}/${END_STAMP}` +
+  `&details=${encodeURIComponent(WEBINAR_SUMMARY)}` +
+  `&location=${encodeURIComponent('Online')}`;
+
+// Apple Calendar and Outlook want a downloadable .ics file. Serving it as a
+// data URI avoids needing a route handler, since the content is fixed at build
+// time. CRLF line endings are required by the spec — plain \n breaks Outlook.
+const ICS_CONTENT = [
+  'BEGIN:VCALENDAR',
+  'VERSION:2.0',
+  'PRODID:-//DMG Agency Core//Webinar//EN',
+  'CALSCALE:GREGORIAN',
+  'METHOD:PUBLISH',
+  'BEGIN:VEVENT',
+  `UID:webinar-${START_STAMP}@dmgagencycore.com`,
+  `DTSTAMP:${START_STAMP}`,
+  `DTSTART:${START_STAMP}`,
+  `DTEND:${END_STAMP}`,
+  `SUMMARY:${WEBINAR_TITLE}`,
+  `DESCRIPTION:${WEBINAR_SUMMARY}`,
+  'LOCATION:Online',
+  'STATUS:CONFIRMED',
+  'BEGIN:VALARM',
+  'TRIGGER:-PT1H',
+  'ACTION:DISPLAY',
+  'DESCRIPTION:Masterclass starts in 1 hour',
+  'END:VALARM',
+  'END:VEVENT',
+  'END:VCALENDAR',
+].join('\r\n');
+
+export const ICS_DATA_URI = `data:text/calendar;charset=utf-8,${encodeURIComponent(ICS_CONTENT)}`;
