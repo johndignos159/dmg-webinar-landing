@@ -10,3 +10,44 @@
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --font-heading: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
+
+/* ---------------------------------------------------------------------------
+   Typewriter headline
+   --------------------------------------------------------------------------- */
+
+.tw-char {
+  transition: opacity 90ms linear;
+}
+
+.tw-cursor {
+  display: inline-block;
+  width: 0.06em;
+  height: 0.85em;
+  margin-left: 0.08em;
+  vertical-align: baseline;
+  transform: translateY(0.06em);
+  animation: tw-blink 0.9s step-end infinite;
+}
+
+/* Once typing finishes, fade the caret out instead of leaving it flashing. */
+.tw-cursor-done {
+  animation: tw-blink 0.9s step-end 3, tw-fade-out 0.4s ease-out 2.7s forwards;
+}
+
+@keyframes tw-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes tw-fade-out {
+  to { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tw-char {
+    transition: none;
+  }
+  .tw-cursor {
+    display: none;
+  }
+}
