@@ -2,12 +2,12 @@ import Image from 'next/image';
 import { REGISTER_URL } from '@/lib/webinar-config';
 
 /**
- * Sits transparently over the top of the hero so the background photo shows
- * through, matching the nav treatment on dmgagencycore.com.
+ * Solid bar above the hero, in the deep teal sampled from the hero gradient
+ * on dmgagencycore.com.
  */
 export default function SiteHeader() {
   return (
-    <header className="absolute top-0 left-0 right-0 z-20">
+    <header className="bg-brand-teal-deep">
       <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
         <a
           href="https://dmgagencycore.com"
