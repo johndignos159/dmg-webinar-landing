@@ -19,7 +19,9 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  output: 'standalone',
+  // output: 'standalone' removed. It is for self-hosted/Docker deploys and
+  // deliberately omits public/ and .next/static from the bundle, so the logo
+  // and stylesheet can fail to serve. Vercel does not need it.
   transpilePackages: ['motion'],
   webpack: (config, {dev}) => {
     // HMR is disabled in AI Studio via DISABLE_HMR env var.
