@@ -6,11 +6,11 @@ export default function SiteFooter() {
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-left">
         <div className="flex flex-col md:flex-row items-center gap-4">
           <Image
-            src="/dmg-mark.png"
+            src="/images/dmgagency-logo.png"
             alt=""
-            width={42}
-            height={39}
-            className="h-9 w-auto"
+            width={80}
+            height={80}
+            className="h-16 w-16"
           />
           <div>
             <p className="font-heading text-base font-black uppercase tracking-wide text-white">

@@ -15,13 +15,16 @@ export default function SiteHeader() {
           aria-label="DMG Agency Core home"
         >
           <Image
-            src="/dmg-mark.png"
+            src="/images/dmgagency-logo.png"
             alt=""
-            width={42}
-            height={39}
+            width={64}
+            height={64}
             priority
-            className="h-8 w-auto md:h-9"
+            className="h-11 w-11 md:h-14 md:w-14"
           />
+          {/* The badge carries "AGENCY CORE" in its artwork, but at header size
+              that type renders around 5px tall and is unreadable. The name is
+              spelled out beside it so it actually registers. */}
           <span className="font-heading text-sm md:text-base font-black uppercase tracking-wide text-white whitespace-nowrap">
             DMG Agency Core
           </span>
