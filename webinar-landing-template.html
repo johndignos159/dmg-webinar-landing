@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Webinar - DMG Agency Core</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ============================================
+           HERO SECTION
+           ============================================ */
+        .hero {
+            background: linear-gradient(135deg, #1B6B8F 0%, #1a1a1a 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+            min-height: 600px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 700;
+            text-transform: uppercase;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .hero .subheading {
+            font-size: 20px;
+            margin-bottom: 40px;
+            opacity: 0.95;
+            max-width: 600px;
+        }
+
+        /* ============================================
+           COUNTDOWN TIMER
+           ============================================ */
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 50px 0 60px;
+            flex-wrap: wrap;
+        }
+
+        .countdown-item {
+            text-align: center;
+        }
+
+        .countdown-number {
+            display: block;
+            font-size: 48px;
+            font-weight: 700;
+            color: #DC143C;
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
+        .countdown-label {
+            display: block;
+            font-size: 14px;
+            color: #ccc;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ============================================
+           CTA BUTTON
+           ============================================ */
+        .cta-button {
+            display: inline-block;
+            background-color: #DC143C;
+            color: white;
+            padding: 16px 48px;
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+            text-decoration: none;
+        }
+
+        .cta-button:hover {
+            background-color: #a60c26;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(220, 20, 60, 0.3);
+        }
+
+        /* ============================================
+           VALUE PROPOSITIONS
+           ============================================ */
+        .value-props {
+            background-color: #f8f8f8;
+            padding: 80px 20px;
+        }
+
+        .value-props h2 {
+            font-size: 40px;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 60px;
+            color: #1a1a1a;
+        }
+
+        .props-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .prop-item {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .prop-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .prop-icon {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            background-color: #DC143C;
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+
+        .prop-item h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #1a1a1a;
+        }
+
+        .prop-item p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* ============================================
+           SOCIAL PROOF / TESTIMONIAL
+           ============================================ */
+        .social-proof {
+            background-color: #1a1a1a;
+            color: white;
+            padding: 80px 20px;
+        }
+
+        .social-proof h2 {
+            font-size: 36px;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .testimonial {
+            max-width: 700px;
+            margin: 0 auto;
+            background-color: #2d2d2d;
+            padding: 40px;
+            border-radius: 8px;
+            border-left: 4px solid #DC143C;
+        }
+
+        .stars {
+            color: #DC143C;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .testimonial-text {
+            font-size: 16px;
+            font-style: italic;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: #DC143C;
+            margin-bottom: 5px;
+        }
+
+        .testimonial-role {
+            font-size: 14px;
+            color: #999;
+        }
+
+        /* ============================================
+           WEBINAR DETAILS
+           ============================================ */
+        .webinar-details {
+            background-color: white;
+            padding: 80px 20px;
+        }
+
+        .webinar-details h2 {
+            font-size: 40px;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 60px;
+            color: #1a1a1a;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+            margin-bottom: 60px;
+        }
+
+        .detail-box {
+            padding: 30px;
+            background-color: #f8f8f8;
+            border-radius: 8px;
+            border-top: 3px solid #DC143C;
+        }
+
+        .detail-box h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #1a1a1a;
+        }
+
+        .detail-box p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .detail-box ul {
+            list-style: none;
+            font-size: 14px;
+            color: #666;
+            margin-top: 10px;
+        }
+
+        .detail-box li {
+            padding: 8px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .detail-box li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #DC143C;
+            font-weight: bold;
+        }
+
+        /* ============================================
+           BOTTOM CTA
+           ============================================ */
+        .bottom-cta {
+            background-color: #1a1a1a;
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .bottom-cta h2 {
+            font-size: 40px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .bottom-cta p {
+            font-size: 18px;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .bottom-cta .assurance {
+            font-size: 14px;
+            color: #999;
+            margin-top: 20px;
+        }
+
+        .assurance-item {
+            display: inline-block;
+            margin: 0 20px;
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        footer {
+            background-color: #0d0d0d;
+            color: #999;
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 14px;
+        }
+
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero .subheading {
+                font-size: 16px;
+            }
+
+            .countdown-timer {
+                gap: 15px;
+            }
+
+            .countdown-number {
+                font-size: 36px;
+            }
+
+            .value-props h2,
+            .webinar-details h2,
+            .bottom-cta h2 {
+                font-size: 28px;
+            }
+
+            .social-proof h2 {
+                font-size: 24px;
+            }
+
+            .props-grid,
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .assurance-item {
+                display: block;
+                margin: 8px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================
+         EASY CUSTOMIZATION SECTION
+         CHANGE THESE VALUES FOR EACH WEBINAR
+         ============================================ -->
+    <script>
+        // WEBINAR CONFIG - CHANGE THESE FOR EACH WEBINAR
+        const WEBINAR_CONFIG = {
+            // DATE & TIME (Change to your webinar date/time)
+            date: "August 15, 2026 2:00 PM EST",
+
+            // HERO SECTION
+            heroHeadline: "SCALE YOUR TRUCKING BUSINESS WITHOUT BREAKING A SWEAT",
+            heroSubheading: "Join our free mastermind session and discover the proven framework that helped 200+ trucking companies grow revenue by 3X in 12 months.",
+
+            // VALUE PROPOSITIONS (3-4 key benefits)
+            valueProps: [
+                {
+                    title: "The Revenue Multiplication Formula",
+                    description: "Discover the exact system successful trucking companies use to scale without hiring more drivers."
+                },
+                {
+                    title: "Compliance Without The Chaos",
+                    description: "Get the compliance checklist that keeps you audit-ready while you focus on growth."
+                },
+                {
+                    title: "Profitability Hacks",
+                    description: "Learn where 80% of trucking companies leak money and how to plug those holes immediately."
+                },
+                {
+                    title: "Authority & Trust Building",
+                    description: "Position yourself as the go-to expert in your market and attract high-quality clients."
+                }
+            ],
+
+            // TESTIMONIAL
+            testimonialStars: "★★★★★",
+            testimonialText: "After implementing the DMG Core framework, our fleet expanded from 3 to 15 trucks in under 18 months, and our profit margins doubled. This webinar is a game-changer.",
+            testimonialAuthor: "Industry Expert",
+            testimonialRole: "Logistics & Scaling Strategist",
+
+            // WEBINAR DETAILS
+            whatYouLearn: [
+                "The 3-pillar scaling framework used by top trucking companies",
+                "How to optimize operations and cut costs without sacrificing quality",
+                "Compliance strategies that actually work in the real world",
+                "The exact metrics you need to track for exponential growth"
+            ],
+            whoShouldAttend: [
+                "Owner-operators looking to scale their first fleet",
+                "Established carriers struggling with razor-thin margins",
+                "Trucking entrepreneurs tired of working IN their business instead of ON it"
+            ]
+        };
+    </script>
+
+    <!-- ============================================
+         HERO SECTION
+         ============================================ -->
+    <section class="hero">
+        <div class="container">
+            <h1 id="heroHeadline"></h1>
+            <p class="subheading" id="heroSubheading"></p>
+
+            <!-- COUNTDOWN TIMER -->
+            <div id="countdown" class="countdown-timer">
+                <div class="countdown-item">
+                    <span class="countdown-number">0</span>
+                    <span class="countdown-label">Days</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number">0</span>
+                    <span class="countdown-label">Hours</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number">0</span>
+                    <span class="countdown-label">Minutes</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number">0</span>
+                    <span class="countdown-label">Seconds</span>
+                </div>
+            </div>
+
+            <button class="cta-button" onclick="handleRegister()">REGISTER FOR FREE WEBINAR</button>
+        </div>
+    </section>
+
+    <!-- ============================================
+         VALUE PROPOSITIONS
+         ============================================ -->
+    <section class="value-props">
+        <div class="container">
+            <h2>WHAT YOU'LL DISCOVER</h2>
+            <div class="props-grid" id="propsGrid"></div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SOCIAL PROOF
+         ============================================ -->
+    <section class="social-proof">
+        <div class="container">
+            <h2>REAL RESULTS FROM REAL CLIENTS</h2>
+            <div class="testimonial">
+                <div class="stars" id="testimonialStars"></div>
+                <p class="testimonial-text" id="testimonialText"></p>
+                <div class="testimonial-author" id="testimonialAuthor"></div>
+                <div class="testimonial-role" id="testimonialRole"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         WEBINAR DETAILS
+         ============================================ -->
+    <section class="webinar-details">
+        <div class="container">
+            <h2>EVERYTHING YOU NEED TO KNOW</h2>
+
+            <div class="details-grid">
+                <div class="detail-box">
+                    <h3>📅 WEBINAR DETAILS</h3>
+                    <p><strong>Date:</strong> <span id="webinarDate"></span></p>
+                    <p><strong>Duration:</strong> 60 minutes (plus Q&A)</p>
+                    <p><strong>Format:</strong> Live interactive session</p>
+                    <p><strong>Investment:</strong> 100% FREE</p>
+                </div>
+
+                <div class="detail-box">
+                    <h3>💡 WHAT YOU'LL LEARN</h3>
+                    <ul id="whatYouLearnList"></ul>
+                </div>
+
+                <div class="detail-box">
+                    <h3>👥 WHO SHOULD ATTEND</h3>
+                    <ul id="whoShouldAttendList"></ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         BOTTOM CTA
+         ============================================ -->
+    <section class="bottom-cta">
+        <div class="container">
+            <h2>READY TO TRANSFORM YOUR TRUCKING OPERATIONS?</h2>
+            <p>Stop leaving money on the table. Join thousands of successful trucking companies and get the blueprint to scale.</p>
+            <button class="cta-button" onclick="handleRegister()">REGISTER FOR FREE WEBINAR</button>
+
+            <div class="assurance">
+                <span class="assurance-item">✓ 100% Free Training</span>
+                <span class="assurance-item">✓ Limited Seats Available</span>
+                <span class="assurance-item">✓ No Credit Card Required</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         FOOTER
+         ============================================ -->
+    <footer>
+        <p>&copy; 2026 DMG Agency Core LLC. All rights reserved. | <a href="#" style="color: #DC143C;">Privacy Policy</a></p>
+    </footer>
+
+    <!-- ============================================
+         JAVASCRIPT - COUNTDOWN TIMER & CONTENT
+         ============================================ -->
+    <script>
+        // Initialize page content from config
+        function initializeContent() {
+            // Hero section
+            document.getElementById('heroHeadline').textContent = WEBINAR_CONFIG.heroHeadline;
+            document.getElementById('heroSubheading').textContent = WEBINAR_CONFIG.heroSubheading;
+
+            // Value propositions
+            const propsGrid = document.getElementById('propsGrid');
+            WEBINAR_CONFIG.valueProps.forEach(prop => {
+                const propItem = document.createElement('div');
+                propItem.className = 'prop-item';
+                propItem.innerHTML = `
+                    <div class="prop-icon"></div>
+                    <h3>${prop.title}</h3>
+                    <p>${prop.description}</p>
+                `;
+                propsGrid.appendChild(propItem);
+            });
+
+            // Testimonial
+            document.getElementById('testimonialStars').textContent = WEBINAR_CONFIG.testimonialStars;
+            document.getElementById('testimonialText').textContent = WEBINAR_CONFIG.testimonialText;
+            document.getElementById('testimonialAuthor').textContent = WEBINAR_CONFIG.testimonialAuthor;
+            document.getElementById('testimonialRole').textContent = WEBINAR_CONFIG.testimonialRole;
+
+            // Webinar date
+            document.getElementById('webinarDate').textContent = WEBINAR_CONFIG.date;
+
+            // What you'll learn
+            const whatYouLearnList = document.getElementById('whatYouLearnList');
+            WEBINAR_CONFIG.whatYouLearn.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                whatYouLearnList.appendChild(li);
+            });
+
+            // Who should attend
+            const whoShouldAttendList = document.getElementById('whoShouldAttendList');
+            WEBINAR_CONFIG.whoShouldAttend.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                whoShouldAttendList.appendChild(li);
+            });
+        }
+
+        // Countdown timer
+        function updateCountdown() {
+            const webinarDate = new Date(WEBINAR_CONFIG.date).getTime();
+            const now = new Date().getTime();
+            const distance = webinarDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Update countdown display
+            const countdownItems = document.querySelectorAll('.countdown-number');
+            if (countdownItems.length >= 4) {
+                countdownItems[0].textContent = days;
+                countdownItems[1].textContent = hours;
+                countdownItems[2].textContent = minutes;
+                countdownItems[3].textContent = seconds;
+            }
+
+            // If countdown is finished
+            if (distance < 0) {
+                document.getElementById('countdown').innerHTML =
+                    "<p style='color: #DC143C; font-weight: bold; font-size: 24px;'>🎉 Webinar Starting Soon!</p>";
+                clearInterval(countdownInterval);
+            }
+        }
+
+        // Handle register button clicks
+        function handleRegister() {
+            // CHANGE THIS TO YOUR META AD LINK
+            // Example: window.location.href = "https://www.facebook.com/ads/...";
+            alert('Update the handleRegister() function with your Meta Ad link or webinar registration URL');
+        }
+
+        // Initialize countdown
+        const countdownInterval = setInterval(updateCountdown, 1000);
+
+        // Initialize page on load
+        window.addEventListener('DOMContentLoaded', function() {
+            initializeContent();
+            updateCountdown();
+        });
+    </script>
+
+</body>
+</html>
