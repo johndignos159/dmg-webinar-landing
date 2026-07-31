@@ -26,7 +26,7 @@ export default function SiteHeader() {
               that type renders around 5px tall and is unreadable. The name is
               spelled out beside it so it actually registers. */}
           <span className="font-heading text-sm md:text-base font-black uppercase tracking-wide text-white whitespace-nowrap">
-            DMG Agency Core
+            DMG Agency Core LLC
           </span>
         </a>
 
@@ -34,7 +34,7 @@ export default function SiteHeader() {
           href={REGISTER_URL}
           className="hidden sm:inline-flex items-center justify-center border-2 border-brand-red text-white hover:bg-brand-red font-bold text-xs md:text-sm uppercase tracking-wider py-2.5 px-6 rounded-full transition-colors duration-200"
         >
-          Save My Seat
+          Reserve My Seat
         </a>
       </div>
     </header>
