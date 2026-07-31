@@ -20,14 +20,7 @@
 export const WEBINAR_DATE_ISO = '2026-08-15T14:00:00-04:00';
 
 // ---------------------------------------------------------------------------
-// 2. WHERE DOES THE REGISTER BUTTON GO?
-// Paste your Meta ad / lead form URL. Include the https://
-// Both REGISTER buttons on the page use this.
-// ---------------------------------------------------------------------------
-export const REGISTER_URL = 'https://www.facebook.com/';
-
-// ---------------------------------------------------------------------------
-// 3. HOW THE DATE/TIME READS ON THE PAGE
+// 2. HOW THE DATE/TIME READS ON THE PAGE
 // Change the label if you ever run a webinar outside Eastern Time.
 // ---------------------------------------------------------------------------
 export const TIMEZONE_LABEL = 'EST';

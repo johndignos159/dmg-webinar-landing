@@ -11,6 +11,18 @@
   --font-heading: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
+/* Anchor links to the registration form glide instead of jumping. Disabled
+   automatically for anyone who has asked their OS to reduce motion. */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 /* ---------------------------------------------------------------------------
    Typewriter headline
    --------------------------------------------------------------------------- */

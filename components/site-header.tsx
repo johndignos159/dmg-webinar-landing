@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import { REGISTER_URL } from '@/lib/webinar-config';
 
 /**
  * Sits transparently over the top of the hero so the background photo shows
@@ -31,7 +30,7 @@ export default function SiteHeader() {
         </a>
 
         <a
-          href={REGISTER_URL}
+          href="/#register"
           className="hidden sm:inline-flex items-center justify-center border-2 border-brand-red text-white hover:bg-brand-red font-bold text-xs md:text-sm uppercase tracking-wider py-2.5 px-6 rounded-full transition-colors duration-200"
         >
           Reserve My Seat

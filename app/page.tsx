@@ -4,8 +4,8 @@ import CountdownTimer from '@/components/countdown-timer';
 import Typewriter from '@/components/typewriter';
 import SiteHeader from '@/components/site-header';
 import SiteFooter from '@/components/site-footer';
+import RegistrationForm from '@/components/registration-form';
 import {
-  REGISTER_URL,
   WEBINAR_DATE_DISPLAY,
   WEBINAR_TIME_DISPLAY,
 } from '@/lib/webinar-config';
@@ -44,7 +44,7 @@ export default function LandingPage() {
 
           <CountdownTimer />
 
-          <a href={REGISTER_URL} className="w-full sm:w-auto inline-flex items-center justify-center whitespace-nowrap bg-brand-red hover:bg-brand-red-hover text-white font-bold py-4 px-6 sm:px-10 rounded-full max-[359px]:text-sm text-base sm:text-lg transition-all duration-200 shadow-[0_0_20px_rgba(220,20,60,0.4)] hover:shadow-[0_0_30px_rgba(220,20,60,0.6)] transform hover:-translate-y-1">
+          <a href="#register" className="w-full sm:w-auto inline-flex items-center justify-center whitespace-nowrap bg-brand-red hover:bg-brand-red-hover text-white font-bold py-4 px-6 sm:px-10 rounded-full max-[359px]:text-sm text-base sm:text-lg transition-all duration-200 shadow-[0_0_20px_rgba(220,20,60,0.4)] hover:shadow-[0_0_30px_rgba(220,20,60,0.6)] transform hover:-translate-y-1">
             REGISTER FOR FREE WEBINAR
             <ArrowRight className="ml-2 w-5 h-5" />
           </a>
@@ -53,6 +53,10 @@ export default function LandingPage() {
           </p>
         </div>
       </section>
+
+      {/* REGISTRATION FORM — kept high on the page so the hero CTA is a short
+          hop, and so mobile visitors hit it before the long sales sections. */}
+      <RegistrationForm />
 
       {/* VALUE PROPOSITIONS SECTION */}
       <section className="py-20 md:py-28 bg-brand-gray">
@@ -210,7 +214,7 @@ export default function LandingPage() {
           <p className="text-xl text-gray-300 mb-10">
             Stop leaving money on the table. Join the free masterclass and get the blueprint.
           </p>
-          <a href={REGISTER_URL} className="w-full sm:w-auto inline-flex items-center justify-center whitespace-nowrap bg-brand-red hover:bg-brand-red-hover text-white font-bold py-4 px-6 sm:px-10 rounded-full max-[359px]:text-sm text-base sm:text-lg transition-all duration-200 shadow-[0_0_20px_rgba(220,20,60,0.4)] hover:shadow-[0_0_30px_rgba(220,20,60,0.6)] transform hover:-translate-y-1">
+          <a href="#register" className="w-full sm:w-auto inline-flex items-center justify-center whitespace-nowrap bg-brand-red hover:bg-brand-red-hover text-white font-bold py-4 px-6 sm:px-10 rounded-full max-[359px]:text-sm text-base sm:text-lg transition-all duration-200 shadow-[0_0_20px_rgba(220,20,60,0.4)] hover:shadow-[0_0_30px_rgba(220,20,60,0.6)] transform hover:-translate-y-1">
             REGISTER FOR FREE WEBINAR
             <ArrowRight className="ml-2 w-5 h-5" />
           </a>
