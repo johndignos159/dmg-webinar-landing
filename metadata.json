@@ -1,0 +1,6 @@
+{
+  "name": "DMG Agency Core Webinar",
+  "description": "Informational webinar landing page for DMG Agency Core to drive Meta ads traffic.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
