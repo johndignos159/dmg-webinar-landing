@@ -16,7 +16,7 @@ const FORM_ID = 'chuVjUognnNozdZ3Fy7r';
  */
 export default function RegistrationForm() {
   return (
-    <section id="register" className="py-20 md:py-28 bg-white scroll-mt-8">
+    <section id="register" className="py-20 md:py-28 bg-brand-gray scroll-mt-8">
       <div className="max-w-2xl mx-auto px-6">
         <div className="text-center mb-10">
           <div className="inline-block bg-brand-red/10 border border-brand-red text-brand-red px-4 py-1.5 rounded-full text-sm font-bold tracking-wider mb-6">
@@ -32,7 +32,9 @@ export default function RegistrationForm() {
           </p>
         </div>
 
-        <div className="bg-brand-gray rounded-2xl p-4 sm:p-6 border border-gray-200">
+        {/* White card on a grey section, so a GHL form left at its default
+            white background blends in with no styling needed on their side. */}
+        <div className="bg-white rounded-2xl p-4 sm:p-6 border border-gray-200 shadow-sm">
           <iframe
             src={`https://api.leadconnectorhq.com/widget/form/${FORM_ID}`}
             style={{

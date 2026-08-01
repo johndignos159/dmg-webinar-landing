@@ -115,9 +115,10 @@ the entire post-webinar branch collapses into one undifferentiated follow-up.
 ### In GHL
 
 - [ ] Custom fields: `Webinar Date` (DATE), `Webinar Attended` (RADIO: Live/Replay/No-Show), `Watch Duration` (NUMERICAL), `Ad Campaign` (TEXT)
-- [ ] Form: First Name, Email, Phone + hidden UTM fields
-- [ ] Form setting: redirect URL → `/webinar/confirmed`
-- [ ] Phone field defaulted to US country code
+- [x] Form built — id `chuVjUognnNozdZ3Fy7r` (First Name, Last Name, Email, Phone)
+- [x] Form setting: redirect URL → `/confirmed` — **verified working 2026-07-31**
+- [x] Phone submits E.164 — verified as `+63…` on a test submission
+- [ ] Confirm the phone country picker **defaults to US (+1)**, not another country
 - [ ] Pipeline "Webinar Funnel": Registered → No-Show → Attended Live → Watched Replay → Hot Lead → Consultation Booked → Closed Lost
 - [ ] Workflow with **date-anchored** waits (see gotcha 1)
 - [ ] Tags: `webinar-2026-08-15-registered` / `-attended` / `-noshow` / `-replay`
@@ -128,11 +129,31 @@ opportunities per person and double-counted revenue.
 
 ### In the code
 
-- [ ] Meta Pixel installed — PageView on landing page
-- [ ] `/webinar/confirmed` page built — fires Lead event
-- [ ] GHL form embedded, replacing both link buttons
-- [ ] UTM capture from URL into form fields
-- [ ] Delete `REGISTER_URL` from `lib/webinar-config.ts` (currently a facebook.com placeholder)
+- [ ] Meta Pixel installed — PageView on landing page, Lead on `/confirmed`
+- [x] `/confirmed` page built, with Google Calendar + .ics buttons
+- [x] GHL form embedded; all three CTAs scroll to `#register`
+- [x] UTM capture — **not needed**. GHL records an `attributions` block
+      automatically on form submit (page URL, medium, form id, utm source).
+- [x] `REGISTER_URL` deleted from `lib/webinar-config.ts`
+
+### Attribution gotcha found during testing
+
+GHL **does not overwrite `source` on an existing contact.** A test submission
+merged into a contact created days earlier by the chat widget, and `source`
+stayed "Voice AI Chat Widget". Filtering webinar registrations by source will
+undercount every returning contact — **use tags for webinar attribution.**
+
+### Brand values for styling the GHL form
+
+```
+Font (labels, inputs)  Inter, 400
+Font (headings)        Montserrat, 700-900, uppercase
+Button background      #DC143C     hover #b91132
+Button text            #FFFFFF     bold, uppercase, fully rounded
+Field / body text      #1a1a1a
+Label / helper text    #4b5563
+Form background        #FFFFFF     (page places it on a white card)
+```
 
 ### In Meta Ads Manager
 
