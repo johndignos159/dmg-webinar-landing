@@ -35,8 +35,8 @@ export default function LandingPage() {
             FREE EXCLUSIVE WEBINAR
           </div>
           <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight max-w-4xl leading-tight mb-6">
-            Build A Stronger <span className="text-brand-red">Trucking Business</span> &{' '}
-            <Typewriter text="Scale 3X in 12 Months" />
+            The Transportation Entrepreneur{' '}
+            <Typewriter text="Blueprint" className="text-brand-red" />
           </h1>
           <p className="text-lg md:text-xl text-gray-200 max-w-2xl mb-10 leading-relaxed">
             Discover the exact blueprint top carriers use to optimize operations, stay compliant, and skyrocket profitability without working 80-hour weeks.
