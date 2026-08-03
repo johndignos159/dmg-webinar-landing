@@ -32,9 +32,10 @@ export default function RegistrationForm() {
           </p>
         </div>
 
-        {/* White card on a grey section, so a GHL form left at its default
-            white background blends in with no styling needed on their side. */}
-        <div className="bg-white rounded-2xl p-4 sm:p-6 border border-gray-200 shadow-sm">
+        {/* No background or padding here on purpose. The GHL form carries its
+            own solid colour, so any wrapper styling shows up as a frame around
+            it. overflow-hidden just clips the iframe to the rounded corners. */}
+        <div className="rounded-2xl overflow-hidden">
           <iframe
             src={`https://api.leadconnectorhq.com/widget/form/${FORM_ID}`}
             style={{
