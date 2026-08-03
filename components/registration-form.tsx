@@ -12,7 +12,12 @@ const FORM_ID = 'chuVjUognnNozdZ3Fy7r';
  *
  * form_embed.js listens for a postMessage from the iframe and sets the height
  * to fit the content. The height below is only a starting value so the layout
- * does not collapse before that script runs.
+ * does not collapse before that script runs — set close to the real height so
+ * there is no visible jump, no gap under the form, and no inner scrollbar.
+ *
+ * Note: nothing here can change padding *inside* the form. The iframe is
+ * cross-origin, so the browser blocks any styling from this page reaching it.
+ * Inner spacing is set in the GHL form builder under Styles.
  */
 export default function RegistrationForm() {
   return (
@@ -40,9 +45,12 @@ export default function RegistrationForm() {
             src={`https://api.leadconnectorhq.com/widget/form/${FORM_ID}`}
             style={{
               width: '100%',
-              height: '560px',
+              height: '760px',
               border: 'none',
-              borderRadius: '4px',
+              // iframes are inline elements by default, so they sit on the text
+              // baseline and leave a few pixels of descender space underneath.
+              // That gap shows the section background as a strip under the form.
+              display: 'block',
             }}
             id={`inline-${FORM_ID}`}
             data-layout="{'id':'INLINE'}"
@@ -53,7 +61,6 @@ export default function RegistrationForm() {
             data-deactivation-type="neverDeactivate"
             data-deactivation-value=""
             data-form-name="Webinar Registration"
-            data-height="undefined"
             data-layout-iframe-id={`inline-${FORM_ID}`}
             data-form-id={FORM_ID}
             title="Webinar Registration"
