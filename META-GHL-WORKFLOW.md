@@ -118,7 +118,9 @@ the entire post-webinar branch collapses into one undifferentiated follow-up.
 - [x] Form built — id `chuVjUognnNozdZ3Fy7r` (First Name, Last Name, Email, Phone)
 - [x] Form setting: redirect URL → `/confirmed` — **verified working 2026-07-31**
 - [x] Phone submits E.164 — verified as `+63…` on a test submission
-- [ ] Confirm the phone country picker **defaults to US (+1)**, not another country
+- [x] Phone country picker defaults to **US (+1)** — confirmed 2026-08-03
+- [ ] Fill the `[BUSINESS NAME]` / `[USE_CASE_FROM_CAMPAIGN_DESCRIPTION]` placeholders
+      in both SMS consent checkboxes (still showing raw to visitors)
 - [ ] Pipeline "Webinar Funnel": Registered → No-Show → Attended Live → Watched Replay → Hot Lead → Consultation Booked → Closed Lost
 - [ ] Workflow with **date-anchored** waits (see gotcha 1)
 - [ ] Tags: `webinar-2026-08-15-registered` / `-attended` / `-noshow` / `-replay`
