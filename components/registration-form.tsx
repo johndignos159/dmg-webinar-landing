@@ -3,6 +3,11 @@ import { WEBINAR_DATE_DISPLAY, WEBINAR_TIME_DISPLAY } from '@/lib/webinar-config
 
 const FORM_ID = 'chuVjUognnNozdZ3Fy7r';
 
+// Taken from data-height in the embed code GHL generates. Re-copy the embed
+// code and update this if you add or remove fields, otherwise the form loads
+// with either a scrollbar (too small) or a blank strip below it (too large).
+const FORM_HEIGHT = 923;
+
 /**
  * GoHighLevel form embed.
  *
@@ -45,7 +50,7 @@ export default function RegistrationForm() {
             src={`https://api.leadconnectorhq.com/widget/form/${FORM_ID}`}
             style={{
               width: '100%',
-              height: '760px',
+              height: `${FORM_HEIGHT}px`,
               border: 'none',
               // iframes are inline elements by default, so they sit on the text
               // baseline and leave a few pixels of descender space underneath.
@@ -61,6 +66,7 @@ export default function RegistrationForm() {
             data-deactivation-type="neverDeactivate"
             data-deactivation-value=""
             data-form-name="Webinar Registration"
+            data-height={FORM_HEIGHT}
             data-layout-iframe-id={`inline-${FORM_ID}`}
             data-form-id={FORM_ID}
             title="Webinar Registration"
