@@ -26,8 +26,13 @@ const FORM_HEIGHT = 923;
  */
 export default function RegistrationForm() {
   return (
-    <section id="register" className="py-20 md:py-28 bg-brand-gray scroll-mt-8">
-      <div className="max-w-2xl mx-auto px-6">
+    <section
+      id="register"
+      className="blueprint-bg py-20 md:py-28 scroll-mt-8"
+    >
+      {/* relative + z-10 lifts the content above the grid and drifting glow,
+          which are painted by ::before / ::after on the section itself. */}
+      <div className="relative z-10 max-w-2xl mx-auto px-6">
         <div className="text-center mb-10">
           <div className="inline-block bg-brand-red/10 border border-brand-red text-brand-red px-4 py-1.5 rounded-full text-sm font-bold tracking-wider mb-6">
             LIMITED SEATS

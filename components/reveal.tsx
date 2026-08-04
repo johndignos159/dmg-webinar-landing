@@ -4,7 +4,7 @@ import { useEffect, useRef, useState, type ReactNode } from 'react';
 
 type Props = {
   children: ReactNode;
-  /** Position in a group — each step adds 90ms so items cascade in. */
+  /** Position in a group — each step adds 140ms so items cascade in. */
   index?: number;
   className?: string;
 };
@@ -52,7 +52,7 @@ export default function Reveal({ children, index = 0, className = '' }: Props) {
     <div
       ref={ref}
       className={`reveal ${shown ? 'reveal-shown' : ''} ${className}`}
-      style={{ transitionDelay: `${index * 90}ms` }}
+      style={{ transitionDelay: `${index * 140}ms` }}
     >
       {/* Without JS the items would sit at opacity 0 forever. This only
           applies when scripting is disabled. */}
