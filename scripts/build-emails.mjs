@@ -20,6 +20,12 @@ mkdirSync(OUT, { recursive: true });
 
 const RED = '#DC143C';
 const NAVY = '#1a1a1a';
+
+// Email clients cannot load local files or data: URIs — Gmail blocks both — so
+// the logo has to come from a public URL. This one is served by the live site.
+// If the domain changes, update this and re-run the script.
+const SITE = 'https://dmg-webinar-landing.vercel.app';
+const LOGO = `${SITE}/images/dmg-logo-email.png`;
 const FONT =
   "-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,Helvetica,Arial,sans-serif";
 
@@ -75,8 +81,12 @@ function shell(subject, blocks) {
   <tr><td align="center" style="padding:24px 12px;">
     <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:#ffffff;border-radius:10px;overflow:hidden;">
 
-      <tr><td style="background:${NAVY};padding:22px;text-align:center;">
-        <span style="font-family:${FONT};font-size:15px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#ffffff;">DMG Agency Core</span>
+      <tr><td align="center" style="background:${NAVY};padding:22px;">
+        <a href="${SITE}" style="text-decoration:none;">
+          <img src="${LOGO}" width="58" height="58" alt="DMG Agency Core"
+               style="display:block;margin:0 auto 10px;border:0;outline:none;text-decoration:none;">
+          <span style="font-family:${FONT};font-size:15px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#ffffff;">DMG Agency Core</span>
+        </a>
       </td></tr>
 
       <tr><td style="padding:32px 28px 12px;">
