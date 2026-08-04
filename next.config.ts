@@ -8,17 +8,8 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: false,
   },
-  // Allow access to remote image placeholder.
-  images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'picsum.photos',
-        port: '',
-        pathname: '/**', // This allows any path under the hostname
-      },
-    ],
-  },
+  // No remotePatterns needed — every image is now served from public/.
+  // Re-add a pattern here only if an image is ever loaded from another domain.
   // output: 'standalone' removed. It is for self-hosted/Docker deploys and
   // deliberately omits public/ and .next/static from the bundle, so the logo
   // and stylesheet can fail to serve. Vercel does not need it.

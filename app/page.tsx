@@ -98,11 +98,12 @@ export default function LandingPage() {
 
         <div className="absolute inset-0 z-0 bg-brand-navy">
           <Image
-            src="https://picsum.photos/seed/trucking/1920/1080"
-            alt="Freight moving at dusk"
+            src="/images/hero-truck.jpg"
+            alt=""
             fill
-            className="object-cover opacity-20"
-            referrerPolicy="no-referrer"
+            priority
+            sizes="100vw"
+            className="object-cover object-center opacity-30"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-brand-navy via-brand-navy/80 to-brand-navy/40 mix-blend-multiply"></div>
         </div>
