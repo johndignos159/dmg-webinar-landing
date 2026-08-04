@@ -97,12 +97,17 @@ export default function LandingPage() {
         <SiteHeader />
 
         <div className="absolute inset-0 z-0 bg-brand-navy">
+          {/* Source is 1200x780, so it upscales on wide monitors. At 30% opacity
+              under the navy gradient it reads as atmosphere rather than a
+              detailed photo, which is why the softness does not show. Swap in a
+              2400px+ source if this ever becomes a foreground image. */}
           <Image
-            src="/images/hero-truck.jpg"
+            src="/images/blueprint.jpg"
             alt=""
             fill
             priority
             sizes="100vw"
+            quality={85}
             className="object-cover object-center opacity-30"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-brand-navy via-brand-navy/80 to-brand-navy/40 mix-blend-multiply"></div>
