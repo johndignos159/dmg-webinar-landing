@@ -17,7 +17,7 @@ export default function SiteFooter() {
               DMG Agency Core
             </p>
             <p className="text-sm mt-1">
-              Helping trucking entrepreneurs launch, operate, and grow.
+              Launch · Operate · Generate Revenue · Protect
             </p>
           </div>
         </div>

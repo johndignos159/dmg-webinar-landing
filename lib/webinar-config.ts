@@ -67,12 +67,13 @@ export const WEBINAR_TIMESTAMP = WEBINAR_DATE.getTime();
 // buttons together.
 // ---------------------------------------------------------------------------
 
-/** How long the session runs, in minutes. */
-export const WEBINAR_DURATION_MINUTES = 60;
+/** How long the session runs, in minutes. Deck opens with "the next 45 minutes". */
+export const WEBINAR_DURATION_MINUTES = 45;
 
-export const WEBINAR_TITLE = 'DMG Agency Core — Free Trucking Masterclass';
+export const WEBINAR_TITLE =
+  'The Transportation Entrepreneur Blueprint — DMG Agency Core';
 export const WEBINAR_SUMMARY =
-  'How to build a stronger trucking business and scale 3X in 12 months.';
+  'One industry. Many lanes. One first step. A free masterclass on building a transportation business in the right order.';
 
 const WEBINAR_END = new Date(
   WEBINAR_TIMESTAMP + WEBINAR_DURATION_MINUTES * 60_000,
