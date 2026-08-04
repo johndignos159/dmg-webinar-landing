@@ -22,6 +22,8 @@ import Typewriter from '@/components/typewriter';
 import SiteHeader from '@/components/site-header';
 import SiteFooter from '@/components/site-footer';
 import RegistrationForm from '@/components/registration-form';
+import Reveal from '@/components/reveal';
+import FlipCard from '@/components/flip-card';
 import {
   WEBINAR_DATE_DISPLAY,
   WEBINAR_TIME_DISPLAY,
@@ -56,26 +58,52 @@ const PROMISES = [
 
 // Four entry points into the industry. The page previously spoke only to
 // owner-operators, which left three of these audiences out entirely.
+// Front faces from the "Common entry points" slide, back faces from
+// "What it takes to start". Every list ends up starting with the same item,
+// which is the point the whole section is making.
 const LANES = [
   {
-    icon: Truck,
+    icon: <Truck className="w-6 h-6" />,
     name: 'Carrier / Owner-Operator',
     body: 'You move the freight and own the authority.',
+    requirements: [
+      'Business entity',
+      'USDOT + MC authority',
+      'Insurance',
+      'BOC-3 filing',
+    ],
   },
   {
-    icon: Phone,
+    icon: <Phone className="w-6 h-6" />,
     name: 'Dispatcher',
     body: 'You book loads and manage drivers for carriers.',
+    requirements: [
+      'Business entity',
+      'Systems + carrier clients',
+      'The lowest barrier to start',
+    ],
   },
   {
-    icon: Briefcase,
+    icon: <Briefcase className="w-6 h-6" />,
     name: 'Freight Broker',
     body: 'You connect shippers with carriers for a margin.',
+    requirements: [
+      'Business entity',
+      'Broker authority',
+      '$75,000 BMC-84 bond',
+      'BOC-3 filing',
+    ],
   },
   {
-    icon: Package,
+    icon: <Package className="w-6 h-6" />,
     name: 'Freight Forwarder',
     body: 'You arrange and coordinate shipping for shippers.',
+    requirements: [
+      'Business entity',
+      'Forwarder authority',
+      'Bond',
+      'Insurance',
+    ],
   },
 ];
 
@@ -187,10 +215,11 @@ export default function LandingPage() {
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {PROMISES.map(({ icon: Icon, title, body }) => (
-              <div
+            {PROMISES.map(({ icon: Icon, title, body }, i) => (
+              <Reveal
                 key={title}
-                className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-gray-100 relative overflow-hidden group"
+                index={i}
+                className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-gray-100 relative overflow-hidden group h-full"
               >
                 <div className="absolute -top-4 -right-4 p-4 opacity-5 group-hover:opacity-10 transition-opacity transform group-hover:scale-110 duration-300">
                   <Icon className="w-32 h-32 text-brand-navy" />
@@ -204,7 +233,7 @@ export default function LandingPage() {
                 <p className="text-gray-600 leading-relaxed relative z-10 text-sm">
                   {body}
                 </p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -222,22 +251,16 @@ export default function LandingPage() {
               You do not need a truck to earn in this industry. Here are the four ways
               in — and the one key that opens every one of them.
             </p>
+            <p className="text-sm text-gray-500 mt-3">
+              Hover or tap a card to see what each one requires.
+            </p>
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            {LANES.map(({ icon: Icon, name, body }) => (
-              <div
-                key={name}
-                className="border border-gray-200 rounded-2xl p-6 hover:border-brand-red transition-colors"
-              >
-                <div className="bg-brand-teal/10 w-12 h-12 rounded-xl flex items-center justify-center text-brand-teal mb-5">
-                  <Icon className="w-6 h-6" />
-                </div>
-                <h3 className="font-heading text-lg font-bold text-brand-navy mb-2">
-                  {name}
-                </h3>
-                <p className="text-gray-600 text-sm leading-relaxed">{body}</p>
-              </div>
+            {LANES.map((lane, i) => (
+              <Reveal key={lane.name} index={i}>
+                <FlipCard {...lane} />
+              </Reveal>
             ))}
           </div>
 
@@ -266,22 +289,23 @@ export default function LandingPage() {
             </p>
           </div>
 
+          {/* Staggered so the pillars arrive in order — the section is about
+              sequence, so having them land 1, 2, 3, 4 reinforces the point. */}
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {PILLARS.map(({ n, name, tag }) => (
-              <div
-                key={n}
-                className="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm text-center"
-              >
-                <div className="w-12 h-12 rounded-full bg-brand-red text-white font-heading font-black text-xl flex items-center justify-center mx-auto mb-5">
-                  {n}
+            {PILLARS.map(({ n, name, tag }, i) => (
+              <Reveal key={n} index={i}>
+                <div className="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm text-center h-full">
+                  <div className="w-12 h-12 rounded-full bg-brand-red text-white font-heading font-black text-xl flex items-center justify-center mx-auto mb-5">
+                    {n}
+                  </div>
+                  <h3 className="font-heading text-xl font-bold text-brand-navy mb-2">
+                    {name}
+                  </h3>
+                  <p className="text-brand-red font-medium text-sm uppercase tracking-wider">
+                    {tag}
+                  </p>
                 </div>
-                <h3 className="font-heading text-xl font-bold text-brand-navy mb-2">
-                  {name}
-                </h3>
-                <p className="text-brand-red font-medium text-sm uppercase tracking-wider">
-                  {tag}
-                </p>
-              </div>
+              </Reveal>
             ))}
           </div>
 

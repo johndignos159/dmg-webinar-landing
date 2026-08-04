@@ -24,6 +24,82 @@ html {
 }
 
 /* ---------------------------------------------------------------------------
+   Scroll reveal
+   --------------------------------------------------------------------------- */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  /* Only opacity and transform animate — both run on the GPU, so a row of
+     cards cascading in costs nothing on a mid-range phone. */
+  transition:
+    opacity 620ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-shown {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Flip cards
+   --------------------------------------------------------------------------- */
+
+.flip-card {
+  perspective: 1400px;
+}
+
+.flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.flip-card.is-flipped .flip-inner {
+  transform: rotateY(180deg);
+}
+
+/* Hover only on devices that actually have a pointer. On touch screens a
+   hover rule would latch on first tap and stick. */
+@media (hover: hover) and (pointer: fine) {
+  .flip-card:hover .flip-inner,
+  .flip-card:focus-visible .flip-inner {
+    transform: rotateY(180deg);
+  }
+}
+
+.flip-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.flip-back {
+  transform: rotateY(180deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flip-inner {
+    transition: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------
    Typewriter headline
    --------------------------------------------------------------------------- */
 
