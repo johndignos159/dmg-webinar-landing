@@ -24,6 +24,7 @@ import SiteFooter from '@/components/site-footer';
 import RegistrationForm from '@/components/registration-form';
 import Reveal from '@/components/reveal';
 import FlipCard from '@/components/flip-card';
+import TiltCard from '@/components/tilt-card';
 import {
   WEBINAR_DATE_DISPLAY,
   WEBINAR_TIME_DISPLAY,
@@ -380,7 +381,7 @@ export default function LandingPage() {
             </div>
 
             {/* Fraud callout — one of the strongest value hooks in the session. */}
-            <div className="flex-1 w-full relative">
+            <TiltCard className="flex-1 w-full relative">
               <div className="absolute inset-0 bg-brand-teal rounded-3xl transform translate-x-4 translate-y-4 opacity-20 hidden md:block"></div>
               <div className="bg-brand-navy rounded-3xl p-8 md:p-10 relative z-10 text-white shadow-2xl">
                 <div className="flex items-center gap-3 mb-6 text-brand-red">
@@ -408,7 +409,7 @@ export default function LandingPage() {
                   <span className="text-brand-red">Live Q&amp;A</span>
                 </div>
               </div>
-            </div>
+            </TiltCard>
           </div>
         </div>
       </section>
