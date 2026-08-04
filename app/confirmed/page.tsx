@@ -87,7 +87,7 @@ export default function ConfirmedPage() {
               href={GOOGLE_CALENDAR_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full sm:w-auto inline-flex items-center justify-center whitespace-nowrap bg-brand-red hover:bg-brand-red-hover text-white font-bold py-4 px-6 sm:px-8 rounded-full text-base transition-all duration-200 shadow-[0_0_20px_rgba(220,20,60,0.4)] hover:shadow-[0_0_30px_rgba(220,20,60,0.6)] transform hover:-translate-y-1"
+              className="btn-glow w-full sm:w-auto inline-flex items-center justify-center whitespace-nowrap bg-brand-red hover:bg-brand-red-hover text-white font-bold py-4 px-6 sm:px-8 rounded-full text-base"
             >
               <CalendarPlus className="mr-2 w-5 h-5" />
               Add to Google Calendar
@@ -96,7 +96,7 @@ export default function ConfirmedPage() {
             <a
               href={ICS_DATA_URI}
               download="dmg-webinar.ics"
-              className="w-full sm:w-auto inline-flex items-center justify-center whitespace-nowrap border-2 border-white/25 hover:border-white text-white font-bold py-4 px-6 sm:px-8 rounded-full text-base transition-colors duration-200"
+              className="btn-glow-soft w-full sm:w-auto inline-flex items-center justify-center whitespace-nowrap border-2 border-white/25 hover:border-white text-white font-bold py-4 px-6 sm:px-8 rounded-full text-base"
             >
               <Download className="mr-2 w-5 h-5" />
               Apple / Outlook

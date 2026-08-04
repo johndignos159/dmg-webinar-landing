@@ -114,8 +114,10 @@ const PILLARS = [
   { n: '4', name: 'Protect', tag: 'Stay alive' },
 ];
 
+// Shadow and lift now come from .btn-glow in globals.css, so the one-off
+// shadow utilities that used to live here are gone.
 const CTA_CLASS =
-  'w-full sm:w-auto inline-flex items-center justify-center whitespace-nowrap bg-brand-red hover:bg-brand-red-hover text-white font-bold py-4 px-6 sm:px-10 rounded-full max-[359px]:text-sm text-base sm:text-lg transition-all duration-200 shadow-[0_0_20px_rgba(220,20,60,0.4)] hover:shadow-[0_0_30px_rgba(220,20,60,0.6)] transform hover:-translate-y-1';
+  'btn-glow w-full sm:w-auto inline-flex items-center justify-center whitespace-nowrap bg-brand-red hover:bg-brand-red-hover text-white font-bold py-4 px-6 sm:px-10 rounded-full max-[359px]:text-sm text-base sm:text-lg';
 
 export default function LandingPage() {
   return (

@@ -31,7 +31,7 @@ export default function SiteHeader() {
 
         <a
           href="/#register"
-          className="hidden sm:inline-flex items-center justify-center border-2 border-brand-red text-white hover:bg-brand-red font-bold text-xs md:text-sm uppercase tracking-wider py-2.5 px-6 rounded-full transition-colors duration-200"
+          className="btn-glow-soft hidden sm:inline-flex items-center justify-center border-2 border-brand-red text-white hover:bg-brand-red font-bold text-xs md:text-sm uppercase tracking-wider py-2.5 px-6 rounded-full"
         >
           Reserve My Seat
         </a>

@@ -54,6 +54,69 @@ html {
 }
 
 /* ---------------------------------------------------------------------------
+   Button glow
+
+   Three stacked shadows at increasing spread — tight halo, mid bloom, wide
+   ambient — plus a dark drop so the button reads as lifted rather than just
+   bright. box-shadow paints outside the border box and behind the element, so
+   this needs no pseudo-element and creates no stacking-context problems.
+   --------------------------------------------------------------------------- */
+
+.btn-glow {
+  box-shadow:
+    0 0 12px rgba(220, 20, 60, 0.45),
+    0 0 30px rgba(220, 20, 60, 0.3),
+    0 0 64px rgba(220, 20, 60, 0.16),
+    0 8px 22px rgba(0, 0, 0, 0.3);
+  transition:
+    box-shadow 340ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 340ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 200ms ease;
+}
+
+.btn-glow:hover,
+.btn-glow:focus-visible {
+  transform: translateY(-3px);
+  box-shadow:
+    0 0 18px rgba(220, 20, 60, 0.7),
+    0 0 48px rgba(220, 20, 60, 0.46),
+    0 0 104px rgba(220, 20, 60, 0.26),
+    0 14px 34px rgba(0, 0, 0, 0.36);
+}
+
+.btn-glow:active {
+  transform: translateY(-1px);
+}
+
+/* Outline buttons get the same language at lower intensity — a full bloom on a
+   transparent button reads as a mistake. */
+.btn-glow-soft {
+  transition:
+    box-shadow 340ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 340ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 200ms ease,
+    background-color 200ms ease;
+}
+
+.btn-glow-soft:hover,
+.btn-glow-soft:focus-visible {
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 14px rgba(220, 20, 60, 0.4),
+    0 0 34px rgba(220, 20, 60, 0.22);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-glow,
+  .btn-glow-soft,
+  .btn-glow:hover,
+  .btn-glow-soft:hover {
+    transform: none;
+    transition: box-shadow 200ms ease;
+  }
+}
+
+/* ---------------------------------------------------------------------------
    Blueprint grid background
    Sits behind the registration section. Deliberately built from CSS gradients
    and a transform-only animation rather than canvas — the form is the point of
