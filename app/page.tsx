@@ -97,9 +97,12 @@ export default function LandingPage() {
         <SiteHeader />
 
         <div className="absolute inset-0 z-0 bg-brand-navy">
-          {/* Unsplash, free for commercial use, 2400x1600. Truck sits left of
-              centre, so object-position leans left to keep it in frame while
-              the open sky falls behind the centred headline. */}
+          {/* Freightliner Cascadia on a US highway. Unsplash, free for
+              commercial use, 2400x1600 monochrome.
+              Focal point leans left because the truck sits around 35% across —
+              on phones the container crops horizontally, and centring would
+              slice the cab off. Opacity is higher than a colour photo would
+              take, since monochrome cannot clash with the brand red. */}
           <Image
             src="/images/hero-truck.jpg"
             alt=""
@@ -107,7 +110,7 @@ export default function LandingPage() {
             priority
             sizes="100vw"
             quality={85}
-            className="object-cover object-[30%_center] opacity-30"
+            className="object-cover object-[35%_center] opacity-40"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-brand-navy via-brand-navy/80 to-brand-navy/40 mix-blend-multiply"></div>
         </div>
