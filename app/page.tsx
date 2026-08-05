@@ -321,15 +321,16 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* THE FOUR PILLARS */}
-      <section className="py-20 md:py-28 bg-brand-gray">
+      {/* THE FOUR PILLARS — dark section. The white cards stacking against
+          black is what makes the pile read; card interiors stay light. */}
+      <section className="py-20 md:py-28 bg-brand-navy">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="font-heading text-3xl md:text-4xl font-bold uppercase text-brand-navy mb-4">
+            <h2 className="font-heading text-3xl md:text-4xl font-bold uppercase text-white mb-4">
               The Blueprint
             </h2>
             <div className="w-24 h-1 bg-brand-red mx-auto rounded-full mb-6"></div>
-            <p className="text-lg text-gray-600">
+            <p className="text-lg text-gray-300">
               Four pillars stand between you and a business that pays you. The order is
               not a detail — it is the whole thing.
             </p>
@@ -344,7 +345,10 @@ export default function LandingPage() {
                 className="pillar-card"
                 style={{ '--i': i } as React.CSSProperties}
               >
-                <div className="bg-white rounded-3xl border border-gray-200 shadow-xl p-8 md:p-10">
+                {/* shadow-2xl matters more here than it did on grey: the cards
+                    are white stacking on white, so the shadow each one casts on
+                    the card beneath is the only thing separating the layers. */}
+                <div className="bg-white rounded-3xl border border-gray-200 shadow-2xl p-8 md:p-10">
                   <div className="flex items-center gap-5 mb-8">
                     <div className="w-14 h-14 shrink-0 rounded-full bg-brand-red text-white font-heading font-black text-2xl flex items-center justify-center">
                       {n}
@@ -382,7 +386,7 @@ export default function LandingPage() {
             ))}
           </div>
 
-          <p className="text-center text-gray-600 mt-10 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-center text-gray-400 mt-10 max-w-2xl mx-auto leading-relaxed">
             Skip the first one and everything above it collapses. Get it right, in
             order, and the other three finally have something solid to stand on.
           </p>
