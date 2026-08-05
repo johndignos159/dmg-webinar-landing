@@ -54,6 +54,48 @@ html {
 }
 
 /* ---------------------------------------------------------------------------
+   Illuminated heading
+
+   A gradient-filled duplicate of the text, painted over the blurred original.
+   The filter underneath supplies the bloom; this supplies a crisp bright edge
+   so the letters stay legible instead of dissolving into their own glow.
+   --------------------------------------------------------------------------- */
+
+.illuminated::before {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, #ffb3c2 0%, #fff8f9 55%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  pointer-events: none;
+}
+
+/* Soft pools of brand red behind the section, so the heading looks like it is
+   lighting the surface rather than floating on it. */
+.illuminated-bg {
+  position: relative;
+  overflow: hidden;
+}
+
+.illuminated-bg::before {
+  content: '';
+  position: absolute;
+  top: -18%;
+  left: 50%;
+  width: min(1100px, 130%);
+  height: 420px;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(220, 20, 60, 0.28),
+    rgba(220, 20, 60, 0) 68%
+  );
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------------------------
    Pillar scroll stack
 
    Each card sticks as you scroll and the next slides up over it, so the four

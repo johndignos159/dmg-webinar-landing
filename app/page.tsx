@@ -25,6 +25,7 @@ import RegistrationForm from '@/components/registration-form';
 import Reveal from '@/components/reveal';
 import FlipCard from '@/components/flip-card';
 import TiltCard from '@/components/tilt-card';
+import IlluminatedHeading from '@/components/illuminated-heading';
 import {
   WEBINAR_DATE_DISPLAY,
   WEBINAR_TIME_DISPLAY,
@@ -247,17 +248,16 @@ export default function LandingPage() {
 
       <RegistrationForm />
 
-      {/* WHAT YOU'LL WALK AWAY WITH */}
-      <section className="py-20 md:py-28 bg-brand-gray">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="font-heading text-3xl md:text-4xl font-bold uppercase text-brand-navy mb-4">
-              What You&apos;ll Walk Away With
+      {/* WHAT YOU'LL WALK AWAY WITH — dark, because an illuminated glow only
+          reads against black. Cards become translucent glass so the red pool
+          behind the heading shows through them. */}
+      <section className="illuminated-bg py-24 md:py-32 bg-black">
+        <div className="relative z-10 max-w-7xl mx-auto px-6">
+          <div className="text-center max-w-3xl mx-auto mb-20">
+            <h2 className="font-heading text-3xl md:text-5xl font-black uppercase text-white mb-6 leading-tight">
+              <IlluminatedHeading text="What You'll Walk Away With" />
             </h2>
-            <div className="w-24 h-1 bg-brand-red mx-auto rounded-full mb-6"></div>
-            <p className="text-lg text-gray-600">
-              A map — not just motivation.
-            </p>
+            <p className="text-lg text-gray-400">A map — not just motivation.</p>
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -265,18 +265,18 @@ export default function LandingPage() {
               <Reveal
                 key={title}
                 index={i}
-                className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-gray-100 relative overflow-hidden group h-full"
+                className="bg-white/[0.04] backdrop-blur-sm p-8 rounded-2xl border border-white/10 hover:border-brand-red/60 transition-colors relative overflow-hidden group h-full"
               >
-                <div className="absolute -top-4 -right-4 p-4 opacity-5 group-hover:opacity-10 transition-opacity transform group-hover:scale-110 duration-300">
-                  <Icon className="w-32 h-32 text-brand-navy" />
+                <div className="absolute -top-4 -right-4 p-4 opacity-[0.07] group-hover:opacity-[0.14] transition-opacity transform group-hover:scale-110 duration-300">
+                  <Icon className="w-32 h-32 text-white" />
                 </div>
-                <div className="w-12 h-12 bg-brand-red/10 rounded-full flex items-center justify-center mb-6 relative z-10">
+                <div className="w-12 h-12 bg-brand-red/15 rounded-full flex items-center justify-center mb-6 relative z-10">
                   <CircleDot className="w-6 h-6 text-brand-red" />
                 </div>
-                <h3 className="font-heading text-lg font-bold text-brand-navy mb-3 relative z-10">
+                <h3 className="font-heading text-lg font-bold text-white mb-3 relative z-10">
                   {title}
                 </h3>
-                <p className="text-gray-600 leading-relaxed relative z-10 text-sm">
+                <p className="text-gray-400 leading-relaxed relative z-10 text-sm">
                   {body}
                 </p>
               </Reveal>
