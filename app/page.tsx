@@ -108,11 +108,54 @@ const LANES = [
   },
 ];
 
+// Sub-points and the "skip this" warnings come straight from the four pillar
+// slides. The cards are large enough in the scroll stack to carry them, which
+// the previous small cards were not.
 const PILLARS = [
-  { n: '1', name: 'Launch', tag: 'Legally exist' },
-  { n: '2', name: 'Operate', tag: 'Run it clean' },
-  { n: '3', name: 'Generate Revenue', tag: 'Get paid' },
-  { n: '4', name: 'Protect', tag: 'Stay alive' },
+  {
+    n: '1',
+    name: 'Launch',
+    tag: 'Legally exist',
+    points: [
+      ['Choose your business model', 'Pick the structure that fits how you will actually make money.'],
+      ['Form the entity + EIN', 'The line between a hobby and a business banks and brokers respect.'],
+      ['Registrations & licensing', 'Done in the right order, so nothing you build later gets undone.'],
+    ],
+    warning: 'Skip this, and everything above it collapses.',
+  },
+  {
+    n: '2',
+    name: 'Operate',
+    tag: 'Run it clean',
+    points: [
+      ['Systems & organization', 'So the business runs without you carrying all of it in your head.'],
+      ['Compliance & financials', 'Stay legal and keep clean books before a problem forces you to.'],
+      ['Tech + a trusted advisory team', 'The people and tools that keep you moving when it gets hard.'],
+    ],
+    warning: 'Skip this, and growth turns into chaos.',
+  },
+  {
+    n: '3',
+    name: 'Generate Revenue',
+    tag: 'Get paid',
+    points: [
+      ['Build credibility', 'The reason shippers and partners trust you with real money.'],
+      ['Marketing & client acquisition', 'The engine that fills your pipeline instead of praying for loads.'],
+      ['Strategic partnerships', 'Relationships that pay you again and again over time.'],
+    ],
+    warning: 'Skip this, and you own a truck — not a business.',
+  },
+  {
+    n: '4',
+    name: 'Protect',
+    tag: 'Stay alive',
+    points: [
+      ['Ongoing compliance', "Protection isn't one-and-done — it's how you stay in business."],
+      ['Contracts, insurance & taxes', 'The guardrails that keep one bad day from ending you.'],
+      ['Fraud awareness', 'The threat wiping out new operators right now.'],
+    ],
+    warning: 'Skip this, and one bad day can erase years.',
+  },
 ];
 
 // Shadow and lift now come from .btn-glow in globals.css, so the one-off
@@ -292,23 +335,50 @@ export default function LandingPage() {
             </p>
           </div>
 
-          {/* Staggered so the pillars arrive in order — the section is about
-              sequence, so having them land 1, 2, 3, 4 reinforces the point. */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {PILLARS.map(({ n, name, tag }, i) => (
-              <Reveal key={n} index={i}>
-                <div className="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm text-center h-full">
-                  <div className="w-12 h-12 rounded-full bg-brand-red text-white font-heading font-black text-xl flex items-center justify-center mx-auto mb-5">
-                    {n}
+          {/* Scroll stack — each card locks and the next slides over it. No
+              Reveal wrapper here: a transform on an ancestor breaks sticky. */}
+          <div className="max-w-3xl mx-auto">
+            {PILLARS.map(({ n, name, tag, points, warning }, i) => (
+              <div
+                key={n}
+                className="pillar-card"
+                style={{ '--i': i } as React.CSSProperties}
+              >
+                <div className="bg-white rounded-3xl border border-gray-200 shadow-xl p-8 md:p-10">
+                  <div className="flex items-center gap-5 mb-8">
+                    <div className="w-14 h-14 shrink-0 rounded-full bg-brand-red text-white font-heading font-black text-2xl flex items-center justify-center">
+                      {n}
+                    </div>
+                    <div>
+                      <h3 className="font-heading text-2xl md:text-3xl font-black uppercase text-brand-navy leading-none">
+                        {name}
+                      </h3>
+                      <p className="text-brand-red font-bold text-sm uppercase tracking-widest mt-1.5">
+                        {tag}
+                      </p>
+                    </div>
                   </div>
-                  <h3 className="font-heading text-xl font-bold text-brand-navy mb-2">
-                    {name}
-                  </h3>
-                  <p className="text-brand-red font-medium text-sm uppercase tracking-wider">
-                    {tag}
+
+                  <ul className="space-y-5 mb-8">
+                    {points.map(([title, body]) => (
+                      <li key={title} className="flex items-start">
+                        <CheckCircle2 className="w-5 h-5 text-brand-red mr-3 shrink-0 mt-0.5" />
+                        <div>
+                          <p className="font-bold text-brand-navy">{title}</p>
+                          <p className="text-gray-600 text-sm leading-relaxed mt-0.5">
+                            {body}
+                          </p>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <p className="border-t border-gray-100 pt-5 text-sm font-bold text-brand-navy">
+                    <span className="text-brand-red mr-1.5">→</span>
+                    {warning}
                   </p>
                 </div>
-              </Reveal>
+              </div>
             ))}
           </div>
 

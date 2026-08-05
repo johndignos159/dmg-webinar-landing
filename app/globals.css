@@ -54,6 +54,40 @@ html {
 }
 
 /* ---------------------------------------------------------------------------
+   Pillar scroll stack
+
+   Each card sticks as you scroll and the next slides up over it, so the four
+   pillars physically pile onto one another. The deck's own line is "everything
+   stacks on Launch" — this makes the page say it rather than state it.
+
+   Pure position:sticky, no JS and no scroll listener. Note that a `transform`
+   on any ancestor creates a containing block and silently kills sticky, which
+   is why these cards are not wrapped in .reveal.
+   --------------------------------------------------------------------------- */
+
+.pillar-card {
+  position: sticky;
+  /* Each card locks a little lower than the last, so the buried cards keep a
+     visible edge and the pile reads as depth. */
+  top: calc(5.5rem + var(--i) * 0.85rem);
+}
+
+.pillar-card:not(:last-child) {
+  /* Scroll distance between locks. Without this the cards would stack
+     instantly and there would be nothing to see. */
+  margin-bottom: 7rem;
+}
+
+@media (max-width: 640px) {
+  .pillar-card {
+    top: calc(4.25rem + var(--i) * 0.6rem);
+  }
+  .pillar-card:not(:last-child) {
+    margin-bottom: 4.5rem;
+  }
+}
+
+/* ---------------------------------------------------------------------------
    Button glow
 
    Three stacked shadows at increasing spread — tight halo, mid bloom, wide
