@@ -18,7 +18,11 @@ export const JOIN = 'https://us05web.zoom.us/j/81236507956';
 export const CAL =
   'https://calendar.google.com/calendar/render?action=TEMPLATE&text=The%20Transportation%20Entrepreneur%20Blueprint%20%E2%80%94%20DMG%20Agency%20Core&dates=20260915T230000Z/20260916T000000Z&details=One%20industry.%20Many%20lanes.%20One%20first%20step.&location=Online';
 export const REPLAY = '[REPLAY LINK]';
-export const BOOK = '[BOOKING LINK]';
+// GHL gives two URLs for a calendar. This is the *permanent* one, keyed on
+// the calendar id rather than its name — the slug-based `/widget/bookings/…`
+// URL breaks the moment the calendar is renamed, and these emails go out over
+// three weeks.
+export const BOOK = 'https://api.leadconnectorhq.com/widget/booking/hu6p9LZ65HxhL9ayiqko';
 export const MEET = '[MEETING LINK]';
 export const INTAKE = '[INTAKE FORM LINK]';
 
