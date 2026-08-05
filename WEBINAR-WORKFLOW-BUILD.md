@@ -86,8 +86,8 @@ FORM SUBMITTED
 BOOKED (any point)
       |
       +-- Opportunity -> "Consultation Booked"
-      +-- HAND OFF to existing Lead Generation - Start Up Pipeline
-      +-- EMAIL B1 confirmation + intake form
+      +-- HAND OFF to existing LLC Formation pipeline (via Short Intake Form)
+      +-- EMAIL B1 booking confirmation
       +-- Wait Until T-24h -> EMAIL B2
       +-- Wait Until T-1h  -> EMAIL B3 + SMS
       +-- After call -> EMAIL B4
@@ -128,7 +128,7 @@ Consultation Booked → Closed Lost
 **Stop at Consultation Booked.** Hand off to the existing **LLC Formation**
 pipeline, which already runs Short Intake Form SIGN UP → LLC Formation
 Submitted → Session Booked → Session Showed → Docs → Invoice Sent →
-Paid Trucking Business \.
+Paid Trucking Business $997.
 
 Corrected 2026-08-05. This originally said hand off to *Lead Generation - Start
 Up Pipeline*. That pipeline opens at "New Cold Lead → Contact Attempted" and is
@@ -137,7 +137,7 @@ sat through 45 minutes and asked for a call — filing them as a cold lead
 misrepresents them and makes conversion reporting meaningless.
 
 LLC Formation is the right destination because the webinar sells exactly what
-that pipeline fulfils: the \ setup. The website and the webinar are selling
+that pipeline fulfils: the $997 setup. The website and the webinar are selling
 the same product, so they should land in the same place.
 
 **The handoff moment is the Short Intake Form.** Its submission is stage 0 of
