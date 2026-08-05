@@ -24,7 +24,12 @@ export const REPLAY = '[REPLAY LINK]';
 // three weeks.
 export const BOOK = 'https://api.leadconnectorhq.com/widget/booking/hu6p9LZ65HxhL9ayiqko';
 export const MEET = '[MEETING LINK]';
-export const INTAKE = '[INTAKE FORM LINK]';
+// DMG START TRUCKING BUSINESS Short Intake Form — the front door to the LLC
+// Formation pipeline. Deliberately NOT sent before the consultation: it asks
+// for street address and postal code, which is what you need to form an entity,
+// not what you need to prepare for a first conversation. It belongs after the
+// call, as the "yes, let's do it" step.
+export const INTAKE = 'https://api.leadconnectorhq.com/widget/form/5vCz4nUIQbx73vumvbFK';
 
 const RED = '#DC143C';
 
@@ -427,10 +432,10 @@ export const emails = [
       { box: [['Confirmed for:', '{{appointment.start_time}}']] },
       { p: 'The calendar invite with the meeting link is attached.' },
       { h: 'Before we talk' },
+      { h: 'What to bring' },
       {
-        p: 'Two minutes on this, so I come prepared instead of spending our first ten on background.',
+        p: 'Whichever lane you are leaning toward, and roughly where you are — still deciding, already formed, or somewhere in between. "Not sure yet" is a perfectly good answer; working that out is most of what the call is for.',
       },
-      { btn: { text: 'Complete the intake form', url: INTAKE } },
       { h: 'What to expect' },
       {
         p: 'We work out which lane fits you, what your foundation needs to look like, and what order to build it in. If we are a fit to handle it for you, I will say so. If not, I will say that too.',
@@ -446,9 +451,6 @@ export const emails = [
       { p: `${NAME},` },
       { p: 'Our call is tomorrow at <strong>{{appointment.start_time}}</strong>.' },
       { btn: { text: 'Join the call', url: MEET } },
-      {
-        p: `If you haven't done the intake form yet, now's the time — it makes a real difference to how useful the call is. <a href="${INTAKE}" style="color:${RED};">Complete it here</a>.`,
-      },
       {
         small:
           'Have a rough idea of which lane interests you. Not sure yet is a perfectly good answer — that is part of what the call is for.',
@@ -479,9 +481,9 @@ export const emails = [
       { h: 'What to build first' },
       { p: '[Specific recommendation and order]' },
       {
-        p: 'If you want us to handle the foundation — LLC formation, EIN, everything filed in the right order — here is the link to get moving.',
+        p: 'If you want us to handle the foundation — LLC formation, EIN, everything filed in the right order — start here. It takes a couple of minutes and it is the same intake every client of ours begins with.',
       },
-      { btn: { text: 'Get my foundation built — $997', url: '[OFFER LINK]' } },
+      { btn: { text: 'Get my foundation built — $997', url: INTAKE } },
       {
         small:
           'And if you would rather do it yourself, everything I described is doable on your own. Take the notes and run with it. The offer stands either way.',

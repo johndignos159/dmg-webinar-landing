@@ -125,11 +125,24 @@ December you cannot tell who registered for which one.
 Registered → No-Show → Attended Live → Watched Replay → Hot Lead →
 Consultation Booked → Closed Lost
 
-**Stop at Consultation Booked.** Hand off to the existing
-**Lead Generation – Start Up Pipeline**, which already runs
-New Cold Lead → Consultation → Hot Lead → Payment Sent → Closed Won.
-Duplicating those stages gives one person two opportunities and double-counts
-revenue in your reporting.
+**Stop at Consultation Booked.** Hand off to the existing **LLC Formation**
+pipeline, which already runs Short Intake Form SIGN UP → LLC Formation
+Submitted → Session Booked → Session Showed → Docs → Invoice Sent →
+Paid Trucking Business \.
+
+Corrected 2026-08-05. This originally said hand off to *Lead Generation - Start
+Up Pipeline*. That pipeline opens at "New Cold Lead → Contact Attempted" and is
+built for outbound to people who have never heard of DMG. A webinar registrant
+sat through 45 minutes and asked for a call — filing them as a cold lead
+misrepresents them and makes conversion reporting meaningless.
+
+LLC Formation is the right destination because the webinar sells exactly what
+that pipeline fulfils: the \ setup. The website and the webinar are selling
+the same product, so they should land in the same place.
+
+**The handoff moment is the Short Intake Form.** Its submission is stage 0 of
+LLC Formation, so a webinar lead enters that pipeline naturally when they
+convert — no manual stage-setting needed.
 
 ### Workflow settings that matter
 
