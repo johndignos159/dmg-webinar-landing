@@ -14,8 +14,9 @@
  */
 
 export const NAME = '{{contact.first_name}}';
-export const JOIN = '[JOIN LINK]';
-export const CAL = '[CALENDAR LINK]';
+export const JOIN = 'https://us05web.zoom.us/j/81236507956';
+export const CAL =
+  'https://calendar.google.com/calendar/render?action=TEMPLATE&text=The%20Transportation%20Entrepreneur%20Blueprint%20%E2%80%94%20DMG%20Agency%20Core&dates=20260915T230000Z/20260916T000000Z&details=One%20industry.%20Many%20lanes.%20One%20first%20step.&location=Online';
 export const REPLAY = '[REPLAY LINK]';
 export const BOOK = '[BOOKING LINK]';
 export const MEET = '[MEETING LINK]';
@@ -40,8 +41,8 @@ export const emails = [
       { p: 'Your seat is confirmed.' },
       {
         box: [
-          ['When:', 'Saturday, August 15, 2026'],
-          ['Time:', '2:00 PM Eastern / 11:00 AM Pacific'],
+          ['When:', 'Tuesday, September 15, 2026'],
+          ['Time:', '7:00 PM Eastern / 4:00 PM Pacific'],
           ['Length:', '45 minutes, plus live Q&amp;A'],
         ],
       },
@@ -60,12 +61,12 @@ export const emails = [
       {
         p: 'You do not need a truck to earn in transportation. Carrier, dispatcher, broker, forwarder — four different roads, and every one of them starts with the same move.',
       },
-      { p: 'That move is what Saturday is about.' },
+      { p: 'That move is what Tuesday is about.' },
       { h: 'Come live if you can' },
       {
         p: 'The Q&amp;A at the end is where people ask the specific question about their own lane, their own situation, their own numbers. That part is not in any replay.',
       },
-      { p: 'See you Saturday.' },
+      { p: 'See you Tuesday.' },
     ],
   },
 
@@ -94,8 +95,8 @@ export const emails = [
       {
         p: 'Sequence is not a detail. It is the difference between building a business and burying one.',
       },
-      { p: 'On Saturday I hand you the order.' },
-      { btn: { text: 'Join Saturday, 2PM ET', url: JOIN } },
+      { p: 'On Tuesday I hand you the order.' },
+      { btn: { text: 'Join Tuesday, 7PM ET', url: JOIN } },
     ],
   },
 
@@ -107,8 +108,8 @@ export const emails = [
       { p: 'Tomorrow.' },
       {
         box: [
-          ['When:', 'Saturday, August 15'],
-          ['Time:', '2:00 PM Eastern / 11:00 AM Pacific'],
+          ['When:', 'Tuesday, September 15'],
+          ['Time:', '7:00 PM Eastern / 4:00 PM Pacific'],
           ['Length:', '45 minutes, plus live Q&amp;A'],
         ],
       },
@@ -141,7 +142,7 @@ export const emails = [
     blocks: [
       { p: `${NAME},` },
       { p: 'We go live in one hour.' },
-      { p: '<strong>2:00 PM Eastern / 11:00 AM Pacific</strong>' },
+      { p: '<strong>7:00 PM Eastern / 4:00 PM Pacific</strong>' },
       { btn: { text: 'Join the masterclass', url: JOIN } },
       { small: "Bring your biggest question. We'll get to as many as we can." },
     ],
@@ -187,7 +188,7 @@ export const emails = [
     blocks: [
       { p: `${NAME},` },
       {
-        p: 'Thanks for showing up live on a Saturday. That says something about how serious you are.',
+        p: 'Thanks for showing up on a Tuesday evening. That says something about how serious you are.',
       },
       { btn: { text: 'Watch the replay', url: REPLAY } },
       { h: 'The three things to hold onto' },

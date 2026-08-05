@@ -2,7 +2,7 @@
 
 The plan of record. Work top to bottom. Nothing below is optional unless marked so.
 
-**Webinar:** Saturday, August 15, 2026 · 2:00 PM Eastern
+**Webinar:** Tuesday, September 15, 2026 · 7:00 PM Eastern
 **Architecture:** Option B — Meta ad → our landing page → GHL form → GHL workflow
 
 ---
@@ -16,7 +16,7 @@ You will hit these words constantly. Plain versions:
 | **Meta Pixel** | A snippet of code on your website that reports back to Facebook what visitors did. Without it Facebook is blind — it can see who clicked the ad but not who registered. |
 | **Pixel ID** | The ~15-digit number identifying your pixel. Found in Meta Events Manager → Data Sources. |
 | **Event** | A named thing the pixel reports. We use two: `PageView` (someone opened the page) and `Lead` (someone registered). |
-| **UTM parameters** | Extra text on the end of a link that says where the visitor came from. `?utm_source=facebook&utm_campaign=webinar-aug15`. Your website reads them and passes them into the form, so in GHL you can see which ad produced which lead. Invisible to the visitor and harmless. |
+| **UTM parameters** | Extra text on the end of a link that says where the visitor came from. `?utm_source=facebook&utm_campaign=webinar-sep15`. Your website reads them and passes them into the form, so in GHL you can see which ad produced which lead. Invisible to the visitor and harmless. |
 | **Conversions API (CAPI)** | A second copy of the same events, sent from a server instead of the visitor's browser. Needed because iPhones and ad blockers block a lot of browser tracking. Without it Facebook under-reports your registrations and optimises badly. |
 | **E.164** | The international phone format with a country code and a plus: `+13212049035`. GHL SMS silently fails without it. |
 | **Conversion location** | A Meta ad setting: where the lead is captured. "Instant Form" = inside Facebook. "Website" = on your site. We use **Website**. |
@@ -31,7 +31,7 @@ You will hit these words constantly. Plain versions:
         | taps
 2.  Browser opens
     dmgagencycore.com/webinar?utm_source=facebook
-      &utm_medium=paid&utm_campaign=webinar-aug15&utm_content=ad-a
+      &utm_medium=paid&utm_campaign=webinar-sep15&utm_content=ad-a
         |
 3.  Page loads
     - Meta Pixel fires PageView
@@ -44,10 +44,10 @@ You will hit these words constantly. Plain versions:
 5.  GHL receives it
     - Upserts contact (dedupes on email)
     - Writes custom fields: Webinar Date, Ad Campaign
-    - Applies tag: webinar-2026-08-15-registered
+    - Applies tag: webinar-2026-09-15-registered
     - Fires "Form Submitted" workflow trigger
         |
-6.  Browser redirects to /webinar/confirmed
+6.  Browser redirects to /confirmed
     - Meta Pixel fires Lead event   <-- what Meta optimises on
     - Shows: You're in + date/time + Add to Calendar + join link
         |
@@ -123,7 +123,7 @@ the entire post-webinar branch collapses into one undifferentiated follow-up.
       in both SMS consent checkboxes (still showing raw to visitors)
 - [ ] Pipeline "Webinar Funnel": Registered → No-Show → Attended Live → Watched Replay → Hot Lead → Consultation Booked → Closed Lost
 - [ ] Workflow with **date-anchored** waits (see gotcha 1)
-- [ ] Tags: `webinar-2026-08-15-registered` / `-attended` / `-noshow` / `-replay`
+- [ ] Tags: `webinar-2026-09-15-registered` / `-attended` / `-noshow` / `-replay`
 
 Stop the webinar pipeline at "Consultation Booked" and hand off to the existing
 **Lead Generation – Start Up Pipeline**. Duplicating its closing stages means two
@@ -131,6 +131,7 @@ opportunities per person and double-counted revenue.
 
 ### In the code
 
+- [x] Zoom room live: https://us05web.zoom.us/j/81236507956
 - [ ] Meta Pixel installed — PageView on landing page, Lead on `/confirmed`
 - [x] `/confirmed` page built, with Google Calendar + .ics buttons
 - [x] GHL form embedded; all three CTAs scroll to `#register`

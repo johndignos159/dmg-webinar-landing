@@ -9,6 +9,7 @@ import {
   WEBINAR_DURATION_MINUTES,
   GOOGLE_CALENDAR_URL,
   ICS_DATA_URI,
+  JOIN_URL,
 } from '@/lib/webinar-config';
 
 export const metadata: Metadata = {
@@ -80,6 +81,26 @@ export default function ConfirmedPage() {
           </div>
 
           <CountdownTimer />
+
+          {/* Join link shown here as well as emailed. Anyone reaching this page
+              has just registered, and having the room one click away on the
+              night beats digging through an inbox. */}
+          <div className="w-full max-w-md bg-white/5 border border-white/10 rounded-2xl p-6 mb-8">
+            <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-3">
+              Your Zoom room
+            </p>
+            <a
+              href={JOIN_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-brand-red hover:underline font-medium break-all text-sm"
+            >
+              {JOIN_URL}
+            </a>
+            <p className="text-xs text-gray-500 mt-3">
+              Same link every time — save it now and it will work on the night.
+            </p>
+          </div>
 
           {/* Two formats: Google covers most people, .ics covers Apple and Outlook. */}
           <div className="w-full flex flex-col sm:flex-row gap-3 justify-center mb-8">
