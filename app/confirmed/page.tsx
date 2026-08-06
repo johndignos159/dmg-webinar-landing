@@ -150,8 +150,8 @@ export default function ConfirmedPage() {
                 body: 'Once the day before, once an hour before. No spam in between.',
               },
               {
-                title: 'Show up a few minutes early',
-                body: 'Seats are limited and we start on time. Come with your biggest operational bottleneck in mind — there is live Q&A at the end.',
+                title: 'Show up — there is no recording',
+                body: 'This one is live only, so there will be nothing to catch up on afterwards. Come a few minutes early, with your biggest question ready — there is live Q&A at the end.',
               },
             ].map((step, i) => (
               <li key={i} className="flex gap-5">

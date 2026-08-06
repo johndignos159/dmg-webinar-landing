@@ -42,8 +42,8 @@ export default function RegistrationForm() {
           </h2>
           <div className="w-24 h-1 bg-brand-red mx-auto rounded-full mb-6" />
           <p className="text-lg text-gray-600">
-            {WEBINAR_DATE_DISPLAY} at {WEBINAR_TIME_DISPLAY}. It is free, and the
-            recording is not guaranteed — the room is where the Q&amp;A happens.
+            {WEBINAR_DATE_DISPLAY} at {WEBINAR_TIME_DISPLAY}. Free, live only, and
+            there is no recording — the room is where the Q&amp;A happens.
           </p>
         </div>
 

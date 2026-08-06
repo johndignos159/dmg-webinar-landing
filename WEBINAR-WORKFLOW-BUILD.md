@@ -112,7 +112,6 @@ BOOKED (any point)
 webinar-2026-09-15-registered
 webinar-2026-09-15-attended
 webinar-2026-09-15-noshow
-webinar-2026-09-15-replay
 consultation-booked
 webinar-cold
 ```
@@ -122,7 +121,7 @@ December you cannot tell who registered for which one.
 
 ### Pipeline — "Webinar Funnel"
 
-Registered → No-Show → Attended Live → Watched Replay → Hot Lead →
+Registered → No-Show → Attended Live → Hot Lead →
 Consultation Booked → Closed Lost
 
 **Stop at Consultation Booked.** Hand off to the existing **LLC Formation**

@@ -65,27 +65,30 @@ behind Vercel SSO and demand a login. Only the production URL above is public.
 
 ## 3. The Webinar Funnel pipeline
 
-Create this in GHL. **Set opportunity value to 0** — revenue is counted in LLC
-Formation only, and putting 997 in both places double-counts every sale.
+Built 2026-08-06 as **"Webinar Pipeline"**. **Opportunity value 0** — revenue is
+counted in LLC Formation only, and putting 997 in both places double-counts
+every sale.
 
 | # | Stage | Enters when |
 | --- | --- | --- |
 | 1 | **Registered** | Registration form submitted. Everyone starts here. |
 | 2 | **No-Show** | Webinar ended, no attendance recorded for them |
 | 3 | **Attended Live** | Attendance confirmed from Zoom |
-| 4 | **Watched Replay** | Clicked the replay link — usually arrives from No-Show |
-| 5 | **Hot Lead** | Replied, clicked the booking link, or watch duration over 60% |
-| 6 | **Consultation Booked** | Booked a setup call. **Handoff point — pipeline ends here.** |
-| 7 | **Closed Lost** | Day 21 with no booking, or disqualified |
+| 4 | **Hot Lead** | Replied, or clicked the booking link |
+| 5 | **Consultation Booked** | Booked a setup call. **Handoff point — pipeline ends here.** |
+| 6 | **Closed Lost** | Day 21 with no booking, or disqualified |
 
-### Why it stops at stage 6
+**"Watched Replay" was removed 2026-08-06** when the replay was dropped. If the
+stage still exists in GHL, delete it — an empty stage skews the funnel chart.
+
+### Why it stops at Consultation Booked
 
 The Short Intake Form's submission is **stage 0 of LLC Formation**. So a
 converting webinar lead enters that pipeline on its own — you wire nothing.
 
 ```
 Webinar Funnel  (value 0 — engagement tracking)
-  Registered → No-Show → Attended Live → Watched Replay
+  Registered → No-Show → Attended Live
   → Hot Lead → Consultation Booked → Closed Lost
                       |
         they fill the Short Intake Form
@@ -98,19 +101,24 @@ LLC Formation  (997 — where revenue is counted)
 
 LLC Formation opens at "Short Intake Form SIGN UP" — a webinar registrant has
 not filled that, so there is no honest stage for them. And the states that
-matter for a webinar (No-Show, Attended, Watched Replay) are engagement states,
-not sales stages. Without them you cannot measure show rate, replay rate, or
-attendee-to-booking conversion — the three numbers that decide whether webinar
-two happens.
+matter for a webinar (No-Show, Attended Live) are engagement states, not sales
+stages. Without them you cannot measure show rate or attendee-to-booking
+conversion — the two numbers that decide whether webinar two happens.
 
-### Custom fields to create first
+With no replay, show rate matters more than it would otherwise: live attendance
+is now the only way anyone receives the content at all.
+
+### Custom fields — created and verified 2026-08-06
 
 | Field | Type | Purpose |
 | --- | --- | --- |
 | Webinar Date | DATE | Which session — keeps the pipeline reusable |
 | Webinar Attended | RADIO | Live / Replay / No-Show |
-| Watch Duration | NUMERICAL | Minutes — drives the Hot Lead branch |
+| Watch Duration | NUMERICAL | Minutes attended — feeds the Hot Lead judgement |
 | Ad Campaign | TEXT | Which Meta campaign produced the lead |
+
+The "Replay" option on Webinar Attended is now unused. Harmless — leave it, in
+case a future session is recorded.
 
 ### Tags
 
@@ -118,7 +126,6 @@ two happens.
 webinar-2026-09-15-registered
 webinar-2026-09-15-attended
 webinar-2026-09-15-noshow
-webinar-2026-09-15-replay
 consultation-booked
 webinar-cold
 ```
@@ -130,11 +137,10 @@ and by December you cannot tell who registered for which one.
 
 ## 4. Build order
 
-1. **Custom fields** — the four above. Two minutes.
-2. **Webinar Funnel pipeline** — seven stages, value 0.
-3. **Verification pass** — both are readable through the API. Ask before going
-   further; a wrong field type found now is cheaper than found mid-workflow.
-4. **Re-paste 13 emails** (list in section 6).
+1. ~~Custom fields~~ — **done, verified 2026-08-06**
+2. ~~Webinar Pipeline~~ — **done, verified 2026-08-06**
+3. **Delete the "Watched Replay" stage** if it is still there.
+4. **Re-paste 15 emails** (list in section 6).
 5. **Build the workflow.**
 
 ---
@@ -171,28 +177,34 @@ and by December you cannot tell who registered for which one.
 
 | Placeholder | Files | Resolves when |
 | --- | --- | --- |
-| `[REPLAY LINK]` | 06-day1-noshow, 07-day1-attended | After the session — Zoom cloud recording |
 | `[MEETING LINK]` | 15-booked-24h, 16-booked-1h | Merge field, inserted during workflow build |
 | `[RESCHEDULE LINK]` | 15-booked-24h | Merge field, same |
+
+`[REPLAY LINK]` is gone — the replay was dropped 2026-08-06.
 
 ---
 
 ## 6. Email re-paste list
 
-Thirteen are fully resolved and can go in now:
+Fifteen are fully resolved and can go in now:
 
 ```
-01-immediate-youre-in     08-day3-backwards
-02-t-minus-3-days         09-day5-front-door
-03-t-minus-1-day          10-day7-fraud
-04-t-minus-1-hour         11-day10-which-pillar
-05-t-minus-15-min         12-day14-faq
-14-booked-confirmation    13-day21-two-roads
-17-post-consult
+01-immediate-youre-in     09-day5-front-door
+02-t-minus-3-days         10-day7-fraud
+03-t-minus-1-day          11-day10-which-pillar
+04-t-minus-1-hour         12-day14-faq
+05-t-minus-15-min         13-day21-two-roads
+06-day1-noshow            14-booked-confirmation
+07-day1-attended          17-post-consult
+08-day3-backwards
 ```
 
-Leave `06`, `07`, `15`, `16` — they still hold placeholders that cannot be
-resolved yet, and pasting them now means pasting them twice.
+Leave `15-booked-24h` and `16-booked-1h` only — they need per-appointment merge
+fields you insert from the dropdown inside the workflow's email editor.
+
+`06` and `07` moved onto the ready list when the replay was dropped. Note that
+`06-day1-noshow` was rewritten end to end, not just relinked — it used to be a
+"here is the recording" email and there is no recording now.
 
 Also rename the GHL template **"day 7-front" to "day 7-fraud"**. Its content is
 the fraud email; the name is wrong and will cost you a moment of confusion in

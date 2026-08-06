@@ -17,7 +17,6 @@ export const NAME = '{{contact.first_name}}';
 export const JOIN = 'https://us05web.zoom.us/j/81236507956';
 export const CAL =
   'https://calendar.google.com/calendar/render?action=TEMPLATE&text=The%20Transportation%20Entrepreneur%20Blueprint%20%E2%80%94%20DMG%20Agency%20Core&dates=20260915T230000Z/20260916T000000Z&details=One%20industry.%20Many%20lanes.%20One%20first%20step.&location=Online';
-export const REPLAY = '[REPLAY LINK]';
 // GHL gives two URLs for a calendar. This is the *permanent* one, keyed on
 // the calendar id rather than its name — the slug-based `/widget/bookings/…`
 // URL breaks the moment the calendar is renamed, and these emails go out over
@@ -71,11 +70,11 @@ export const emails = [
         p: 'You do not need a truck to earn in transportation. Carrier, dispatcher, broker, forwarder — four different roads, and every one of them starts with the same move.',
       },
       { p: 'That move is what Tuesday is about.' },
-      { h: 'Come live if you can' },
+      { h: 'There is no recording' },
       {
-        p: 'The Q&amp;A at the end is where people ask the specific question about their own lane, their own situation, their own numbers. That part is not in any replay.',
+        p: 'This one is live only. That is deliberate — the Q&amp;A at the end is where people ask the specific question about their own lane, their own situation, their own numbers, and that half of the value does not survive a recording.',
       },
-      { p: 'See you Tuesday.' },
+      { p: 'So put it in your calendar properly. See you Tuesday.' },
     ],
   },
 
@@ -139,7 +138,7 @@ export const emails = [
         p: 'Come with your single biggest question ready. We do live Q&amp;A at the end, and specific questions get specific answers.',
       },
       {
-        p: 'And join from somewhere you can take notes. This is not a session to half-watch.',
+        p: 'And join from somewhere you can take notes. There is no recording — this is live only, so what you write down is what you keep.',
       },
       { btn: { text: 'Join tomorrow', url: JOIN } },
     ],
@@ -171,23 +170,35 @@ export const emails = [
   // ------------------------------------------------------------- DAY 1 (SPLIT)
   {
     file: '06-day1-noshow',
-    subject: 'You missed it — replay inside (48 hours)',
+    subject: 'You missed it — here is the short version',
     blocks: [
       { p: `${NAME},` },
       {
         p: "You registered and didn't make it. That's usually a load, a breakdown, or a day that got away — not a lack of interest.",
       },
-      { p: 'So here is the recording.' },
-      { btn: { text: 'Watch the replay', url: REPLAY } },
-      { small: "It's up for 48 hours." },
       {
-        p: 'If you only have ten minutes, watch the section on fraud. $725 million vanished from this industry last year and brand-new authorities were the number one target. That segment alone is worth your time.',
+        p: 'Here is the honest part: <strong>there is no recording.</strong> The session was live only, and that was on purpose — the Q&amp;A is half of what makes it worth attending, and it does not survive a recording.',
       },
-      { h: 'Or skip the video' },
       {
-        p: 'If you would rather just talk it through, that works too. We will look at which lane fits you and what your first step actually is.',
+        p: 'So I am not going to send you a video. What I can do is give you the spine of it in sixty seconds.',
+      },
+      { h: 'The short version' },
+      {
+        list: [
+          '<strong>Every lane starts the same.</strong> Carrier, dispatcher, broker, forwarder — none of them can operate until you legally exist as a business.',
+          '<strong>Sequence beats speed.</strong> Building in the right order costs the same as building backwards. It just does not have to be undone later.',
+          '<strong>$725 million</strong> was lost to freight fraud last year, and brand-new authorities were the number one target. A legitimate, verifiable business identity is your first line of defence.',
+        ],
+      },
+      { h: 'Or just ask' },
+      {
+        p: 'Thirty minutes, your situation, straight answers about which lane fits you and what your first step actually is. Honestly, that is closer to what you missed than any recording would have been.',
       },
       { btn: { text: 'Book your setup call', url: BOOK } },
+      {
+        small:
+          'We run this session again. If you would rather catch the next one live, reply and I will let you know the date.',
+      },
     ],
   },
 
@@ -199,7 +210,9 @@ export const emails = [
       {
         p: 'Thanks for showing up on a Tuesday evening. That says something about how serious you are.',
       },
-      { btn: { text: 'Watch the replay', url: REPLAY } },
+      {
+        p: 'There is no recording, so consider this your notes.',
+      },
       { h: 'The three things to hold onto' },
       {
         list: [
