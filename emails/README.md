@@ -17,13 +17,8 @@ emails promise exactly what the session delivers. If the deck changes, update
 
 ## Placeholders to replace
 
-Only two are left. The Zoom room, calendar link, booking calendar and intake
-form are all baked in already.
-
-`[MEETING LINK]` `[RESCHEDULE LINK]`
-
-Both are per-appointment, so they cannot be hardcoded — insert them from the
-merge-field dropdown inside the workflow's email editor.
+`[JOIN LINK]` `[CALENDAR LINK]` `[REPLAY LINK]` `[BOOKING LINK]`
+`[MEETING LINK]` `[INTAKE FORM LINK]` `[RESCHEDULE LINK]` `[OFFER LINK]`
 
 Merge fields (`{{contact.first_name}}`, `{{appointment.start_time}}`) are
 already GHL syntax and need no change.

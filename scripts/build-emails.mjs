@@ -99,6 +99,7 @@ function shell(subject, blocks) {
       <tr><td style="padding:20px 28px 28px;border-top:1px solid #eee;">
         <p style="margin:0;font-family:${FONT};font-size:12px;line-height:1.6;color:#999;">
           DMG Agency Core LLC &nbsp;&middot;&nbsp; 321-204-9035<br>
+          7901 4th St N #22791, St. Petersburg, FL 33702<br>
           <a href="${SITE}" style="color:#999;">dmgagencycore.com</a> &nbsp;&middot;&nbsp;
           <a href="{{unsubscribe_link}}" style="color:#999;">Unsubscribe</a>
         </p>
