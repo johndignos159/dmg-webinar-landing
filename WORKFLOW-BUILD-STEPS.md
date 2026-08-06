@@ -65,44 +65,49 @@ double-counts every sale.
 someone registering three weeks out and fires *after* the webinar for someone
 registering the day before.
 
-### No If/Else guard — corrected 2026-08-06
+### The Wait step handles the bypass itself — settled 2026-08-06
 
-This originally specified an If/Else before each reminder so late registrants
-would skip past emails. Two reasons that does not work in GHL:
+Every Wait step has an **"If this date has already passed"** setting. Choose:
 
-1. **The Webinar Date field is identical for every contact** (`2026-09-15`), so
-   comparing it returns the same answer for everyone. Only the `in the next N
-   days` operator evaluates against *now*, and using it would put the send on
-   the None branch — readable backwards.
-2. **GHL branches do not rejoin.** Each branch runs to its own end, so a guard
-   branch would need every downstream step duplicated inside it — four
-   reminders, the attended/no-show split, six nurture emails. Three branches
-   means maintaining the same sequence three times.
+> **Skip all outbound communication actions till next wait or event start date
+> action** *(Email, SMS, call & voicemail)*
 
-The complexity is a bigger risk than the problem. Build the waits flat.
+That is the whole guard. Someone registering on 14 September hits the
+12 September wait, GHL sees the date has passed, skips the "3 days" email, and
+carries them to the next Wait where they resume normally.
 
-**The cost:** someone registering on 14 September hits the 12 September wait,
-finds it passed, and moves straight through — one premature "Three days out"
-email. Registering on the day itself, two.
+**Set it on all four Wait steps.** Defaults vary between steps.
 
-**The fix is operational, not structural: turn the ad off 48 hours before the
-webinar.** Nobody registers late enough to hit it, and the last two days of
-spend go to people who cannot be properly warmed up anyway.
+The other three options are all wrong here:
+
+| Option | What it does |
+| --- | --- |
+| Continue to next action | Fires the stale email anyway |
+| Exit contact from automation | Drops them out of the funnel entirely |
+| Go to specific step | Works, but needs manual rewiring every time the sequence changes |
+
+This replaces two earlier attempts — an If/Else guard on the Webinar Date field,
+and a three-branch structure with a separate post-session workflow. Neither was
+needed. The field is identical for every contact so it cannot distinguish
+registrants, and GHL already solves this natively.
 
 Ten steps, straight down. No branching.
 
-| # | Action | Setting |
-| --- | --- | --- |
-| 1 | Wait | specific date/time -> `12 Sep 2026, 7:00 PM` |
-| 2 | Send Email | `3 days` |
-| 3 | Wait | `14 Sep 2026, 7:00 PM` |
-| 4 | Send Email | `1 day` |
-| 5 | Wait | `15 Sep 2026, 6:00 PM` |
-| 6 | Send Email | `1 hr` |
-| 7 | Send SMS | copy below |
-| 8 | Wait | `15 Sep 2026, 6:45 PM` |
-| 9 | Send Email | `15 mins` |
-| 10 | Send SMS | copy below |
+| # | Action | Date / template | If date passed |
+| --- | --- | --- | --- |
+| 1 | Wait | `09/12/2026` · `07:00:00 PM` | Skip outbound |
+| 2 | Send Email | `3 days` | |
+| 3 | Wait | `09/14/2026` · `07:00:00 PM` | Skip outbound |
+| 4 | Send Email | `1 day` | |
+| 5 | Wait | `09/15/2026` · `06:00:00 PM` | Skip outbound |
+| 6 | Send Email | `1 hr` | |
+| 7 | Send SMS | copy below | |
+| 8 | Wait | `09/15/2026` · `06:45:00 PM` | Skip outbound |
+| 9 | Send Email | `15 mins` | |
+| 10 | Send SMS | copy below | |
+
+On every Wait, leave "When should the contact proceed?" on **On this date and
+time**.
 
 Subject lines are set on each Send Email step, not in the template. The full
 list is in `emails/README.md`.
