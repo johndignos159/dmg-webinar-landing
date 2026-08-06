@@ -115,11 +115,24 @@ function shell(subject, blocks) {
 // --- write -----------------------------------------------------------------
 
 const index = [];
+const mapping = [];
 
 for (const e of emails) {
-  writeFileSync(join(OUT, `${e.file}.html`), shell(e.subject, e.blocks), 'utf8');
+  const html = shell(e.subject, e.blocks);
+  writeFileSync(join(OUT, `${e.file}.html`), html, 'utf8');
   index.push(`| \`${e.file}.html\` | ${e.subject} |`);
+
+  // Anything still holding a [PLACEHOLDER] cannot be pasted yet. Derived from
+  // the generated HTML rather than trusted from the data, so the table cannot
+  // drift away from what the files actually contain.
+  const left = [...html.matchAll(/\[[A-Z ]+\]/g)].map((m) => m[0]);
+  const status = e.ready && left.length === 0
+    ? '**yes**'
+    : `wait — ${[...new Set(left)].map((l) => `\`${l}\``).join(' ')}`;
+  mapping.push(`| \`${e.file}.html\` | ${e.ghl} | ${status} |`);
 }
+
+const readyCount = mapping.filter((r) => r.includes('**yes**')).length;
 
 writeFileSync(
   join(OUT, 'README.md'),
@@ -133,20 +146,33 @@ Copy is written against **Transportation_Entrepreneur_Blueprint.pptx**, so the
 emails promise exactly what the session delivers. If the deck changes, update
 \`email-content.mjs\`.
 
+## Which file goes into which GHL template
+
+**${readyCount} of ${emails.length} are ready to paste.** The "wait" rows still
+contain placeholders — pasting them now means pasting them twice.
+
+| File here | GHL template | Ready? |
+| --- | --- | --- |
+${mapping.join('\n')}
+
 ## How to load one into GHL
 
-1. Marketing → Emails → Templates → **New** → template type **HTML**
+1. Marketing → Emails → Templates → open the matching template
 2. Open the \`.html\` file, select all, copy
-3. Paste into the code editor, save
-4. Set the subject line from the table below
+3. Paste over the existing code, save
+4. Subject lines have not changed — leave them alone
 
-## Placeholders to replace
+## Placeholders
 
-\`[JOIN LINK]\` \`[CALENDAR LINK]\` \`[REPLAY LINK]\` \`[BOOKING LINK]\`
-\`[MEETING LINK]\` \`[INTAKE FORM LINK]\` \`[RESCHEDULE LINK]\` \`[OFFER LINK]\`
+Anything shown as "wait" above needs a **per-appointment merge field**, which
+cannot be hardcoded. Insert those from the merge-field dropdown inside the
+workflow's email editor.
 
-Merge fields (\`{{contact.first_name}}\`, \`{{appointment.start_time}}\`) are
-already GHL syntax and need no change.
+Everything else — the Zoom room, calendar link, booking calendar and intake
+form — is already baked in.
+
+Merge fields (\`{{contact.first_name}}\`, \`{{appointment.start_time}}\`,
+\`{{unsubscribe_link}}\`) are already GHL syntax and need no change.
 
 ## Subject lines
 

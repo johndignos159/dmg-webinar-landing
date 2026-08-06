@@ -8,20 +8,49 @@ Copy is written against **Transportation_Entrepreneur_Blueprint.pptx**, so the
 emails promise exactly what the session delivers. If the deck changes, update
 `email-content.mjs`.
 
+## Which file goes into which GHL template
+
+**15 of 17 are ready to paste.** The "wait" rows still
+contain placeholders — pasting them now means pasting them twice.
+
+| File here | GHL template | Ready? |
+| --- | --- | --- |
+| `01-immediate-youre-in.html` | youre in | **yes** |
+| `02-t-minus-3-days.html` | 3 days | **yes** |
+| `03-t-minus-1-day.html` | 1 day | **yes** |
+| `04-t-minus-1-hour.html` | 1 hr | **yes** |
+| `05-t-minus-15-min.html` | 15 mins | **yes** |
+| `06-day1-noshow.html` | no show | **yes** |
+| `07-day1-attended.html` | attended | **yes** |
+| `08-day3-backwards.html` | day 3-backward | **yes** |
+| `09-day5-front-door.html` | day 5-front | **yes** |
+| `10-day7-fraud.html` | day 7-front | **yes** |
+| `11-day10-which-pillar.html` | day 10-which-pillar | **yes** |
+| `12-day14-faq.html` | day 14-faq | **yes** |
+| `13-day21-two-roads.html` | day 21-two-roads | **yes** |
+| `14-booked-confirmation.html` | booked-confirmation | **yes** |
+| `15-booked-24h.html` | booked-24hr | wait — `[MEETING LINK]` `[RESCHEDULE LINK]` |
+| `16-booked-1h.html` | booked-1hr | wait — `[MEETING LINK]` |
+| `17-post-consult.html` | post-consult | **yes** |
+
 ## How to load one into GHL
 
-1. Marketing → Emails → Templates → **New** → template type **HTML**
+1. Marketing → Emails → Templates → open the matching template
 2. Open the `.html` file, select all, copy
-3. Paste into the code editor, save
-4. Set the subject line from the table below
+3. Paste over the existing code, save
+4. Subject lines have not changed — leave them alone
 
-## Placeholders to replace
+## Placeholders
 
-`[JOIN LINK]` `[CALENDAR LINK]` `[REPLAY LINK]` `[BOOKING LINK]`
-`[MEETING LINK]` `[INTAKE FORM LINK]` `[RESCHEDULE LINK]` `[OFFER LINK]`
+Anything shown as "wait" above needs a **per-appointment merge field**, which
+cannot be hardcoded. Insert those from the merge-field dropdown inside the
+workflow's email editor.
 
-Merge fields (`{{contact.first_name}}`, `{{appointment.start_time}}`) are
-already GHL syntax and need no change.
+Everything else — the Zoom room, calendar link, booking calendar and intake
+form — is already baked in.
+
+Merge fields (`{{contact.first_name}}`, `{{appointment.start_time}}`,
+`{{unsubscribe_link}}`) are already GHL syntax and need no change.
 
 ## Subject lines
 

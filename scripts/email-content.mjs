@@ -43,6 +43,8 @@ export const emails = [
   // ---------------------------------------------------------------- PRE-WEBINAR
   {
     file: '01-immediate-youre-in',
+    ghl: 'youre in',
+    ready: true,
     subject: "You're in — The Transportation Entrepreneur Blueprint",
     blocks: [
       { p: `${NAME},` },
@@ -80,6 +82,8 @@ export const emails = [
 
   {
     file: '02-t-minus-3-days',
+    ghl: '3 days',
+    ready: true,
     subject: 'Most people never make it. Here is why.',
     blocks: [
       { p: `${NAME},` },
@@ -110,6 +114,8 @@ export const emails = [
 
   {
     file: '03-t-minus-1-day',
+    ghl: '1 day',
+    ready: true,
     subject: 'Tomorrow — four doors in, one first step',
     blocks: [
       { p: `${NAME},` },
@@ -146,6 +152,8 @@ export const emails = [
 
   {
     file: '04-t-minus-1-hour',
+    ghl: '1 hr',
+    ready: true,
     subject: 'One hour out',
     blocks: [
       { p: `${NAME},` },
@@ -158,6 +166,8 @@ export const emails = [
 
   {
     file: '05-t-minus-15-min',
+    ghl: '15 mins',
+    ready: true,
     subject: 'Starting now',
     blocks: [
       { p: `${NAME},` },
@@ -170,6 +180,8 @@ export const emails = [
   // ------------------------------------------------------------- DAY 1 (SPLIT)
   {
     file: '06-day1-noshow',
+    ghl: 'no show',
+    ready: true,
     subject: 'You missed it — here is the short version',
     blocks: [
       { p: `${NAME},` },
@@ -204,6 +216,8 @@ export const emails = [
 
   {
     file: '07-day1-attended',
+    ghl: 'attended',
+    ready: true,
     subject: 'Thank you for being there',
     blocks: [
       { p: `${NAME},` },
@@ -232,6 +246,8 @@ export const emails = [
   // ------------------------------------------------------------------- NURTURE
   {
     file: '08-day3-backwards',
+    ghl: 'day 3-backward',
+    ready: true,
     subject: 'Building in the wrong order',
     blocks: [
       { p: `${NAME},` },
@@ -261,6 +277,8 @@ export const emails = [
 
   {
     file: '09-day5-front-door',
+    ghl: 'day 5-front',
+    ready: true,
     subject: "You can't do any of it until you legally exist",
     blocks: [
       { p: `${NAME},` },
@@ -293,6 +311,8 @@ export const emails = [
 
   {
     file: '10-day7-fraud',
+    ghl: 'day 7-front',
+    ready: true,
     subject: '$725M vanished last year. New authorities were the target.',
     blocks: [
       { p: `${NAME},` },
@@ -332,6 +352,8 @@ export const emails = [
 
   {
     file: '11-day10-which-pillar',
+    ghl: 'day 10-which-pillar',
+    ready: true,
     subject: 'Which of the four pillars is missing?',
     blocks: [
       { p: `${NAME},` },
@@ -368,6 +390,8 @@ export const emails = [
 
   {
     file: '12-day14-faq',
+    ghl: 'day 14-faq',
+    ready: true,
     subject: 'The questions I get asked most',
     blocks: [
       { p: `${NAME},` },
@@ -397,6 +421,8 @@ export const emails = [
 
   {
     file: '13-day21-two-roads',
+    ghl: 'day 21-two-roads',
+    ready: true,
     subject: 'Two roads from here',
     blocks: [
       { p: `${NAME},` },
@@ -439,6 +465,8 @@ export const emails = [
   // -------------------------------------------------------------- BOOKED PATH
   {
     file: '14-booked-confirmation',
+    ghl: 'booked-confirmation',
+    ready: true,
     subject: 'Your setup call is confirmed',
     blocks: [
       { p: `${NAME},` },
@@ -459,6 +487,8 @@ export const emails = [
 
   {
     file: '15-booked-24h',
+    ghl: 'booked-24hr',
+    ready: false,
     subject: 'Tomorrow — your setup call',
     blocks: [
       { p: `${NAME},` },
@@ -474,6 +504,8 @@ export const emails = [
 
   {
     file: '16-booked-1h',
+    ghl: 'booked-1hr',
+    ready: false,
     subject: 'One hour',
     blocks: [
       { p: `${NAME},` },
@@ -485,6 +517,8 @@ export const emails = [
 
   {
     file: '17-post-consult',
+    ghl: 'post-consult',
+    ready: true,
     subject: 'What we covered, and your next step',
     blocks: [
       { p: `${NAME},` },
