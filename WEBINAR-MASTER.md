@@ -241,6 +241,14 @@ after the webinar for anyone registering late.
 **Emails are generated, not hand-edited.** Copy lives in
 `scripts/email-content.mjs`; run `node scripts/build-emails.mjs` after changes.
 
+**No unsubscribe link in the templates.** Verified by test send 2026-08-06: GHL
+appends its own at send time, on HTML templates as well as builder ones. The URL
+it generates carries a token encoding that specific contact's id and email, so
+it cannot be written into a file that goes to everyone — hardcoding one would
+unsubscribe that single person every time anyone else clicked it. A
+`{{unsubscribe_link}}` merge field was tried first and rendered as dead text.
+Our footer supplies the physical postal address, which GHL does not add.
+
 ---
 
 ## 8. Corrections — old advice that was wrong
