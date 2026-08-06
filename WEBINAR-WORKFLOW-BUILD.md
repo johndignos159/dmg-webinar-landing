@@ -13,7 +13,7 @@ Webinar: **Tuesday, September 15, 2026 · 7:00 PM Eastern**
 
 **This is the important one.** The original Day 1 email is *"Thank You for Attending"* and it goes to everyone who did not book — including people who never showed up.
 
-Two problems. A no-show who gets thanked for attending knows instantly that nobody is paying attention, and you have burned the single best re-engagement moment you will ever have with them. No-shows are not cold; they raised their hand and life got in the way. They need *"you missed it, here is the replay"*, not a thank-you.
+Two problems. A no-show who gets thanked for attending knows instantly that nobody is paying attention, and you have burned the single best re-engagement moment you will ever have with them. No-shows are not cold; they raised their hand and life got in the way. They need *"you missed it, here is the short version"*, not a thank-you.
 
 Typical webinar show rates run 30–45%. So this branch is more than half your list.
 
@@ -191,11 +191,19 @@ Register twice — once four weeks out, once two hours before the webinar.
 Watch what each one receives. The late registrant is where date-anchored
 waits break, and it is much cheaper to find that now.
 
-### Set the replay to expire
+### There is no replay at all
 
-The 48-hour window in the no-show email is deliberate. An always-available
-replay removes any reason to attend live, and live attendance is where
-your booking rate comes from. Publish the deadline and honour it.
+Decided 2026-08-06, and it is a stronger position than a 48-hour expiring
+replay. Live attendance is now the only way anyone receives the content, which
+makes every reminder in the sequence matter more.
+
+Say it plainly in the pre-webinar emails rather than hiding it — "there is no
+recording" is a reason to show up, not a disappointment. It is stated in the
+confirmation email, the T-1 day email, and on both pages of the site.
+
+The trade is that no-shows get nothing unless you give them something. The
+Day 1 no-show email handles that: it delivers the three core points as text and
+offers a call, instead of a video link most people would never open.
 
 ### Track show rate as your primary metric
 
