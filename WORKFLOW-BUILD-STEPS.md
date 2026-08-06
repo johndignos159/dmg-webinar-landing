@@ -27,13 +27,21 @@ in Eastern, and GHL evaluates them against the workflow's timezone, not yours.
 - Stop on response: **on**
 - Timezone: America/New_York
 
-### Exit condition — set this first, before you forget
+### Exit condition — handled from Workflow 2, not here
 
-Add a workflow **Goal** or a **Remove From Workflow** step keyed on the tag
-`consultation-booked`. The moment someone books, they leave.
+Nothing to add in this workflow. The **Remove From Workflow** action lives in
+Workflow 2 and points back at this one.
 
-Without this, a person who books on day 5 still receives *"Two roads from here"*
-on day 21. That one mistake undoes everything the sequence built.
+That action asks you to pick a workflow because it is built to remove contacts
+from *other* workflows. Putting it inside the workflow it is meant to stop does
+not work, and the dropdown makes that obvious the moment you try.
+
+So: build this workflow straight through. Workflow 2's first action pulls people
+out of it the moment they book.
+
+Without that step, someone who books on day 5 still receives *"Two roads from
+here"* on day 21 — which undoes everything the sequence built. It is the easiest
+thing to forget, so it is the first action in Workflow 2.
 
 ---
 
@@ -187,12 +195,14 @@ blank in Workflow 1, which is why the booked emails live here.
 
 | # | Action | Setting |
 | --- | --- | --- |
-| 1 | Add Tag | `consultation-booked` |
-| 2 | Update Opportunity | Webinar Pipeline → stage **Consultation Booked** |
-| 3 | Send Email | template **booked-confirmation** |
+| 1 | **Remove From Workflow** | select **Webinar — Registration & Nurture** |
+| 2 | Add Tag | `consultation-booked` |
+| 3 | Update Opportunity | Webinar Pipeline → stage **Consultation Booked** |
+| 4 | Send Email | template **booked-confirmation** |
 
-Step 1 is what pulls them out of Workflow 1's nurture, via the exit condition
-you set at the top.
+**Step 1 is the important one.** It is what stops someone who has already booked
+from continuing to receive the nurture sequence. Put it first, before anything
+else, so it fires even if a later step errors.
 
 ### Reminders
 
