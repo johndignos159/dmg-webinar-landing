@@ -96,12 +96,23 @@ function shell(subject, blocks) {
         ${body}
       </td></tr>
 
+      <!--
+        No unsubscribe link here on purpose.
+
+        GHL appends its own on send — a per-recipient, per-message URL at
+        services.msgsndr.com carrying a JWT that encodes that contact's id and
+        email. It cannot be written into a template: hardcoding one recipient's
+        link would unsubscribe that person every time anyone else clicked it.
+
+        An unsubscribe merge field was tried here and rendered as dead text.
+        Do not add one back. The physical address below is the part CAN-SPAM
+        needs from us; GHL supplies the opt-out.
+      -->
       <tr><td style="padding:20px 28px 28px;border-top:1px solid #eee;">
         <p style="margin:0;font-family:${FONT};font-size:12px;line-height:1.6;color:#999;">
           DMG Agency Core LLC &nbsp;&middot;&nbsp; 321-204-9035<br>
           7901 4th St N #22791, St. Petersburg, FL 33702<br>
-          <a href="${SITE}" style="color:#999;">dmgagencycore.com</a> &nbsp;&middot;&nbsp;
-          <a href="{{unsubscribe_link}}" style="color:#999;">Unsubscribe</a>
+          <a href="${SITE}" style="color:#999;">dmgagencycore.com</a>
         </p>
       </td></tr>
 
@@ -171,8 +182,18 @@ workflow's email editor.
 Everything else — the Zoom room, calendar link, booking calendar and intake
 form — is already baked in.
 
-Merge fields (\`{{contact.first_name}}\`, \`{{appointment.start_time}}\`,
-\`{{unsubscribe_link}}\`) are already GHL syntax and need no change.
+Merge fields (\`{{contact.first_name}}\`, \`{{appointment.start_time}}\`) are
+already GHL syntax and need no change.
+
+## Unsubscribe
+
+There is deliberately **no unsubscribe link in these templates.** GHL appends
+its own at send time — a per-recipient URL carrying a token that encodes that
+contact's id and email.
+
+Never paste a real unsubscribe URL into a template. It belongs to one recipient,
+so everyone who clicked it would unsubscribe that same person instead of
+themselves.
 
 ## Subject lines
 

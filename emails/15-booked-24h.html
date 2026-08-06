@@ -26,12 +26,23 @@
         <p style="margin:0 0 16px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,Helvetica,Arial,sans-serif;font-size:14px;line-height:1.6;color:#666;">Need to move it? <a href="[RESCHEDULE LINK]">Reschedule here</a>.</p>
       </td></tr>
 
+      <!--
+        No unsubscribe link here on purpose.
+
+        GHL appends its own on send — a per-recipient, per-message URL at
+        services.msgsndr.com carrying a JWT that encodes that contact's id and
+        email. It cannot be written into a template: hardcoding one recipient's
+        link would unsubscribe that person every time anyone else clicked it.
+
+        An unsubscribe merge field was tried here and rendered as dead text.
+        Do not add one back. The physical address below is the part CAN-SPAM
+        needs from us; GHL supplies the opt-out.
+      -->
       <tr><td style="padding:20px 28px 28px;border-top:1px solid #eee;">
         <p style="margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,Helvetica,Arial,sans-serif;font-size:12px;line-height:1.6;color:#999;">
           DMG Agency Core LLC &nbsp;&middot;&nbsp; 321-204-9035<br>
           7901 4th St N #22791, St. Petersburg, FL 33702<br>
-          <a href="https://dmg-webinar-landing.vercel.app" style="color:#999;">dmgagencycore.com</a> &nbsp;&middot;&nbsp;
-          <a href="{{unsubscribe_link}}" style="color:#999;">Unsubscribe</a>
+          <a href="https://dmg-webinar-landing.vercel.app" style="color:#999;">dmgagencycore.com</a>
         </p>
       </td></tr>
 

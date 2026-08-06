@@ -49,8 +49,18 @@ workflow's email editor.
 Everything else — the Zoom room, calendar link, booking calendar and intake
 form — is already baked in.
 
-Merge fields (`{{contact.first_name}}`, `{{appointment.start_time}}`,
-`{{unsubscribe_link}}`) are already GHL syntax and need no change.
+Merge fields (`{{contact.first_name}}`, `{{appointment.start_time}}`) are
+already GHL syntax and need no change.
+
+## Unsubscribe
+
+There is deliberately **no unsubscribe link in these templates.** GHL appends
+its own at send time — a per-recipient URL carrying a token that encodes that
+contact's id and email.
+
+Never paste a real unsubscribe URL into a template. It belongs to one recipient,
+so everyone who clicked it would unsubscribe that same person instead of
+themselves.
 
 ## Subject lines
 
