@@ -52,6 +52,9 @@ Short Intake Form    5vCz4nUIQbx73vumvbFK
 Booking calendar     https://api.leadconnectorhq.com/widget/booking/hu6p9LZ65HxhL9ayiqko
   note               permanent link, not the slug one — survives calendar renames
 
+Webinar Pipeline     H3YdniI3QAKlRDnbCOWd     (created 2026-08-06, 7 stages)
+LLC Formation        xQn1lQyjn4kR8KjxtwZI     (handoff destination)
+
 Phone                321-204-9035
 ```
 
@@ -147,13 +150,15 @@ and by December you cannot tell who registered for which one.
 - All 17 email templates loaded in GHL as HTML type
 - Zoom room, booking link and intake form baked into the emails
 - Countdown, calendar links (Google + .ics) all derive from one date constant
+- **Four custom fields created and verified** 2026-08-06 — Webinar Date (DATE),
+  Webinar Attended (RADIO: Live/Replay/No-Show), Watch Duration (NUMERICAL),
+  Ad Campaign (TEXT)
+- **Webinar Pipeline created and verified** 2026-08-06 — all seven stages in order
 
 ### Outstanding
 
 | Item | Blocks |
 | --- | --- |
-| Custom fields do not exist | The workflow |
-| Webinar Funnel pipeline does not exist | The workflow |
 | The workflow itself | Everything |
 | 13 emails need re-pasting | Nothing — but they are stale in GHL right now |
 | Meta Pixel ID never supplied | All ad tracking and optimisation |
