@@ -8,6 +8,35 @@ Copy is written against **Transportation_Entrepreneur_Blueprint.pptx**, so the
 emails promise exactly what the session delivers. If the deck changes, update
 `email-content.mjs`.
 
+## Which file goes into which GHL template
+
+The names in GHL are shorter than the filenames here. Mapping:
+
+| File here | GHL template | Re-paste needed? |
+| --- | --- | --- |
+| `01-immediate-youre-in.html` | youre in | **yes** |
+| `02-t-minus-3-days.html` | 3 days | **yes** |
+| `03-t-minus-1-day.html` | 1 day | **yes** |
+| `04-t-minus-1-hour.html` | 1 hr | **yes** |
+| `05-t-minus-15-min.html` | 15 mins | **yes** |
+| `06-day1-noshow.html` | no show | wait — `[REPLAY LINK]` |
+| `07-day1-attended.html` | attended | wait — `[REPLAY LINK]` |
+| `08-day3-backwards.html` | day 3-backward | **yes** |
+| `09-day5-front-door.html` | day 5-front | **yes** |
+| `10-day7-fraud.html` | day 7-front → **rename to day 7-fraud** | **yes** |
+| `11-day10-which-pillar.html` | day 10-which-pillar | **yes** |
+| `12-day14-faq.html` | day 14-faq | **yes** |
+| `13-day21-two-roads.html` | day 21-two-roads | **yes** |
+| `14-booked-confirmation.html` | booked-confirmation | **yes** |
+| `15-booked-24h.html` | booked-24hr | wait — merge fields |
+| `16-booked-1h.html` | booked-1hr | wait — merge fields |
+| `17-post-consult.html` | post-consult | **yes** |
+
+Thirteen to re-paste. The four marked "wait" still contain placeholders that
+cannot be filled yet — `[REPLAY LINK]` does not exist until after the session,
+and `[MEETING LINK]` / `[RESCHEDULE LINK]` are per-appointment merge fields you
+insert from the dropdown inside the workflow's email editor.
+
 ## How to load one into GHL
 
 1. Marketing → Emails → Templates → **New** → template type **HTML**
