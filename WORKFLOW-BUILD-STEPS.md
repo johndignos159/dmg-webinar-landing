@@ -65,42 +65,47 @@ double-counts every sale.
 someone registering three weeks out and fires *after* the webinar for someone
 registering the day before.
 
-Each block is If/Else → Wait Until → Send, so late registrants skip anything
-already past.
+### No If/Else guard — corrected 2026-08-06
 
-### T-3 days
+This originally specified an If/Else before each reminder so late registrants
+would skip past emails. Two reasons that does not work in GHL:
 
-```
-If/Else   →  Webinar Date is more than 3 days from now
-   YES    →  Wait Until  12 Sep 2026, 7:00 PM
-          →  Send Email: 3 days
-   NO     →  skip to next block
-```
+1. **The Webinar Date field is identical for every contact** (`2026-09-15`), so
+   comparing it returns the same answer for everyone. Only the `in the next N
+   days` operator evaluates against *now*, and using it would put the send on
+   the None branch — readable backwards.
+2. **GHL branches do not rejoin.** Each branch runs to its own end, so a guard
+   branch would need every downstream step duplicated inside it — four
+   reminders, the attended/no-show split, six nurture emails. Three branches
+   means maintaining the same sequence three times.
 
-### T-1 day
+The complexity is a bigger risk than the problem. Build the waits flat.
 
-```
-If/Else   →  Webinar Date is more than 1 day from now
-   YES    →  Wait Until  14 Sep 2026, 7:00 PM
-          →  Send Email: 1 day
-   NO     →  skip
-```
+**The cost:** someone registering on 14 September hits the 12 September wait,
+finds it passed, and moves straight through — one premature "Three days out"
+email. Registering on the day itself, two.
 
-### T-1 hour
+**The fix is operational, not structural: turn the ad off 48 hours before the
+webinar.** Nobody registers late enough to hit it, and the last two days of
+spend go to people who cannot be properly warmed up anyway.
 
-```
-Wait Until  15 Sep 2026, 6:00 PM
-Send Email: 1 hr
-Send SMS:   see SMS copy below
-```
+Ten steps, straight down. No branching.
 
-### T-15 minutes
+| # | Action | Setting |
+| --- | --- | --- |
+| 1 | Wait | specific date/time -> `12 Sep 2026, 7:00 PM` |
+| 2 | Send Email | `3 days` |
+| 3 | Wait | `14 Sep 2026, 7:00 PM` |
+| 4 | Send Email | `1 day` |
+| 5 | Wait | `15 Sep 2026, 6:00 PM` |
+| 6 | Send Email | `1 hr` |
+| 7 | Send SMS | copy below |
+| 8 | Wait | `15 Sep 2026, 6:45 PM` |
+| 9 | Send Email | `15 mins` |
+| 10 | Send SMS | copy below |
 
-```
-Wait Until  15 Sep 2026, 6:45 PM
-Send Email: 15 mins
-Send SMS:   see SMS copy below
-```
+Subject lines are set on each Send Email step, not in the template. The full
+list is in `emails/README.md`.
 
 ### SMS copy
 
