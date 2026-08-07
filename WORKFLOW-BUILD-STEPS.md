@@ -193,11 +193,24 @@ The first email sends immediately on trigger — no wait before it.
 | # | Action | Setting |
 | --- | --- | --- |
 | 1 | Add Tag | `webinar-cold` |
-| 2 | **Find Opportunity** | Pipeline: Webinar Pipeline |
-| 3 | Update Opportunity | Stage -> **Closed Lost** |
+| 2 | **Create or Update Opportunity** | Pipeline: **Webinar Pipeline** · Stage: **Closed Lost** · Value **0** |
 
-**Find Opportunity must come first.** Without it the update silently does
-nothing — no error, no failed step, the stage just never moves.
+### Use Create or Update, never Find + Update — corrected 2026-08-07
+
+An earlier version of this doc specified Find Opportunity followed by Update
+Opportunity. That was a misreading.
+
+**Update opportunity** is the node that warns *"if neither is found, nothing
+happens"* — it genuinely does need a Find before it, and it splits the canvas
+into Found / Not Found branches, which breaks any workflow that has steps after
+it.
+
+**Create or Update Opportunity** is a different action. It looks for a matching
+opportunity itself: finds one, updates it; finds none, creates one. No Find
+step, no branching, no dead-end path.
+
+It is the same node used in Part A, where it works. Use it everywhere an
+opportunity needs setting.
 
 `webinar-cold` is not a dead end. It is the warmest re-invite list for the next
 webinar — better than cold traffic, and free.
@@ -248,8 +261,11 @@ they can run inline for everyone.
 | 1 | **Remove From Workflow** | Workflow 1 — registration/reminders | **Top, right after the trigger** |
 | 2 | **Remove From Workflow** | **Webinar — Nurture** | **Top, right after the trigger** |
 | 3 | Add Tag | `consultation-booked` | Anywhere after |
-| 4 | **Find Opportunity** | Pipeline: **Webinar Pipeline** | Anywhere after |
-| 5 | Update Opportunity | Stage → **Hot Lead** | Immediately after step 4 |
+
+**No opportunity step here.** The stage move was dropped 2026-08-07 — the
+`consultation-booked` tag records the same fact, and counting tagged contacts
+gives the same number without adding a node to a shared workflow.
+
 
 ### Steps 1 and 2 must be at the top — corrected 2026-08-07
 
