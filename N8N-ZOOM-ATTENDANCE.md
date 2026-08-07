@@ -50,12 +50,8 @@ Neither is about n8n, and both can invalidate the plan.
 
 ### 1. Is the Zoom account paid?
 
-`us05web.zoom.us` is the subdomain Zoom assigns to **Basic (free)** accounts. On
-Basic:
-
-- Meetings with 3+ participants are **cut off at 40 minutes**. The session is 45
-  minutes plus Q&A, so it would end mid-offer.
-- Webhook access via a Marketplace app is limited on some free tiers.
+**Confirmed paid, 2026-08-07.** The 40-minute cap on Basic accounts does not
+apply, so the 45-minute session plus Q&A will run to the end.
 
 ### 2. Is it a Meeting or a Webinar?
 

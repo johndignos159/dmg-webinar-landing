@@ -23,7 +23,7 @@ Last updated 2026-08-05.
 | Date | **Tuesday, 15 September 2026** |
 | Time | **7:00 PM Eastern / 4:00 PM Pacific** |
 | Length | 45 minutes + live Q&A |
-| Platform | Zoom |
+| Platform | Zoom — **paid plan confirmed 2026-08-07** |
 | Room | `https://us05web.zoom.us/j/81236507956` |
 | Offer | Trucking Business Setup — **997 USD** (LLC, EIN, BOI, BOC-3, bilingual) |
 | Close | "Book Your Setup Call" |
