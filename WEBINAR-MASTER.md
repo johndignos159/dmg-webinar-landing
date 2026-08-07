@@ -171,7 +171,7 @@ and by December you cannot tell who registered for which one.
 | 13 emails need re-pasting | Nothing — but they are stale in GHL right now |
 | Meta Pixel ID — **parked 2026-08-06**, deferred until after the workflow | All ad tracking; remind before the ad goes live |
 | SMS consent still shows `[BUSINESS NAME]` placeholders | A2P compliance, and it is visible to visitors |
-| Zoom attendance not wired to GHL — **n8n chosen 2026-08-07**, see `N8N-ZOOM-ATTENDANCE.md` | The entire attended / no-show split |
+| Zoom attendance — **manual CSV for run one, decided 2026-08-07.** Must be tagged before 10:00 PM on 15 Sep. n8n spec written for later in `N8N-ZOOM-ATTENDANCE.md` | The entire attended / no-show split |
 | Custom domain not attached | Nothing — Vercel URL works |
 | Slide 4 origin story still a draft frame | The webinar itself |
 

@@ -5,6 +5,45 @@ branch. Without this, everyone falls down the No-Show path.
 
 ---
 
+## Decision 2026-08-07: do the first run manually
+
+This spec stays here for later. For **15 September, tag attendance by hand.**
+
+The reasoning:
+
+- **n8n does not remove the manual check, it shrinks it.** Zoom only reports an
+  email for participants who were signed in. Anyone who clicks the link and
+  types a name arrives with `email: ""` and will never match, however well the
+  workflow runs. The reconciliation still has to happen.
+- **One webinar is a bad first outing for an untested integration.** A paid Zoom
+  plan, a Marketplace app, the validation handshake, and credentials — all
+  firing once, at 7pm, with no chance to retry.
+- **The numbers to justify it do not exist yet.** After the first session you
+  will know the real show rate and what share Zoom could identify by email. If
+  attendance is 60 people, a CSV beats an integration.
+
+**GHL's native Zoom integration does not appear to cover this either** — it
+generates meeting links for calendar appointments, which is a different job.
+Worth checking under Settings → Integrations, but do not plan around it.
+
+### The manual process, before 10:00 PM on the night
+
+1. Zoom → Reports → Usage → the meeting → Participants → Export
+2. Open the CSV, take the email column
+3. GHL → Contacts → filter by tag `webinar-2026-09-15-registered`
+4. Select everyone appearing in the export → Add Tag →
+   `webinar-2026-09-15-attended`
+
+Ten minutes. It must be done before 10:00 PM, which is when the GHL workflow
+evaluates the split.
+
+### Build this spec when
+
+You are running webinars monthly, and the first run showed a high enough
+email-match rate to be worth automating.
+
+---
+
 ## Check these two things first
 
 Neither is about n8n, and both can invalidate the plan.
