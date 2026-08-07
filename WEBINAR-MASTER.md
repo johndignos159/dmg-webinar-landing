@@ -162,15 +162,19 @@ and by December you cannot tell who registered for which one.
   Webinar Attended (RADIO: Live/Replay/No-Show), Watch Duration (NUMERICAL),
   Ad Campaign (TEXT)
 - **Webinar Pipeline created and verified** 2026-08-06 — all seven stages in order
+- **All emails re-pasted into GHL** 2026-08-07
+- **SMS consent text filled in** 2026-08-07 — real business name and use case on both checkboxes
+- **Zoom confirmed on a paid plan** 2026-08-07
+- **Workflow 1 Parts A and B built and verified** 2026-08-07
 
 ### Outstanding
 
 | Item | Blocks |
 | --- | --- |
 | The workflow itself | Everything |
-| 13 emails need re-pasting | Nothing — but they are stale in GHL right now |
+
 | Meta Pixel ID — **parked 2026-08-06**, deferred until after the workflow | All ad tracking; remind before the ad goes live |
-| SMS consent still shows `[BUSINESS NAME]` placeholders | A2P compliance, and it is visible to visitors |
+
 | Zoom attendance — **manual CSV for run one, decided 2026-08-07.** Must be tagged before 10:00 PM on 15 Sep. n8n spec written for later in `N8N-ZOOM-ATTENDANCE.md` | The entire attended / no-show split |
 | Custom domain not attached | Nothing — Vercel URL works |
 | Slide 4 origin story still a draft frame | The webinar itself |

@@ -3,9 +3,9 @@
 What to click, in order. Companion to `WEBINAR-WORKFLOW-BUILD.md`, which holds
 the reasoning; this file is just the sequence.
 
-**Build two workflows, not one.** One for registration through nurture, one for
-the booked path. They fire on different triggers and mixing them makes a long
-workflow that is hard to debug.
+**Three workflows.** Registration through the attended/no-show split; the
+nurture; the booked path. They fire on different triggers, and splitting them is
+what stops the nurture having to be built twice.
 
 Webinar: **Tuesday 15 September 2026, 7:00 PM Eastern.**
 
@@ -141,62 +141,92 @@ or a field the workflow can read, you are texting people who did not tick it.
 
 ## Part C — The attended / no-show split
 
+This is the last thing in Workflow 1. The nurture moves to its own workflow —
+see below for why.
+
+### Step 1 — Wait
+
 ```
-Wait Until  15 Sep 2026, 10:00 PM        (three hours after the session ends)
-
-If/Else  →  Contact has tag `webinar-2026-09-15-attended`
-
-   YES  →  Update Opportunity  →  stage Attended Live
-        →  Send Email: attended
-
-   NO   →  Add Tag `webinar-2026-09-15-noshow`
-        →  Update Opportunity  →  stage No-Show
-        →  Send Email: no show
+Date:       09/15/2026
+Time:       10:00:00 PM
+Proceed:    On this date and time
+If passed:  Skip all outbound
 ```
 
-**This branch is the whole point.** Show rates run 30-45%, so more than half your
-list takes the No path. Sending them "thank you for attending" tells them nobody
-is paying attention.
+Three hours after the session ends, which is the window for getting attendance
+into GHL.
 
-**The attended tag has to come from somewhere.** Zoom does not tell GHL who
-showed up on its own. Decide before 15 September:
+### Step 2 — Condition
 
-- Native GHL/Zoom integration
-- n8n off the Zoom webhook, tagging contacts as attendees come through
-- Manual: export the Zoom attendee CSV, bulk-add the tag in GHL the same night
+Condition: **Contact** -> **Tag** -> `has` -> `webinar-2026-09-15-attended`
 
-Manual is fine for the first run. Just do it **before 10:00 PM**, or everyone
-falls down the No-Show branch.
+**Branch 1 — attended**
+
+| Action | Setting |
+| --- | --- |
+| Update Opportunity | Stage -> **Attended Live** |
+| Send Email | `attended` · subject *Thank you for being there* |
+| Add Tag | `webinar-2026-09-15-nurture` |
+
+**None branch — no-show**
+
+| Action | Setting |
+| --- | --- |
+| Add Tag | `webinar-2026-09-15-noshow` |
+| Update Opportunity | Stage -> **No-Show** |
+| Send Email | `no show` · subject *You missed it — here is the short version* |
+| Add Tag | `webinar-2026-09-15-nurture` |
+
+Both branches end with the same tag. That tag is what starts the nurture, and it
+is why the nurture only has to be built once.
+
+**Attendance has to be tagged before 10:00 PM.** Nothing applies
+`webinar-2026-09-15-attended` automatically — export the Zoom participant list
+and bulk-tag in GHL on the night. Miss the window and every attendee receives
+the "you missed it" email.
 
 ---
 
-## Part D — Nurture
+# Workflow 2 — "Webinar — Nurture"
 
-Both branches merge here.
+**Trigger:** Contact Tag -> `webinar-2026-09-15-nurture`
 
-Durations are safe from this point. Everyone reaches the end of the webinar at
-the same moment, so "wait 2 days" means the same thing for all of them. That is
-only untrue *before* the webinar, which is why Part B uses dates.
+**Settings:** re-entry off, timezone America/New_York.
 
-| Wait | Then send |
-| --- | --- |
-| 2 days | day 3-backward |
-| 2 days | day 5-front |
-| 2 days | day 7-fraud |
-| 3 days | day 10-which-pillar |
-| 4 days | day 14-faq |
-| 7 days | day 21-two-roads |
+### Why this is separate
+
+GHL branches do not rejoin. If the six nurture emails sat inside Part C, they
+would need building in both branches — twelve email steps and twelve waits, kept
+in sync by hand forever. Both branches tagging into one workflow costs one extra
+tag and removes all of that.
+
+### The sequence
+
+Durations are safe here. Everyone reaches the end of the webinar at the same
+moment, so "wait 2 days" means the same thing for all of them. That is only
+untrue *before* the webinar, which is why Part B used dates.
+
+| Wait | Send Email | Subject |
+| --- | --- | --- |
+| 2 days | `day 3-backward` | Building in the wrong order |
+| 2 days | `day 5-front` | You can't do any of it until you legally exist |
+| 2 days | `day 7-fraud` | \ vanished last year. New authorities were the target. |
+| 3 days | `day 10-which-pillar` | Which of the four pillars is missing? |
+| 4 days | `day 14-faq` | The questions I get asked most |
+| 7 days | `day 21-two-roads` | Two roads from here |
 
 ### After the last email
 
 ```
-Add Tag             `webinar-cold`
-Update Opportunity  →  stage Closed Lost
+Add Tag             webinar-cold
+Update Opportunity  ->  stage Closed Lost
 ```
 
----
+`webinar-cold` is not a dead end — it is the warmest re-invite list for the
+next webinar. Better than cold traffic, and free.
 
-# Workflow 2 — "Webinar — Consultation Booked"
+---
+# Workflow 3 — "Webinar — Consultation Booked"
 
 **Trigger:** Appointment Booked → your setup call calendar
 
@@ -205,7 +235,8 @@ blank in Workflow 1, which is why the booked emails live here.
 
 | # | Action | Setting |
 | --- | --- | --- |
-| 1 | **Remove From Workflow** | select **Webinar — Registration & Nurture** |
+| 1 | **Remove From Workflow** | **Webinar — Registration & Nurture** |
+| 1b | **Remove From Workflow** | **Webinar — Nurture** — they are usually in this one, not the first |
 | 2 | Add Tag | `consultation-booked` |
 | 3 | Update Opportunity | Webinar Pipeline → stage **Consultation Booked** |
 | 4 | Send Email | template **booked-confirmation** |
