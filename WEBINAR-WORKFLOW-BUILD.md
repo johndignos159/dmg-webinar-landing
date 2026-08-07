@@ -21,7 +21,7 @@ Typical webinar show rates run 30–45%. So this branch is more than half your l
 
 A step that says *"wait 3 days, then send"* works for someone who registers three weeks out and fails for someone who registers the day before — their "3 days before" email arrives after the webinar has ended.
 
-Every pre-webinar step uses **Wait Until a specific date/time**, calculated from the webinar datetime, with an if/else so late registrants skip anything already in the past.
+Every pre-webinar step uses **Wait Until a specific date/time**. Each Wait is set to skip outbound communications if its moment has already passed, so late registrants pass through any reminder they have missed rather than receiving it stale.
 
 ### 3. SMS added at the two moments it actually matters
 
@@ -152,15 +152,17 @@ convert — no manual stage-setting needed.
 
 ### The skip-if-past pattern
 
-Every pre-webinar step needs this or late registrants break:
+Handled by the Wait step itself. On each one, set **"If this date has already
+passed"** to:
 
-```
-IF/ELSE  ->  Webinar Date is more than 3 days from now
-   YES  ->  Wait Until (Webinar Date minus 3 days)  ->  Send Email 2
-   NO   ->  skip to the next step
-```
+> Skip all outbound communication actions till next wait or event start date action
 
-Repeat for T-1 day, T-1 hour, T-15 min.
+A late registrant then passes straight through any reminder whose moment has
+gone, and resumes at the next Wait.
+
+No branching. An earlier version of this doc specified an If/Else guard on the
+Webinar Date field — that does not work, because the field holds the same value
+for every contact and so cannot tell an early registrant from a late one.
 
 ---
 
