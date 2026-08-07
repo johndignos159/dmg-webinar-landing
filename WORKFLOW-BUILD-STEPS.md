@@ -229,15 +229,26 @@ blank in Workflow 1, which is why the booked emails live here.
 
 | # | Action | Setting |
 | --- | --- | --- |
-| 1 | **Remove From Workflow** | **Webinar — Registration & Nurture** |
-| 1b | **Remove From Workflow** | **Webinar — Nurture** — they are usually in this one, not the first |
-| 2 | Add Tag | `consultation-booked` |
-| 3 | Update Opportunity | Webinar Pipeline → stage **Consultation Booked** |
-| 4 | Send Email | template **booked-confirmation** |
+| 1 | **Remove From Workflow** | Workflow 1 — the registration/reminder one |
+| 2 | **Remove From Workflow** | **Webinar — Nurture** |
+| 3 | Add Tag | `consultation-booked` |
+| 4 | **Find Opportunity** | Pipeline: **Webinar Pipeline** |
+| 5 | Update Opportunity | Stage → **Consultation Booked** |
+| 6 | Send Email | `booked-confirmation` · *Your setup call is confirmed* |
 
-**Step 1 is the important one.** It is what stops someone who has already booked
-from continuing to receive the nurture sequence. Put it first, before anything
-else, so it fires even if a later step errors.
+**Steps 1 and 2 are the whole point of this workflow.** They are what stops a
+person who has already booked from continuing to receive nurture emails.
+
+Both are needed. Someone booking on day 5 is sitting in the **Nurture**
+workflow, not the registration one — removing them from only the first would
+leave them receiving "Two roads from here" on day 21, sixteen days after they
+booked.
+
+Put them first, before anything else, so they fire even if a later step errors.
+
+**Step 4 is not optional.** Update Opportunity silently does nothing without a
+Find Opportunity before it — no error, no failed step, the stage simply never
+moves. Verified by test on 2026-08-07.
 
 ### Reminders
 
