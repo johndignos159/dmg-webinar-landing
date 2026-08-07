@@ -222,10 +222,36 @@ chart, so either delete them, or leave them and read the funnel as
 Registered → Consultation Booked → Closed Lost.
 # Workflow 3 — "Webinar — Consultation Booked"
 
-**Trigger:** Appointment Booked → your setup call calendar
+**Trigger:** Appointment Booked → the setup call calendar
+**Trigger filter:** Contact **has tag** `webinar-2026-09-15-registered`
 
-This is where the per-appointment merge fields become available. They will be
-blank in Workflow 1, which is why the booked emails live here.
+## Check this before building
+
+The booking link in the emails is the **personal calendar**
+(`hu6p9LZ65HxhL9ayiqko`) — most likely the same one the website's
+"Schedule a Consultation" offer uses.
+
+If a workflow already fires on Appointment Booked for that calendar, a webinar
+lead booking would trigger **both** it and this one: two confirmation emails,
+two opportunities, from a single booking.
+
+Look under Automation → Workflows for anything triggered by Appointment Booked.
+Then pick one:
+
+| Situation | What to do |
+| --- | --- |
+| No existing booking workflow | Build this as specced |
+| One exists, and it does the same job | Add only the webinar-specific steps to it, guarded by the tag |
+| One exists, doing something different | Build this one, and add an *exclude* filter to the old one so it skips contacts tagged `webinar-2026-09-15-registered` |
+
+The trigger filter on the tag is what makes this safe — without it, every
+website consultation booking would also fire the webinar sequence.
+
+Cleanest long-term fix: give webinar setup calls their **own calendar**. Then
+the two never collide, and booking-to-show reporting separates by source
+automatically. Worth doing before the next webinar, not this one.
+
+## The actions
 
 | # | Action | Setting |
 | --- | --- | --- |
@@ -234,56 +260,75 @@ blank in Workflow 1, which is why the booked emails live here.
 | 3 | Add Tag | `consultation-booked` |
 | 4 | **Find Opportunity** | Pipeline: **Webinar Pipeline** |
 | 5 | Update Opportunity | Stage → **Consultation Booked** |
-| 6 | Send Email | `booked-confirmation` · *Your setup call is confirmed* |
+| 6 | **Create Opportunity** | Pipeline: **Schedule a Consulation** · Stage: **Booked Consultation** · Value **0** |
+| 7 | Send Email | `booked-confirmation` · *Your setup call is confirmed* |
 
-**Steps 1 and 2 are the whole point of this workflow.** They are what stops a
-person who has already booked from continuing to receive nurture emails.
+**Steps 1 and 2 are the whole point of this workflow.** They stop a person who
+has already booked from continuing to receive nurture emails.
 
-Both are needed. Someone booking on day 5 is sitting in the **Nurture**
-workflow, not the registration one — removing them from only the first would
-leave them receiving "Two roads from here" on day 21, sixteen days after they
-booked.
-
-Put them first, before anything else, so they fire even if a later step errors.
+Both are needed. Someone booking on day 5 sits in the **Nurture** workflow, not
+the registration one — removing them from only the first would leave them
+getting "Two roads from here" on day 21, sixteen days after they booked.
 
 **Step 4 is not optional.** Update Opportunity silently does nothing without a
-Find Opportunity before it — no error, no failed step, the stage simply never
-moves. Verified by test on 2026-08-07.
+Find Opportunity before it — no error, no failed step, the stage never moves.
+Verified by test 2026-08-07.
 
-### Reminders
+**Step 6 connects to the existing consultation pipeline.** Two opportunities per
+person is correct here, because they measure different things:
+
+| Pipeline | Question it answers |
+| --- | --- |
+| Webinar Pipeline | Did this webinar lead book a call? |
+| Schedule a Consulation | Did that call actually happen? |
+| LLC Formation | Did they buy? |
+
+Neither of the first two carries a monetary value, so nothing double-counts.
+Revenue is only ever recorded in LLC Formation.
+
+If a workflow already advances the consultation pipeline through
+Canceled / No Show / Completed, leave that alone — this only creates the
+opportunity at the front of it.
+
+## Reminders
 
 ```
 Wait Until  appointment start minus 24 hours   →  Send Email: booked-24hr
 Wait Until  appointment start minus 1 hour     →  Send Email: booked-1hr  + SMS
 ```
 
-### Finish the two waiting templates here
+## Finish the two waiting templates here
 
 `booked-24hr` and `booked-1hr` still contain `[MEETING LINK]` and
 `[RESCHEDULE LINK]`. Insert the real values from the **merge-field dropdown** in
 this workflow's email editor — they are per-appointment, so they cannot be
 hardcoded into the template files.
 
-### After the call
+This is the last thing blocking those two templates.
+
+## After the call
 
 `post-consult` is not automated. It carries `[Which lane and why]` and
-`[Specific recommendation and order]`, which are written per person after the
-conversation. Send it manually, or trigger it from an "Appointment Showed"
-status change and edit before sending.
+`[Specific recommendation and order]`, written per person after the
+conversation. Send it manually, or trigger it from an appointment status change
+and edit before sending.
+
+Its CTA is the **Short Intake Form**, which is stage 0 of LLC Formation — so
+submitting it moves them into the revenue pipeline on its own.
 
 ---
 
 ## Test before you trust it
 
-Register twice with different emails:
+Register a test contact, then book a call with the same email. Check:
 
-1. **Now** — should receive "youre in" immediately, then wait for T-3 days
-2. **On 15 September, an hour before** — should receive "youre in" and then
-   *skip straight to* the T-1 hour block, not sit waiting for a T-3 day email
-   that can never fire
+- They stop receiving nurture emails
+- `consultation-booked` tag applied
+- Webinar Pipeline opportunity moved to **Consultation Booked**
+- A new opportunity appears in **Schedule a Consulation** at Booked Consultation
+- Exactly **one** confirmation email arrives, not two
 
-The second test is the one that finds broken waits. It is much cheaper to find
-now than on the night.
+That last one is what catches a colliding workflow.
 
 ---
 
