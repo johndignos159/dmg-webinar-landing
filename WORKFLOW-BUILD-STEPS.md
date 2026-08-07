@@ -315,7 +315,43 @@ those two templates.
 covers that ground, leave them. Three fewer things to maintain, and they are
 already built if you ever split the calendars.
 
-## After the call
+## After the call — 04 - Consultation Showed
+
+That workflow already has a **Goal** gating on appointment status = Showed, so
+anything placed after it runs only for people who actually turned up. That is
+the warmest audience in the whole funnel, and as of 2026-08-07 nothing was being
+sent to them.
+
+Add two actions after the Goal:
+
+| # | Action | Setting |
+| --- | --- | --- |
+| 1 | **Send Email** | `18-post-call-auto` · *Good talking with you — here is the link* |
+| 2 | **Add Task** | see below |
+
+### The email
+
+`18-post-call-auto` has no fill-in-the-blanks, so it can send unattended. Short,
+lands within minutes of the call being marked Showed, and its only CTA is the
+**Short Intake Form** — which is stage 0 of LLC Formation, so submitting it puts
+them in the revenue pipeline on its own.
+
+Create it in GHL as a new template; there is no existing one to paste over.
+
+### The task
+
+| Field | Value |
+| --- | --- |
+| Title | `Personal follow-up — {{contact.first_name}} {{contact.last_name}}` |
+| Assigned to | John |
+| Due | Same day |
+| Description | Send `post-consult` with their lane and first step filled in, if the call warrants it. The automated email has already gone. |
+
+### Why both
+
+The automated email guarantees something reaches them at peak intent, even on a
+busy week. The task lets you add the personal version where it is worth the
+time — without it being the only thing standing between a good call and silence.
 
 `post-consult` is not automated. It carries `[Which lane and why]` and
 `[Specific recommendation and order]`, written per person after the

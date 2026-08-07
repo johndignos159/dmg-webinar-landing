@@ -10,7 +10,7 @@ emails promise exactly what the session delivers. If the deck changes, update
 
 ## Which file goes into which GHL template
 
-**14 of 16 are ready to paste.** The "wait" rows still
+**15 of 17 are ready to paste.** The "wait" rows still
 contain placeholders — pasting them now means pasting them twice.
 
 | File here | GHL template | Ready? |
@@ -31,6 +31,7 @@ contain placeholders — pasting them now means pasting them twice.
 | `15-booked-24h.html` | booked-24hr | wait — `[MEETING LINK]` `[RESCHEDULE LINK]` |
 | `16-booked-1h.html` | booked-1hr | wait — `[MEETING LINK]` |
 | `17-post-consult.html` | post-consult | **yes** |
+| `18-post-call-auto.html` | post-call (new — create this one) | **yes** |
 
 ## How to load one into GHL
 
@@ -81,3 +82,4 @@ themselves.
 | `15-booked-24h.html` | Tomorrow — your setup call |
 | `16-booked-1h.html` | One hour |
 | `17-post-consult.html` | What we covered, and your next step |
+| `18-post-call-auto.html` | Good talking with you — here is the link |

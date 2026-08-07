@@ -579,4 +579,38 @@ export const emails = [
       },
     ],
   },
+
+  // Automated twin of post-consult. Goes out from "04 - Consultation Showed"
+  // the moment an appointment is marked Showed, so something always lands at
+  // peak intent. No fill-in-the-blanks — it has to read correctly without
+  // anyone editing it. The personalised version above is still sent by hand
+  // where the call warrants it.
+  {
+    file: '18-post-call-auto',
+    ghl: 'post-call (new — create this one)',
+    ready: true,
+    subject: 'Good talking with you — here is the link',
+    blocks: [
+      { p: `${NAME},` },
+      { p: 'Good talking with you.' },
+      {
+        p: 'Whatever we landed on for your lane, the first move is the same one we covered: you have to legally exist as a business before any of it can operate. Nothing else stands until that does.',
+      },
+      {
+        p: 'If you want us to handle that foundation — LLC formation, EIN, BOI and BOC-3, all filed in the right order — start here.',
+      },
+      { btn: { text: 'Get my foundation built — $997', url: INTAKE } },
+      {
+        small:
+          'Takes a couple of minutes. It is the same intake every client of ours begins with.',
+      },
+      {
+        p: 'And if you would rather do it yourself, everything we discussed is doable on your own. Take your notes and run with it — the offer stands either way.',
+      },
+      {
+        small:
+          'Questions before you decide? Just reply to this email. It comes straight to us.',
+      },
+    ],
+  },
 ];
