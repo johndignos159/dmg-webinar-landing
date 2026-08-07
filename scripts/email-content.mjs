@@ -177,11 +177,53 @@ export const emails = [
     ],
   },
 
-  // ------------------------------------------------------------- DAY 1 (SPLIT)
+  // --------------------------------------------------------------------- DAY 1
+  // One email for everyone. The attended / no-show split was dropped
+  // 2026-08-07 — it needed manual tagging on the night plus a Find Opportunity
+  // fix in four places, and a simpler sequence is one that actually runs.
+  // This has to read correctly whether or not they made it, so it never thanks
+  // anyone for attending and never tells anyone they missed it.
   {
-    file: '06-day1-noshow',
-    ghl: 'no show',
+    file: '06-day1-next-step',
+    ghl: 'attended',
     ready: true,
+    subject: 'The Blueprint — your next step',
+    blocks: [
+      { p: `${NAME},` },
+      { p: 'The session is done.' },
+      {
+        p: 'Whether you made it into the room or not, the part that matters is the same — so here it is, short.',
+      },
+      { h: 'Every lane starts in the same place' },
+      {
+        p: 'Carrier, dispatcher, broker, forwarder. Four different roads into this industry, and not one of them can operate until you legally exist as a business. That is Pillar One, and it is the only step every single lane shares.',
+      },
+      { h: 'Sequence beats speed' },
+      {
+        p: 'Building in the right order costs exactly the same as building backwards. It just does not have to be undone later — and undoing it is where people lose months and thousands.',
+      },
+      { h: 'The threat nobody warns you about' },
+      {
+        p: '$725 million was lost to freight fraud last year, and brand-new authorities were the number one target. A legitimate, verifiable business identity is your first line of defence, not an afterthought.',
+      },
+      { h: 'What to do now' },
+      {
+        p: 'Thirty minutes, your situation, straight answers about which lane fits you and what your first step actually is. No pitch — if we are not a fit, I will tell you and point you somewhere useful.',
+      },
+      { btn: { text: 'Book your setup call', url: BOOK } },
+      {
+        small:
+          'We run this session again. If you would rather catch the next one live, reply and I will let you know the date.',
+      },
+    ],
+  },
+
+  // Retired 2026-08-07 — kept out of the build, not deleted, in case the split
+  // comes back for a later webinar.
+  {
+    file: '_retired-day1-noshow',
+    ghl: 'no show',
+    ready: false,
     subject: 'You missed it — here is the short version',
     blocks: [
       { p: `${NAME},` },
@@ -215,9 +257,9 @@ export const emails = [
   },
 
   {
-    file: '07-day1-attended',
+    file: '_retired-day1-attended',
     ghl: 'attended',
-    ready: true,
+    ready: false,
     subject: 'Thank you for being there',
     blocks: [
       { p: `${NAME},` },

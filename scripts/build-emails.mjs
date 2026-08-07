@@ -129,6 +129,10 @@ const index = [];
 const mapping = [];
 
 for (const e of emails) {
+  // Entries prefixed with an underscore are retired — kept in the content file
+  // for reference but not written out or listed.
+  if (e.file.startsWith('_')) continue;
+
   const html = shell(e.subject, e.blocks);
   writeFileSync(join(OUT, `${e.file}.html`), html, 'utf8');
   index.push(`| \`${e.file}.html\` | ${e.subject} |`);
@@ -144,6 +148,7 @@ for (const e of emails) {
 }
 
 const readyCount = mapping.filter((r) => r.includes('**yes**')).length;
+const liveCount = mapping.length;
 
 writeFileSync(
   join(OUT, 'README.md'),
@@ -159,7 +164,7 @@ emails promise exactly what the session delivers. If the deck changes, update
 
 ## Which file goes into which GHL template
 
-**${readyCount} of ${emails.length} are ready to paste.** The "wait" rows still
+**${readyCount} of ${liveCount} are ready to paste.** The "wait" rows still
 contain placeholders — pasting them now means pasting them twice.
 
 | File here | GHL template | Ready? |

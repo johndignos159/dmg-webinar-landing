@@ -10,7 +10,7 @@ emails promise exactly what the session delivers. If the deck changes, update
 
 ## Which file goes into which GHL template
 
-**15 of 17 are ready to paste.** The "wait" rows still
+**14 of 16 are ready to paste.** The "wait" rows still
 contain placeholders — pasting them now means pasting them twice.
 
 | File here | GHL template | Ready? |
@@ -20,8 +20,7 @@ contain placeholders — pasting them now means pasting them twice.
 | `03-t-minus-1-day.html` | 1 day | **yes** |
 | `04-t-minus-1-hour.html` | 1 hr | **yes** |
 | `05-t-minus-15-min.html` | 15 mins | **yes** |
-| `06-day1-noshow.html` | no show | **yes** |
-| `07-day1-attended.html` | attended | **yes** |
+| `06-day1-next-step.html` | attended | **yes** |
 | `08-day3-backwards.html` | day 3-backward | **yes** |
 | `09-day5-front-door.html` | day 5-front | **yes** |
 | `10-day7-fraud.html` | day 7-front | **yes** |
@@ -71,8 +70,7 @@ themselves.
 | `03-t-minus-1-day.html` | Tomorrow — four doors in, one first step |
 | `04-t-minus-1-hour.html` | One hour out |
 | `05-t-minus-15-min.html` | Starting now |
-| `06-day1-noshow.html` | You missed it — here is the short version |
-| `07-day1-attended.html` | Thank you for being there |
+| `06-day1-next-step.html` | The Blueprint — your next step |
 | `08-day3-backwards.html` | Building in the wrong order |
 | `09-day5-front-door.html` | You can't do any of it until you legally exist |
 | `10-day7-fraud.html` | $725M vanished last year. New authorities were the target. |

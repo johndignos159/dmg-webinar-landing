@@ -139,51 +139,30 @@ or a field the workflow can read, you are texting people who did not tick it.
 
 ---
 
-## Part C — The attended / no-show split
+## Part C — Hand off to the nurture
 
-This is the last thing in Workflow 1. The nurture moves to its own workflow —
-see below for why.
+**The attended / no-show split was dropped 2026-08-07.** Everyone who registered
+gets the same follow-up regardless of whether they showed. Two reasons:
 
-### Step 1 — Wait
+1. The split needed the attendance list tagged manually before 10:00 PM on the
+   night. One missed step and every attendee receives "you missed it".
+2. **Update Opportunity does nothing without a Find Opportunity before it** —
+   proven by test on 2026-08-07, the stage never moved and no error was raised.
+   The split needed that fix in four places.
 
-```
-Date:       09/15/2026
-Time:       10:00:00 PM
-Proceed:    On this date and time
-If passed:  Skip all outbound
-```
+The trade is that you lose show-rate reporting from the pipeline. See the note
+at the end for how to keep the number without the branching.
 
-Three hours after the session ends, which is the window for getting attendance
-into GHL.
+Two steps, no branching:
 
-### Step 2 — Condition
+| # | Action | Setting |
+| --- | --- | --- |
+| 1 | Wait | `09/16/2026` · `09:00:00 AM` · Skip all outbound |
+| 2 | Add Tag | `webinar-2026-09-15-nurture` |
 
-Condition: **Contact** -> **Tag** -> `has` -> `webinar-2026-09-15-attended`
+The morning after, not the same night — a follow-up landing at 10pm gets buried.
 
-**Branch 1 — attended**
-
-| Action | Setting |
-| --- | --- |
-| Update Opportunity | Stage -> **Attended Live** |
-| Send Email | `attended` · subject *Thank you for being there* |
-| Add Tag | `webinar-2026-09-15-nurture` |
-
-**None branch — no-show**
-
-| Action | Setting |
-| --- | --- |
-| Add Tag | `webinar-2026-09-15-noshow` |
-| Update Opportunity | Stage -> **No-Show** |
-| Send Email | `no show` · subject *You missed it — here is the short version* |
-| Add Tag | `webinar-2026-09-15-nurture` |
-
-Both branches end with the same tag. That tag is what starts the nurture, and it
-is why the nurture only has to be built once.
-
-**Attendance has to be tagged before 10:00 PM.** Nothing applies
-`webinar-2026-09-15-attended` automatically — export the Zoom participant list
-and bulk-tag in GHL on the night. Miss the window and every attendee receives
-the "you missed it" email.
+That tag is the trigger for Workflow 2. Workflow 1 ends here.
 
 ---
 
@@ -193,21 +172,13 @@ the "you missed it" email.
 
 **Settings:** re-entry off, timezone America/New_York.
 
-### Why this is separate
-
-GHL branches do not rejoin. If the six nurture emails sat inside Part C, they
-would need building in both branches — twelve email steps and twelve waits, kept
-in sync by hand forever. Both branches tagging into one workflow costs one extra
-tag and removes all of that.
-
-### The sequence
-
-Durations are safe here. Everyone reaches the end of the webinar at the same
-moment, so "wait 2 days" means the same thing for all of them. That is only
-untrue *before* the webinar, which is why Part B used dates.
+Durations are safe throughout. Everyone is tagged at the same moment, so
+"wait 2 days" means the same for all of them. That was only untrue *before* the
+webinar, which is why Part B used fixed dates.
 
 | Wait | Send Email | Subject |
 | --- | --- | --- |
+| — | `06-day1-next-step` | The Blueprint — your next step |
 | 2 days | `day 3-backward` | Building in the wrong order |
 | 2 days | `day 5-front` | You can't do any of it until you legally exist |
 | 2 days | `day 7-fraud` | $725M vanished last year. New authorities were the target. |
@@ -215,17 +186,40 @@ untrue *before* the webinar, which is why Part B used dates.
 | 4 days | `day 14-faq` | The questions I get asked most |
 | 7 days | `day 21-two-roads` | Two roads from here |
 
+The first email sends immediately on trigger — no wait before it.
+
 ### After the last email
 
-```
-Add Tag             webinar-cold
-Update Opportunity  ->  stage Closed Lost
-```
+| # | Action | Setting |
+| --- | --- | --- |
+| 1 | Add Tag | `webinar-cold` |
+| 2 | **Find Opportunity** | Pipeline: Webinar Pipeline |
+| 3 | Update Opportunity | Stage -> **Closed Lost** |
 
-`webinar-cold` is not a dead end — it is the warmest re-invite list for the
-next webinar. Better than cold traffic, and free.
+**Find Opportunity must come first.** Without it the update silently does
+nothing — no error, no failed step, the stage just never moves.
+
+`webinar-cold` is not a dead end. It is the warmest re-invite list for the next
+webinar — better than cold traffic, and free.
 
 ---
+
+## Keeping show rate without the split
+
+The pipeline no longer records who attended, but the number still matters — it
+is what tells you whether the reminder sequence works and whether webinar two is
+worth running.
+
+Cheapest way to keep it: on the night, export the Zoom participant list and
+bulk-add the tag `webinar-2026-09-15-attended` in GHL. Same ten minutes as
+before, but nothing depends on it — if it does not happen, no emails go wrong.
+The tag is then just a filter you can count later.
+
+## The pipeline has two stages nobody will enter
+
+**Attended Live** and **No-Show** are now unused. An empty stage skews the funnel
+chart, so either delete them, or leave them and read the funnel as
+Registered → Consultation Booked → Closed Lost.
 # Workflow 3 — "Webinar — Consultation Booked"
 
 **Trigger:** Appointment Booked → your setup call calendar
