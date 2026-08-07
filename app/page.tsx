@@ -112,6 +112,28 @@ const LANES = [
 // Sub-points and the "skip this" warnings come straight from the four pillar
 // slides. The cards are large enough in the scroll stack to carry them, which
 // the previous small cards were not.
+// From the "What you might be thinking" slide, added to the deck 2026-08-07.
+// These are the reasons someone decides not to register at all, so they belong
+// on the page rather than only in the session.
+const OBJECTIONS = [
+  {
+    q: 'I don’t have money for a truck.',
+    a: 'You do not need one. Dispatching and brokering never touch a truck — and carriers form the business first, then finance equipment.',
+  },
+  {
+    q: 'I don’t have a CDL.',
+    a: 'Dispatchers and brokers do not drive. And many carriers hire drivers rather than driving themselves.',
+  },
+  {
+    q: 'Isn’t the market saturated?',
+    a: 'It is a $900 billion industry that never stops moving. There is always room for someone who runs like a real business.',
+  },
+  {
+    q: 'I don’t know where to start.',
+    a: 'That is the whole point. The Blueprint is where to start — in the right order, with help.',
+  },
+];
+
 const PILLARS = [
   {
     n: '1',
@@ -318,6 +340,43 @@ export default function LandingPage() {
               </span>
             </p>
           </div>
+        </div>
+      </section>
+
+      {/* OBJECTIONS — placed straight after the four lanes because the two
+          biggest ones (no truck, no CDL) are answered by the lanes themselves. */}
+      <section className="py-20 md:py-28 bg-brand-gray">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="text-center max-w-3xl mx-auto mb-14">
+            <h2 className="font-heading text-3xl md:text-4xl font-bold uppercase text-brand-navy mb-4">
+              What You Might Be Thinking
+            </h2>
+            <div className="w-24 h-1 bg-brand-red mx-auto rounded-full mb-6"></div>
+            <p className="text-lg text-gray-600">
+              The reasons people talk themselves out of this.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 gap-6 mb-10">
+            {OBJECTIONS.map(({ q, a }, i) => (
+              <Reveal
+                key={q}
+                index={i}
+                className="bg-white rounded-2xl p-7 border border-gray-200 h-full"
+              >
+                <p className="font-heading text-lg font-bold text-brand-navy mb-3">
+                  &ldquo;{q}&rdquo;
+                </p>
+                <p className="text-gray-600 leading-relaxed">{a}</p>
+              </Reveal>
+            ))}
+          </div>
+
+          <p className="text-center font-heading text-lg md:text-xl font-bold text-brand-navy">
+            Every one of these is a reason to{' '}
+            <span className="text-brand-red">start right</span> — not a reason to
+            wait.
+          </p>
         </div>
       </section>
 

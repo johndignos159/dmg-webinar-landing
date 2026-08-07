@@ -139,12 +139,28 @@ export const emails = [
       {
         p: 'Different roads. Same first move. We will walk what each one requires, what each one pays, and the step every single one of them shares.',
       },
+      // The five open loops from the "Stay to the end" slide. Naming them the
+      // day before is the cheapest show-rate lever available — people turn up
+      // for specifics they cannot get anywhere else.
+      { h: 'Five things I am going to show you' },
+      {
+        list: [
+          'The filing mistake that quietly kills new authorities before their first load',
+          'The lane almost nobody talks about that costs next to nothing to start',
+          'The 10-second check that stops the scam hitting new operators right now',
+          'The one first move that is identical for carriers, dispatchers and brokers',
+          'The tax status most owner-operators do not realise they can choose',
+        ],
+      },
+      {
+        p: 'Miss any one of those and it costs you. There is no recording, so tomorrow is the only place to get them.',
+      },
       { h: 'Two things that will make tomorrow worth more' },
       {
         p: 'Come with your single biggest question ready. We do live Q&amp;A at the end, and specific questions get specific answers.',
       },
       {
-        p: 'And join from somewhere you can take notes. There is no recording — this is live only, so what you write down is what you keep.',
+        p: 'And join from somewhere you can take notes — what you write down is what you keep.',
       },
       { btn: { text: 'Join tomorrow', url: JOIN } },
     ],
