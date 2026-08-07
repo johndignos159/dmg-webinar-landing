@@ -3,9 +3,9 @@
 What to click, in order. Companion to `WEBINAR-WORKFLOW-BUILD.md`, which holds
 the reasoning; this file is just the sequence.
 
-**Three workflows.** Registration through the attended/no-show split; the
-nurture; the booked path. They fire on different triggers, and splitting them is
-what stops the nurture having to be built twice.
+**Two new workflows, plus a branch on an existing one.** Registration and
+reminders; the nurture; then the booked path bolted onto
+*01 - Schedule a Consultation Workflow*, which already handles that trigger.
 
 Webinar: **Tuesday 15 September 2026, 7:00 PM Eastern.**
 
@@ -220,91 +220,75 @@ The tag is then just a filter you can count later.
 **Attended Live** and **No-Show** are now unused. An empty stage skews the funnel
 chart, so either delete them, or leave them and read the funnel as
 Registered → Consultation Booked → Closed Lost.
-# Workflow 3 — "Webinar — Consultation Booked"
+# The booked path — added to the existing workflow
 
-**Trigger:** Appointment Booked → the setup call calendar
-**Trigger filter:** Contact **has tag** `webinar-2026-09-15-registered`
+**Decided 2026-08-07: no separate webinar booking workflow.** The webinar steps
+go on the end of **01 - Schedule a Consultation Workflow**, which already
+triggers on Appointment Booked for that calendar.
 
-## Check this before building
+## Why not a separate one
 
-The booking link in the emails is the **personal calendar**
-(`hu6p9LZ65HxhL9ayiqko`) — most likely the same one the website's
-"Schedule a Consultation" offer uses.
+Both would fire on the same trigger. A webinar lead who books would run through
+each — two confirmation emails, two sets of reminders, from one booking.
 
-If a workflow already fires on Appointment Booked for that calendar, a webinar
-lead booking would trigger **both** it and this one: two confirmation emails,
-two opportunities, from a single booking.
+A tag filter on a new workflow stops it firing for website bookings, but nothing
+stops the *existing* workflow firing for webinar bookings. One workflow with a
+branch is the only version that sends each thing once.
 
-Look under Automation → Workflows for anything triggered by Appointment Booked.
-Then pick one:
+## What to add
 
-| Situation | What to do |
-| --- | --- |
-| No existing booking workflow | Build this as specced |
-| One exists, and it does the same job | Add only the webinar-specific steps to it, guarded by the tag |
-| One exists, doing something different | Build this one, and add an *exclude* filter to the old one so it skips contacts tagged `webinar-2026-09-15-registered` |
+Open **01 - Schedule a Consultation Workflow**, scroll past the last existing
+action, and add a **Condition**:
 
-The trigger filter on the tag is what makes this safe — without it, every
-website consultation booking would also fire the webinar sequence.
+**Condition:** Contact → Tag → `has` → `webinar-2026-09-15-registered`
 
-Cleanest long-term fix: give webinar setup calls their **own calendar**. Then
-the two never collide, and booking-to-show reporting separates by source
-automatically. Worth doing before the next webinar, not this one.
-
-## The actions
+### Branch — webinar leads
 
 | # | Action | Setting |
 | --- | --- | --- |
-| 1 | **Remove From Workflow** | Workflow 1 — the registration/reminder one |
+| 1 | **Remove From Workflow** | Workflow 1 — registration/reminders |
 | 2 | **Remove From Workflow** | **Webinar — Nurture** |
 | 3 | Add Tag | `consultation-booked` |
 | 4 | **Find Opportunity** | Pipeline: **Webinar Pipeline** |
 | 5 | Update Opportunity | Stage → **Consultation Booked** |
-| 6 | **Create Opportunity** | Pipeline: **Schedule a Consulation** · Stage: **Booked Consultation** · Value **0** |
-| 7 | Send Email | `booked-confirmation` · *Your setup call is confirmed* |
 
-**Steps 1 and 2 are the whole point of this workflow.** They stop a person who
-has already booked from continuing to receive nurture emails.
+### None branch
 
-Both are needed. Someone booking on day 5 sits in the **Nurture** workflow, not
-the registration one — removing them from only the first would leave them
-getting "Two roads from here" on day 21, sixteen days after they booked.
+Leave empty. Website bookings carry on exactly as they do today.
 
-**Step 4 is not optional.** Update Opportunity silently does nothing without a
-Find Opportunity before it — no error, no failed step, the stage never moves.
+Because this sits at the end of the workflow, the branches-do-not-rejoin problem
+does not apply — there is nothing downstream to duplicate.
+
+## The two that matter
+
+**Steps 1 and 2** are the reason this exists. Someone booking on day 5 sits in
+the **Nurture** workflow, not the registration one. Remove them from only the
+first and they keep receiving day 7, 10, 14, and "Two roads from here" on day 21
+— sixteen days after booking a call.
+
+**Step 4** is not optional. Update Opportunity silently does nothing without a
+Find Opportunity before it. No error, no failed step, the stage never moves.
 Verified by test 2026-08-07.
 
-**Step 6 connects to the existing consultation pipeline.** Two opportunities per
-person is correct here, because they measure different things:
+## Check what the existing workflow already does
 
-| Pipeline | Question it answers |
+| If it already... | Then |
 | --- | --- |
-| Webinar Pipeline | Did this webinar lead book a call? |
-| Schedule a Consulation | Did that call actually happen? |
-| LLC Formation | Did they buy? |
+| Sends a booking confirmation | Do not add another. `booked-confirmation` goes unused. |
+| Sends 24h / 1h reminders | Do not add those. `booked-24hr` and `booked-1hr` go unused. |
+| Creates an opportunity in **Schedule a Consulation** | Do not add another, or every booking makes two. |
+| Adds its own booking tag | Keep `consultation-booked` anyway — the Remove From Workflow steps do not depend on it, but it makes webinar bookings filterable. |
 
-Neither of the first two carries a monetary value, so nothing double-counts.
-Revenue is only ever recorded in LLC Formation.
+If it does **not** send confirmations or reminders, add those three emails into
+the same branch. That is also where the `[MEETING LINK]` and `[RESCHEDULE LINK]`
+merge fields become available in the dropdown, which is the last thing blocking
+those two templates.
 
-If a workflow already advances the consultation pipeline through
-Canceled / No Show / Completed, leave that alone — this only creates the
-opportunity at the front of it.
+## Three templates may end up unused
 
-## Reminders
-
-```
-Wait Until  appointment start minus 24 hours   →  Send Email: booked-24hr
-Wait Until  appointment start minus 1 hour     →  Send Email: booked-1hr  + SMS
-```
-
-## Finish the two waiting templates here
-
-`booked-24hr` and `booked-1hr` still contain `[MEETING LINK]` and
-`[RESCHEDULE LINK]`. Insert the real values from the **merge-field dropdown** in
-this workflow's email editor — they are per-appointment, so they cannot be
-hardcoded into the template files.
-
-This is the last thing blocking those two templates.
+`booked-confirmation`, `booked-24hr`, `booked-1hr` — if the existing workflow
+covers that ground, leave them. Three fewer things to maintain, and they are
+already built if you ever split the calendars.
 
 ## After the call
 
@@ -322,13 +306,13 @@ submitting it moves them into the revenue pipeline on its own.
 
 Register a test contact, then book a call with the same email. Check:
 
-- They stop receiving nurture emails
+- Nurture emails stop
 - `consultation-booked` tag applied
 - Webinar Pipeline opportunity moved to **Consultation Booked**
-- A new opportunity appears in **Schedule a Consulation** at Booked Consultation
-- Exactly **one** confirmation email arrives, not two
+- **Exactly one** confirmation email, not two
+- **Exactly one** opportunity in Schedule a Consulation, not two
 
-That last one is what catches a colliding workflow.
+The last two are what catch a duplicated step.
 
 ---
 
