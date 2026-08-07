@@ -27,21 +27,21 @@ in Eastern, and GHL evaluates them against the workflow's timezone, not yours.
 - Stop on response: **on**
 - Timezone: America/New_York
 
-### Exit condition — handled from Workflow 2, not here
+### Exit condition — handled from Workflow 3, not here
 
 Nothing to add in this workflow. The **Remove From Workflow** action lives in
-Workflow 2 and points back at this one.
+Workflow 3 and points back at this one and at Workflow 2.
 
 That action asks you to pick a workflow because it is built to remove contacts
 from *other* workflows. Putting it inside the workflow it is meant to stop does
 not work, and the dropdown makes that obvious the moment you try.
 
-So: build this workflow straight through. Workflow 2's first action pulls people
-out of it the moment they book.
+So: build this workflow straight through. Workflow 3's first actions pull people
+out of both the reminder and nurture workflows the moment they book.
 
 Without that step, someone who books on day 5 still receives *"Two roads from
 here"* on day 21 — which undoes everything the sequence built. It is the easiest
-thing to forget, so it is the first action in Workflow 2.
+thing to forget, so it is the first action in Workflow 3.
 
 ---
 
@@ -210,7 +210,7 @@ untrue *before* the webinar, which is why Part B used dates.
 | --- | --- | --- |
 | 2 days | `day 3-backward` | Building in the wrong order |
 | 2 days | `day 5-front` | You can't do any of it until you legally exist |
-| 2 days | `day 7-fraud` | \ vanished last year. New authorities were the target. |
+| 2 days | `day 7-fraud` | $725M vanished last year. New authorities were the target. |
 | 3 days | `day 10-which-pillar` | Which of the four pillars is missing? |
 | 4 days | `day 14-faq` | The questions I get asked most |
 | 7 days | `day 21-two-roads` | Two roads from here |
