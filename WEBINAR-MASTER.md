@@ -71,19 +71,20 @@ Built 2026-08-06 as **"Webinar Pipeline"**. **Opportunity value 0** — revenue 
 counted in LLC Formation only, and putting 997 in both places double-counts
 every sale.
 
+Simplified to three stages 2026-08-07. No-Show, Attended Live, Watched Replay
+and Consultation Booked were all removed — the first three when the attended
+split was dropped, the last when it became clear "Hot Lead" says the same thing.
+
 | # | Stage | Enters when |
 | --- | --- | --- |
 | 1 | **Registered** | Registration form submitted. Everyone starts here. |
-| 2 | **No-Show** | Webinar ended, no attendance recorded for them |
-| 3 | **Attended Live** | Attendance confirmed from Zoom |
-| 4 | **Hot Lead** | Replied, or clicked the booking link |
-| 5 | **Consultation Booked** | Booked a setup call. **Handoff point — pipeline ends here.** |
-| 6 | **Closed Lost** | Day 21 with no booking, or disqualified |
+| 2 | **Hot Lead** | Booked a setup call. **Handoff point.** |
+| 3 | **Closed Lost** | Nurture finished at day 21 with no booking |
 
-**"Watched Replay" was removed 2026-08-06** when the replay was dropped. If the
-stage still exists in GHL, delete it — an empty stage skews the funnel chart.
-
-### Why it stops at Consultation Booked
+An empty stage makes a funnel chart lie, so fewer honest stages beat more
+aspirational ones. Depth lives in the pipelines downstream: whether the call
+happened is **Schedule a Consulation**, whether they bought is **LLC Formation**.
+### Why it stops at Hot Lead
 
 The Short Intake Form's submission is **stage 0 of LLC Formation**. So a
 converting webinar lead enters that pipeline on its own — you wire nothing.

@@ -237,27 +237,36 @@ branch is the only version that sends each thing once.
 
 ## What to add
 
-Open **01 - Schedule a Consultation Workflow**, scroll past the last existing
-action, and add a **Condition**:
+Open **01 - Schedule a Consultation Workflow**. The two Remove steps go at the
+**very top**, immediately after the trigger. The rest can follow them.
 
-**Condition:** Contact → Tag → `has` → `webinar-2026-09-15-registered`
+No Condition needed. Every one of these is a no-op for a website booker, so
+they can run inline for everyone.
 
-### Branch — webinar leads
+| # | Action | Setting | Where |
+| --- | --- | --- | --- |
+| 1 | **Remove From Workflow** | Workflow 1 — registration/reminders | **Top, right after the trigger** |
+| 2 | **Remove From Workflow** | **Webinar — Nurture** | **Top, right after the trigger** |
+| 3 | Add Tag | `consultation-booked` | Anywhere after |
+| 4 | **Find Opportunity** | Pipeline: **Webinar Pipeline** | Anywhere after |
+| 5 | Update Opportunity | Stage → **Hot Lead** | Immediately after step 4 |
 
-| # | Action | Setting |
-| --- | --- | --- |
-| 1 | **Remove From Workflow** | Workflow 1 — registration/reminders |
-| 2 | **Remove From Workflow** | **Webinar — Nurture** |
-| 3 | Add Tag | `consultation-booked` |
-| 4 | **Find Opportunity** | Pipeline: **Webinar Pipeline** |
-| 5 | Update Opportunity | Stage → **Consultation Booked** |
+### Steps 1 and 2 must be at the top — corrected 2026-08-07
 
-### None branch
+They were briefly placed at the end of the workflow. That does not work, for two
+reasons.
 
-Leave empty. Website bookings carry on exactly as they do today.
+**Timing.** There is a Wait partway through the consultation workflow. Someone
+booking on day 5 of the nurture would not be removed until the workflow reached
+its final step — after the appointment, days later. In the meantime they would
+receive day 7, day 10 and day 14, all sent after they had already booked. That
+is the exact failure the removes exist to prevent.
 
-Because this sits at the end of the workflow, the branches-do-not-rejoin problem
-does not apply — there is nothing downstream to duplicate.
+**Branching.** The workflow has several paths ending in different places. Steps
+on one terminal branch are never reached by contacts routed down another.
+
+At the top, immediately after the trigger, they fire for everyone the moment a
+booking happens.
 
 ## The two that matter
 
@@ -308,7 +317,7 @@ Register a test contact, then book a call with the same email. Check:
 
 - Nurture emails stop
 - `consultation-booked` tag applied
-- Webinar Pipeline opportunity moved to **Consultation Booked**
+- Webinar Pipeline opportunity moved to **Hot Lead**
 - **Exactly one** confirmation email, not two
 - **Exactly one** opportunity in Schedule a Consulation, not two
 
