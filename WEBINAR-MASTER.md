@@ -8,6 +8,7 @@ Detail lives in the two companion docs; this file holds **current state**.
 | `META-GHL-WORKFLOW.md` | Meta ad → landing page → form, plus a plain-English glossary |
 | `WEBINAR-WORKFLOW-BUILD.md` | The GHL workflow map and build spec |
 | `WORKFLOW-BUILD-STEPS.md` | Click-by-click build order for both workflows |
+| `N8N-ZOOM-ATTENDANCE.md` | Wiring Zoom attendance into GHL so the split works |
 | `emails/README.md` | The 17 emails, subject lines, how to load them |
 
 Last updated 2026-08-05.
@@ -170,7 +171,7 @@ and by December you cannot tell who registered for which one.
 | 13 emails need re-pasting | Nothing — but they are stale in GHL right now |
 | Meta Pixel ID — **parked 2026-08-06**, deferred until after the workflow | All ad tracking; remind before the ad goes live |
 | SMS consent still shows `[BUSINESS NAME]` placeholders | A2P compliance, and it is visible to visitors |
-| Zoom attendance not wired to GHL | The entire attended / no-show split |
+| Zoom attendance not wired to GHL — **n8n chosen 2026-08-07**, see `N8N-ZOOM-ATTENDANCE.md` | The entire attended / no-show split |
 | Custom domain not attached | Nothing — Vercel URL works |
 | Slide 4 origin story still a draft frame | The webinar itself |
 
