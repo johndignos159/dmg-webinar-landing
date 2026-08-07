@@ -166,7 +166,19 @@ and by December you cannot tell who registered for which one.
 - **All emails re-pasted into GHL** 2026-08-07
 - **SMS consent text filled in** 2026-08-07 — real business name and use case on both checkboxes
 - **Zoom confirmed on a paid plan** 2026-08-07
-- **Workflow 1 Parts A and B built and verified** 2026-08-07
+- **Workflow 1 built and verified end to end** 2026-08-07 — named
+  "Webinar 0.1 Registration & Nurture". Execution log confirms Add Tag, Update
+  contact field, Create or update opportunity and the confirmation email all
+  fire, then the contact parks correctly on the first Wait.
+- **Booking removal verified** 2026-08-07 — a contact parked on the Wait booked a
+  call, and the log shows "Removed by - External workflow action / Removed From:
+  01 - Schedule a Consultation Workflow". The nurture-exit path works.
+- **Booking confirmation verified** — exactly one email, from the existing
+  consultation workflow, already carrying a Reschedule link. So
+  `booked-confirmation`, `booked-24hr` and `booked-1hr` stay unused.
+- **`consultation-booked` tag dropped** — the existing `schedule-a-consultation`
+  tag already marks every booker. Count webinar bookings by filtering contacts
+  with both `webinar-2026-09-15-registered` and `schedule-a-consultation`.
 
 ### Outstanding
 
