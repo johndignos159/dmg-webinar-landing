@@ -201,7 +201,7 @@ export const emails = [
   // anyone for attending and never tells anyone they missed it.
   {
     file: '06-day1-next-step',
-    ghl: 'attended',
+    ghl: 'day 1-next step',
     ready: true,
     subject: 'The Blueprint — your next step',
     blocks: [
@@ -369,7 +369,7 @@ export const emails = [
 
   {
     file: '10-day7-fraud',
-    ghl: 'day 7-front',
+    ghl: 'day 7-fraud',
     ready: true,
     subject: '$725M vanished last year. New authorities were the target.',
     blocks: [
@@ -603,7 +603,7 @@ export const emails = [
   // where the call warrants it.
   {
     file: '18-post-call-auto',
-    ghl: 'post-call (new — create this one)',
+    ghl: '18-post-call-auto',
     ready: true,
     subject: 'Good talking with you — here is the link',
     blocks: [

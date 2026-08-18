@@ -20,10 +20,10 @@ contain placeholders — pasting them now means pasting them twice.
 | `03-t-minus-1-day.html` | 1 day | **yes** |
 | `04-t-minus-1-hour.html` | 1 hr | **yes** |
 | `05-t-minus-15-min.html` | 15 mins | **yes** |
-| `06-day1-next-step.html` | attended | **yes** |
+| `06-day1-next-step.html` | day 1-next step | **yes** |
 | `08-day3-backwards.html` | day 3-backward | **yes** |
 | `09-day5-front-door.html` | day 5-front | **yes** |
-| `10-day7-fraud.html` | day 7-front | **yes** |
+| `10-day7-fraud.html` | day 7-fraud | **yes** |
 | `11-day10-which-pillar.html` | day 10-which-pillar | **yes** |
 | `12-day14-faq.html` | day 14-faq | **yes** |
 | `13-day21-two-roads.html` | day 21-two-roads | **yes** |
@@ -31,7 +31,7 @@ contain placeholders — pasting them now means pasting them twice.
 | `15-booked-24h.html` | booked-24hr | wait — `[MEETING LINK]` `[RESCHEDULE LINK]` |
 | `16-booked-1h.html` | booked-1hr | wait — `[MEETING LINK]` |
 | `17-post-consult.html` | post-consult | **yes** |
-| `18-post-call-auto.html` | post-call (new — create this one) | **yes** |
+| `18-post-call-auto.html` | 18-post-call-auto | **yes** |
 
 ## How to load one into GHL
 
