@@ -16,13 +16,19 @@
 export const NAME = '{{contact.first_name}}';
 export const JOIN = 'https://us05web.zoom.us/j/81236507956';
 export const CAL =
-  'https://calendar.google.com/calendar/render?action=TEMPLATE&text=The%20Transportation%20Entrepreneur%20Blueprint%20%E2%80%94%20DMG%20Agency%20Core&dates=20260915T230000Z/20260916T000000Z&details=One%20industry.%20Many%20lanes.%20One%20first%20step.&location=Online';
+  'https://calendar.google.com/calendar/render?action=TEMPLATE&text=The%20Transportation%20Entrepreneur%20Blueprint%20%E2%80%94%20DMG%20Agency%20Core&dates=20260930T230000Z/20260930T234500Z&details=One%20industry.%20Many%20lanes.%20One%20first%20step.&location=Online';
 // GHL gives two URLs for a calendar. This is the *permanent* one, keyed on
 // the calendar id rather than its name — the slug-based `/widget/bookings/…`
 // URL breaks the moment the calendar is renamed, and these emails go out over
 // three weeks.
 export const BOOK = 'https://api.leadconnectorhq.com/widget/booking/hu6p9LZ65HxhL9ayiqko';
-export const MEET = '[MEETING LINK]';
+// GHL fills this with the Google Meet URL it creates for the appointment.
+// It is per-appointment, so it cannot be a fixed URL — it has to stay a merge
+// field. UNCONFIRMED: verify by booking a test appointment before the first
+// real one goes out. A wrong merge-field name renders as an empty string in
+// GHL rather than erroring, so a broken one looks fine in the editor.
+export const MEET = '{{appointment.meeting_location}}';
+export const RESCHEDULE = '{{appointment.reschedule_link}}';
 // DMG START TRUCKING BUSINESS Short Intake Form — the front door to the LLC
 // Formation pipeline. Deliberately NOT sent before the consultation: it asks
 // for street address and postal code, which is what you need to form an entity,
@@ -546,7 +552,7 @@ export const emails = [
   {
     file: '15-booked-24h',
     ghl: 'booked-24hr',
-    ready: false,
+    ready: true,
     subject: 'Tomorrow — your setup call',
     blocks: [
       { p: `${NAME},` },
@@ -556,20 +562,20 @@ export const emails = [
         small:
           'Have a rough idea of which lane interests you. Not sure yet is a perfectly good answer — that is part of what the call is for.',
       },
-      { small: 'Need to move it? <a href="[RESCHEDULE LINK]">Reschedule here</a>.' },
+      { small: `Need to move it? <a href="${RESCHEDULE}">Reschedule here</a>.` },
     ],
   },
 
   {
     file: '16-booked-1h',
     ghl: 'booked-1hr',
-    ready: false,
+    ready: true,
     subject: 'One hour',
     blocks: [
       { p: `${NAME},` },
       { p: 'We are on in an hour.' },
       { btn: { text: 'Join the call', url: MEET } },
-      { small: 'Talk soon.' },
+      { small: 'The link is in your calendar invite too, if the button gives you trouble. Talk soon.' },
     ],
   },
 

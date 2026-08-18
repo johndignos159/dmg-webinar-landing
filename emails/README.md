@@ -10,8 +10,7 @@ emails promise exactly what the session delivers. If the deck changes, update
 
 ## Which file goes into which GHL template
 
-**15 of 17 are ready to paste.** The "wait" rows still
-contain placeholders — pasting them now means pasting them twice.
+**17 of 17 are ready to paste.**
 
 | File here | GHL template | Ready? |
 | --- | --- | --- |
@@ -28,8 +27,8 @@ contain placeholders — pasting them now means pasting them twice.
 | `12-day14-faq.html` | day 14-faq | **yes** |
 | `13-day21-two-roads.html` | day 21-two-roads | **yes** |
 | `14-booked-confirmation.html` | booked-confirmation | **yes** |
-| `15-booked-24h.html` | booked-24hr | wait — `[MEETING LINK]` `[RESCHEDULE LINK]` |
-| `16-booked-1h.html` | booked-1hr | wait — `[MEETING LINK]` |
+| `15-booked-24h.html` | booked-24hr | **yes** |
+| `16-booked-1h.html` | booked-1hr | **yes** |
 | `17-post-consult.html` | post-consult | **yes** |
 | `18-post-call-auto.html` | 18-post-call-auto | **yes** |
 

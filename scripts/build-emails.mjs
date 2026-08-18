@@ -164,8 +164,11 @@ emails promise exactly what the session delivers. If the deck changes, update
 
 ## Which file goes into which GHL template
 
-**${readyCount} of ${liveCount} are ready to paste.** The "wait" rows still
-contain placeholders — pasting them now means pasting them twice.
+**${readyCount} of ${liveCount} are ready to paste.**${
+    readyCount === liveCount
+      ? ''
+      : ' The "wait" rows still\ncontain placeholders — pasting them now means pasting them twice.'
+  }
 
 | File here | GHL template | Ready? |
 | --- | --- | --- |
