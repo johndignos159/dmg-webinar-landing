@@ -72,8 +72,8 @@ Every Wait step has an **"If this date has already passed"** setting. Choose:
 > **Skip all outbound communication actions till next wait or event start date
 > action** *(Email, SMS, call & voicemail)*
 
-That is the whole guard. Someone registering on 14 September hits the
-12 September wait, GHL sees the date has passed, skips the "3 days" email, and
+That is the whole guard. Someone registering on 29 September hits the
+27 September wait, GHL sees the date has passed, skips the "3 days" email, and
 carries them to the next Wait where they resume normally.
 
 **Set it on all four Wait steps.** Defaults vary between steps.
@@ -95,9 +95,9 @@ Ten steps, straight down. No branching.
 
 | # | Action | Date / template | If date passed |
 | --- | --- | --- | --- |
-| 1 | Wait | `09/12/2026` · `07:00:00 PM` | Skip outbound |
+| 1 | Wait | `09/27/2026` · `07:00:00 PM` | Skip outbound |
 | 2 | Send Email | `3 days` | |
-| 3 | Wait | `09/14/2026` · `07:00:00 PM` | Skip outbound |
+| 3 | Wait | `09/29/2026` · `07:00:00 PM` | Skip outbound |
 | 4 | Send Email | `1 day` | |
 | 5 | Wait | `09/30/2026` · `06:00:00 PM` | Skip outbound |
 | 6 | Send Email | `1 hr` | |
@@ -157,7 +157,7 @@ Two steps, no branching:
 
 | # | Action | Setting |
 | --- | --- | --- |
-| 1 | Wait | `09/16/2026` · `09:00:00 AM` · Skip all outbound |
+| 1 | Wait | `10/01/2026` · `09:00:00 AM` · Skip all outbound |
 | 2 | Add Tag | `webinar-2026-09-30-nurture` |
 
 The morning after, not the same night — a follow-up landing at 10pm gets buried.
