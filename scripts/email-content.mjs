@@ -51,7 +51,7 @@ export const emails = [
       { p: 'Your seat is confirmed.' },
       {
         box: [
-          ['When:', 'Tuesday, September 15, 2026'],
+          ['When:', 'Wednesday, September 30, 2026'],
           ['Time:', '7:00 PM Eastern / 4:00 PM Pacific'],
           ['Length:', '45 minutes, plus live Q&amp;A'],
         ],
@@ -71,12 +71,12 @@ export const emails = [
       {
         p: 'You do not need a truck to earn in transportation. Carrier, dispatcher, broker, forwarder — four different roads, and every one of them starts with the same move.',
       },
-      { p: 'That move is what Tuesday is about.' },
+      { p: 'That move is what Wednesday is about.' },
       { h: 'There is no recording' },
       {
         p: 'This one is live only. That is deliberate — the Q&amp;A at the end is where people ask the specific question about their own lane, their own situation, their own numbers, and that half of the value does not survive a recording.',
       },
-      { p: 'So put it in your calendar properly. See you Tuesday.' },
+      { p: 'So put it in your calendar properly. See you Wednesday.' },
     ],
   },
 
@@ -107,8 +107,8 @@ export const emails = [
       {
         p: 'Sequence is not a detail. It is the difference between building a business and burying one.',
       },
-      { p: 'On Tuesday I hand you the order.' },
-      { btn: { text: 'Join Tuesday, 7PM ET', url: JOIN } },
+      { p: 'On Wednesday I hand you the order.' },
+      { btn: { text: 'Join Wednesday, 7PM ET', url: JOIN } },
     ],
   },
 
@@ -122,7 +122,7 @@ export const emails = [
       { p: 'Tomorrow.' },
       {
         box: [
-          ['When:', 'Tuesday, September 15'],
+          ['When:', 'Wednesday, September 30'],
           ['Time:', '7:00 PM Eastern / 4:00 PM Pacific'],
           ['Length:', '45 minutes, plus live Q&amp;A'],
         ],
@@ -280,7 +280,7 @@ export const emails = [
     blocks: [
       { p: `${NAME},` },
       {
-        p: 'Thanks for showing up on a Tuesday evening. That says something about how serious you are.',
+        p: 'Thanks for showing up on a Wednesday evening. That says something about how serious you are.',
       },
       {
         p: 'There is no recording, so consider this your notes.',

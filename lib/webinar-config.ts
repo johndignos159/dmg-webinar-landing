@@ -14,11 +14,11 @@
 //   -04:00  (EDT)  →  mid-March through early November   ← summer
 //   -05:00  (EST)  →  early November through mid-March    ← winter
 //
-// Sep 15 2026 falls in the summer window (DST runs 8 Mar - 1 Nov 2026), so it
+// Sep 30 2026 falls in the summer window (DST runs 8 Mar - 1 Nov 2026), so it
 // is -04:00 even though the label below reads EST.
 // Get this wrong and the countdown hits zero an hour off for every viewer.
 // ---------------------------------------------------------------------------
-export const WEBINAR_DATE_ISO = '2026-09-15T19:00:00-04:00';
+export const WEBINAR_DATE_ISO = '2026-09-30T19:00:00-04:00';
 
 // ---------------------------------------------------------------------------
 // Zoom room. Used on the confirmation page and in every reminder email.

@@ -20,7 +20,7 @@ Last updated 2026-08-05.
 | | |
 | --- | --- |
 | Title | The Transportation Entrepreneur Blueprint™ |
-| Date | **Tuesday, 15 September 2026** |
+| Date | **Wednesday, 30 September 2026** |
 | Time | **7:00 PM Eastern / 4:00 PM Pacific** |
 | Length | 45 minutes + live Q&A |
 | Platform | Zoom — **paid plan confirmed 2026-08-07** |
@@ -28,9 +28,14 @@ Last updated 2026-08-05.
 | Offer | Trucking Business Setup — **997 USD** (LLC, EIN, BOI, BOC-3, bilingual) |
 | Close | "Book Your Setup Call" |
 
-Changed from Sat 15 Aug 2:00 PM on 2026-08-05. The config uses a `-04:00`
-offset, which is correct — DST runs to 1 Nov 2026, so September is still EDT
-even though the page label reads EST.
+Date history: Sat 15 Aug 2:00 PM -> Tue 15 Sep 7:00 PM (2026-08-05) ->
+Wed 30 Sep 7:00 PM (2026-08-18). The config uses a `-04:00` offset, which is
+correct — DST runs to 1 Nov 2026, so September is still EDT even though the
+page label reads EST.
+
+**30 September 2026 is a Wednesday, not a Tuesday.** Every mention of the
+weekday in the page, the emails and these docs was updated along with the
+date. If the date moves again, check the weekday before pasting anything.
 
 ---
 
@@ -126,9 +131,9 @@ case a future session is recorded.
 ### Tags
 
 ```
-webinar-2026-09-15-registered
-webinar-2026-09-15-attended
-webinar-2026-09-15-noshow
+webinar-2026-09-30-registered
+webinar-2026-09-30-attended
+webinar-2026-09-30-noshow
 consultation-booked
 webinar-cold
 ```
@@ -178,7 +183,7 @@ and by December you cannot tell who registered for which one.
   `booked-confirmation`, `booked-24hr` and `booked-1hr` stay unused.
 - **`consultation-booked` tag dropped** — the existing `schedule-a-consultation`
   tag already marks every booker. Count webinar bookings by filtering contacts
-  with both `webinar-2026-09-15-registered` and `schedule-a-consultation`.
+  with both `webinar-2026-09-30-registered` and `schedule-a-consultation`.
 
 ### Outstanding
 

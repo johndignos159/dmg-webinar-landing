@@ -3,7 +3,7 @@
 Companion to `META-GHL-WORKFLOW.md`. That file covers ad → page → form.
 This one covers everything that happens after the form is submitted.
 
-Webinar: **Tuesday, September 15, 2026 · 7:00 PM Eastern**
+Webinar: **Wednesday, September 30, 2026 · 7:00 PM Eastern**
 
 ---
 
@@ -48,8 +48,8 @@ Your audience spans four US timezones. Every mention of the time says **7:00 PM 
 ```
 FORM SUBMITTED
       |
-      +-- Tag: webinar-2026-09-15-registered
-      +-- Custom field: Webinar Date = 2026-09-15
+      +-- Tag: webinar-2026-09-30-registered
+      +-- Custom field: Webinar Date = 2026-09-30
       +-- Opportunity -> Webinar Funnel -> "Registered"
       +-- EMAIL 1 (immediate): You're In
       |
@@ -109,9 +109,9 @@ BOOKED (any point)
 ### Tags
 
 ```
-webinar-2026-09-15-registered
-webinar-2026-09-15-attended
-webinar-2026-09-15-noshow
+webinar-2026-09-30-registered
+webinar-2026-09-30-attended
+webinar-2026-09-30-noshow
 consultation-booked
 webinar-cold
 ```
@@ -214,7 +214,7 @@ sequence works. Below 30% means the problem is the reminders, not the ad.
 
 ### Reuse this for every webinar
 
-Nothing here is specific to September 15 except the date field and the tags.
+Nothing here is specific to September 30 except the date field and the tags.
 Change the date, change the tag suffix, run it again.
 
 ### Consider making the offer twice

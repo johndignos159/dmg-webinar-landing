@@ -1,6 +1,6 @@
 # Zoom attendance → GHL, via n8n
 
-Applies the `webinar-2026-09-15-attended` tag so Part C of the workflow can
+Applies the `webinar-2026-09-30-attended` tag so Part C of the workflow can
 branch. Without this, everyone falls down the No-Show path.
 
 ---
@@ -30,9 +30,9 @@ Worth checking under Settings → Integrations, but do not plan around it.
 
 1. Zoom → Reports → Usage → the meeting → Participants → Export
 2. Open the CSV, take the email column
-3. GHL → Contacts → filter by tag `webinar-2026-09-15-registered`
+3. GHL → Contacts → filter by tag `webinar-2026-09-30-registered`
 4. Select everyone appearing in the export → Add Tag →
-   `webinar-2026-09-15-attended`
+   `webinar-2026-09-30-attended`
 
 Ten minutes. It must be done before 10:00 PM, which is when the GHL workflow
 evaluates the split.
@@ -98,7 +98,7 @@ Webhook (POST)
    → IF: contact found?
         NO  → log to a "unmatched" sheet or Slack, respond 200
         YES ↓
-   → HTTP: GHL — add tag  webinar-2026-09-15-attended
+   → HTTP: GHL — add tag  webinar-2026-09-30-attended
    → Respond 200
 ```
 
@@ -193,7 +193,7 @@ Method   POST
 URL      https://services.leadconnectorhq.com/contacts/{{ $json.contacts[0].id }}/tags
 Headers  Authorization  Bearer YOUR_GHL_PRIVATE_INTEGRATION_TOKEN
          Version        2021-07-28
-Body     { "tags": ["webinar-2026-09-15-attended"] }
+Body     { "tags": ["webinar-2026-09-30-attended"] }
 ```
 
 Optionally also set **Webinar Attended = Live** and **Watch Duration**, though

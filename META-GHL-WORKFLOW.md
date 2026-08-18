@@ -2,7 +2,7 @@
 
 The plan of record. Work top to bottom. Nothing below is optional unless marked so.
 
-**Webinar:** Tuesday, September 15, 2026 · 7:00 PM Eastern
+**Webinar:** Wednesday, September 30, 2026 · 7:00 PM Eastern
 **Architecture:** Option B — Meta ad → our landing page → GHL form → GHL workflow
 
 ---
@@ -44,7 +44,7 @@ You will hit these words constantly. Plain versions:
 5.  GHL receives it
     - Upserts contact (dedupes on email)
     - Writes custom fields: Webinar Date, Ad Campaign
-    - Applies tag: webinar-2026-09-15-registered
+    - Applies tag: webinar-2026-09-30-registered
     - Fires "Form Submitted" workflow trigger
         |
 6.  Browser redirects to /confirmed
@@ -123,7 +123,7 @@ the entire post-webinar branch collapses into one undifferentiated follow-up.
       in both SMS consent checkboxes (still showing raw to visitors)
 - [ ] Pipeline "Webinar Funnel": Registered → No-Show → Attended Live → Watched Replay → Hot Lead → Consultation Booked → Closed Lost
 - [ ] Workflow with **date-anchored** waits (see gotcha 1)
-- [ ] Tags: `webinar-2026-09-15-registered` / `-attended` / `-noshow` / `-replay`
+- [ ] Tags: `webinar-2026-09-30-registered` / `-attended` / `-noshow` / `-replay`
 
 Stop the webinar pipeline at "Consultation Booked" and hand off to the existing
 **Lead Generation – Start Up Pipeline**. Duplicating its closing stages means two

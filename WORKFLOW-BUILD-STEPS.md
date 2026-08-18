@@ -7,7 +7,7 @@ the reasoning; this file is just the sequence.
 reminders; the nurture; then the booked path bolted onto
 *01 - Schedule a Consultation Workflow*, which already handles that trigger.
 
-Webinar: **Tuesday 15 September 2026, 7:00 PM Eastern.**
+Webinar: **Wednesday 30 September 2026, 7:00 PM Eastern.**
 
 ---
 
@@ -49,8 +49,8 @@ thing to forget, so it is the first action in Workflow 3.
 
 | # | Action | Setting |
 | --- | --- | --- |
-| 1 | Add Tag | `webinar-2026-09-15-registered` |
-| 2 | Update Contact Field | Webinar Date = `09/15/2026` |
+| 1 | Add Tag | `webinar-2026-09-30-registered` |
+| 2 | Update Contact Field | Webinar Date = `09/30/2026` |
 | 3 | Create Opportunity | Pipeline **Webinar Pipeline** · Stage **Registered** · Value **0** |
 | 4 | Send Email | template **youre in** |
 
@@ -99,10 +99,10 @@ Ten steps, straight down. No branching.
 | 2 | Send Email | `3 days` | |
 | 3 | Wait | `09/14/2026` · `07:00:00 PM` | Skip outbound |
 | 4 | Send Email | `1 day` | |
-| 5 | Wait | `09/15/2026` · `06:00:00 PM` | Skip outbound |
+| 5 | Wait | `09/30/2026` · `06:00:00 PM` | Skip outbound |
 | 6 | Send Email | `1 hr` | |
 | 7 | Send SMS | copy below | |
-| 8 | Wait | `09/15/2026` · `06:45:00 PM` | Skip outbound |
+| 8 | Wait | `09/30/2026` · `06:45:00 PM` | Skip outbound |
 | 9 | Send Email | `15 mins` | |
 | 10 | Send SMS | copy below | |
 
@@ -158,7 +158,7 @@ Two steps, no branching:
 | # | Action | Setting |
 | --- | --- | --- |
 | 1 | Wait | `09/16/2026` · `09:00:00 AM` · Skip all outbound |
-| 2 | Add Tag | `webinar-2026-09-15-nurture` |
+| 2 | Add Tag | `webinar-2026-09-30-nurture` |
 
 The morning after, not the same night — a follow-up landing at 10pm gets buried.
 
@@ -168,7 +168,7 @@ That tag is the trigger for Workflow 2. Workflow 1 ends here.
 
 # Workflow 2 — "Webinar — Nurture"
 
-**Trigger:** Contact Tag -> `webinar-2026-09-15-nurture`
+**Trigger:** Contact Tag -> `webinar-2026-09-30-nurture`
 
 **Settings:** re-entry off, timezone America/New_York.
 
@@ -224,7 +224,7 @@ is what tells you whether the reminder sequence works and whether webinar two is
 worth running.
 
 Cheapest way to keep it: on the night, export the Zoom participant list and
-bulk-add the tag `webinar-2026-09-15-attended` in GHL. Same ten minutes as
+bulk-add the tag `webinar-2026-09-30-attended` in GHL. Same ten minutes as
 before, but nothing depends on it — if it does not happen, no emails go wrong.
 The tag is then just a filter you can count later.
 
