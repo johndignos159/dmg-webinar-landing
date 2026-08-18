@@ -28,7 +28,7 @@ const FONT =
 // Email clients cannot load local files or data: URIs — Gmail blocks both — so
 // the logo has to come from a public URL. This one is served by the live site.
 // If the domain changes, update this and re-run the script.
-const SITE = 'https://dmg-webinar-landing.vercel.app';
+const SITE = 'https://webinar.dmgagencycore.com';
 const LOGO = `${SITE}/images/dmg-logo-email.png`;
 
 // --- block renderers -------------------------------------------------------

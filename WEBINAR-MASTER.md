@@ -42,8 +42,8 @@ date. If the date moves again, check the weekday before pasting anything.
 ## 2. Live values — the reference card
 
 ```
-Production site      https://dmg-webinar-landing.vercel.app
-Thank-you page       https://dmg-webinar-landing.vercel.app/confirmed
+Production site      https://webinar.dmgagencycore.com
+Thank-you page       https://webinar.dmgagencycore.com/confirmed
 GitHub               johndignos159/dmg-webinar-landing
 
 GHL location id      dEUu3bVfyQdKMZZSumgJ
