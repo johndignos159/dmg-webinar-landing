@@ -92,6 +92,17 @@ The last line is deliberate. Without it, every notification reads like a task,
 and after thirty of them the whole channel gets ignored — including the ones
 that do need action.
 
+### Do not add a booking notification — confirmed 2026-08-18
+
+The consultation calendar already emails Cora natively when someone books, so
+there are three owner notifications across the whole funnel and no duplicates:
+
+| Event | Sent by | Volume |
+| --- | --- | --- |
+| New registration | Workflow 1 step 5 | High — filter it |
+| Consultation booked | Calendar notification, native | Low |
+| Lead cold at day 21 | Workflow 2 step 3 | Low — act on it |
+
 ### Volume warning
 
 This fires once per registrant. A paid campaign filling a room of 200 means 200
