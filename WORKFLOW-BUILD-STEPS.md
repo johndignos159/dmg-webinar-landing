@@ -53,9 +53,55 @@ thing to forget, so it is the first action in Workflow 3.
 | 2 | Update Contact Field | Webinar Date = `09/30/2026` |
 | 3 | Create Opportunity | Pipeline **Webinar Pipeline** · Stage **Registered** · Value **0** |
 | 4 | Send Email | template **youre in** |
+| 5 | Send Internal Notification | to Cora — copy below |
 
 Value 0 matters. Revenue is counted in LLC Formation; putting 997 here as well
 double-counts every sale.
+
+### Step 5 — the owner notification
+
+Use the **Send Internal Notification** action, not Send Email. Send Email goes
+to the contact; Internal Notification goes to a member of your team and never
+touches the registrant.
+
+In the action: **Notification Type** = Email, **To** = pick the user *Cora
+Matzek* from the dropdown rather than typing an address. Selecting the user
+means the notification follows her if her email ever changes.
+
+Subject:
+
+```
+New webinar registration — {{contact.first_name}} {{contact.last_name}}
+```
+
+Body:
+
+```
+{{contact.first_name}} {{contact.last_name}} just registered for
+The Transportation Entrepreneur Blueprint (Wednesday 30 September).
+
+Email:  {{contact.email}}
+Phone:  {{contact.phone}}
+Source: {{contact.source}}
+
+They are in the Webinar Pipeline at Registered and the reminder
+sequence has started. No action needed — this is a heads-up only.
+```
+
+The last line is deliberate. Without it, every notification reads like a task,
+and after thirty of them the whole channel gets ignored — including the ones
+that do need action.
+
+### Volume warning
+
+This fires once per registrant. A paid campaign filling a room of 200 means 200
+emails, most of them in the final three days before the session. That is a lot
+of inbox for something needing no response.
+
+Before the ad goes live, set a Gmail filter on the subject line
+*"New webinar registration"* that applies a label and skips the inbox. Cora
+still gets the record and can watch registrations arrive, without it burying
+anything that matters.
 
 ---
 
@@ -194,6 +240,30 @@ The first email sends immediately on trigger — no wait before it.
 | --- | --- | --- |
 | 1 | Add Tag | `webinar-cold` |
 | 2 | **Create or Update Opportunity** | Pipeline: **Webinar Pipeline** · Stage: **Closed Lost** · Value **0** |
+| 3 | Send Internal Notification | to Cora — copy below |
+
+This is the notification worth acting on. Someone registered, sat through
+twenty-one days of email, and never booked. Low volume by definition, and every
+one of them is a warm lead the automation could not close.
+
+Subject:
+
+```
+Webinar lead went cold — {{contact.first_name}} {{contact.last_name}}
+```
+
+Body:
+
+```
+{{contact.first_name}} {{contact.last_name}} registered for the webinar,
+received all seven nurture emails over twenty-one days, and never
+booked a call.
+
+Email: {{contact.email}}
+Phone: {{contact.phone}}
+
+Moved to Closed Lost. Worth one manual call before writing them off.
+```
 
 ### Use Create or Update, never Find + Update — corrected 2026-08-07
 
