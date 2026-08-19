@@ -372,9 +372,6 @@ the **Nurture** workflow, not the registration one. Remove them from only the
 first and they keep receiving day 7, 10, 14, and "Two roads from here" on day 21
 — sixteen days after booking a call.
 
-**Step 4** is not optional. Update Opportunity silently does nothing without a
-Find Opportunity before it. No error, no failed step, the stage never moves.
-Verified by test 2026-08-07.
 
 ## Check what the existing workflow already does
 
