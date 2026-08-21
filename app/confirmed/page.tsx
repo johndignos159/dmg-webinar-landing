@@ -3,6 +3,7 @@ import { CheckCircle2, Calendar, Clock, Mail, CalendarPlus, Download } from 'luc
 import CountdownTimer from '@/components/countdown-timer';
 import SiteHeader from '@/components/site-header';
 import SiteFooter from '@/components/site-footer';
+import MetaPixelEvent from '@/components/meta-pixel-event';
 import {
   WEBINAR_DATE_DISPLAY,
   WEBINAR_TIME_DISPLAY,
@@ -23,6 +24,9 @@ export const metadata: Metadata = {
 export default function ConfirmedPage() {
   return (
     <div className="min-h-screen bg-white flex flex-col">
+      {/* Reaching this page means the GHL form was submitted, so this is the
+          conversion Meta should optimise the campaign against. */}
+      <MetaPixelEvent event="Lead" />
       <SiteHeader />
 
       <section className="relative bg-brand-navy text-white overflow-hidden flex-1">
