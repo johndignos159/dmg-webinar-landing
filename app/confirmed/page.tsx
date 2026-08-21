@@ -84,7 +84,7 @@ export default function ConfirmedPage() {
             </div>
           </div>
 
-          <CountdownTimer />
+          <CountdownTimer label="The masterclass starts in" />
 
           {/* Join link shown here as well as emailed. Anyone reaching this page
               has just registered, and having the room one click away on the

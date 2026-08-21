@@ -47,7 +47,17 @@ function Unit({ value, label }: { value: string; label: string }) {
   );
 }
 
-export default function CountdownTimer() {
+/**
+ * @param label  Text above the digits. The default suits the landing page,
+ *   where the countdown is a reason to act. On /confirmed the visitor has
+ *   already registered, so "registration closes in" reads as a warning about
+ *   something they have done — pass a label that counts down to the session.
+ */
+export default function CountdownTimer({
+  label = 'Registration closes in',
+}: {
+  label?: string;
+} = {}) {
   // Starts null on purpose. The page is prerendered at build time, so computing
   // the remaining time during SSR would bake stale numbers into the HTML and
   // React would report a hydration mismatch the moment the browser recomputed
@@ -91,7 +101,7 @@ export default function CountdownTimer() {
   return (
     <div className="mb-10 flex flex-col items-center" role="timer">
       <p className="mb-5 text-xs font-bold uppercase tracking-[0.2em] text-gray-400">
-        Registration closes in
+        {label}
       </p>
       <div className="flex gap-2 sm:gap-3 md:gap-5">
         <Unit value={timeLeft ? String(timeLeft.days) : '--'} label="Days" />
