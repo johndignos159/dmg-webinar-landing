@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Received — DMG Agency Core</title>
+    <meta name="robots" content="noindex, nofollow">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap');
+
+        :root {
+            --brand-red: #d72324;
+            --brand-dark-red: #9e1a1b;
+            --brand-light-red: #fbe9e9;
+            --brand-black: #1a1a1a;
+            --brand-gray: #f2f2f2;
+            --border-color: #e0e0e0;
+            --text-gray: #555555;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Alegreya', serif;
+            background-color: #ffffff;
+            color: var(--brand-black);
+            -webkit-font-smoothing: antialiased;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        /* Header */
+        header {
+            height: 70px;
+            border-bottom: 3px solid var(--brand-red);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            background: white;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-weight: 900;
+            font-size: 26px;
+            letter-spacing: -0.5px;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .logo span {
+            color: var(--brand-red);
+        }
+        .logo-icon {
+            background: var(--brand-red);
+            color: white;
+            padding: 4px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .logo-icon svg {
+            width: 20px;
+            height: 20px;
+        }
+        /* Main Content */
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            background-color: #ffffff;
+        }
+        .thank-you-card {
+            background: white;
+            border: 2px solid var(--brand-red);
+            border-radius: 12px;
+            padding: 40px 30px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(215, 35, 36, 0.1);
+        }
+        .success-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            background-color: var(--brand-light-red);
+            border-radius: 50%;
+            margin-bottom: 24px;
+            color: var(--brand-red);
+            font-weight: 900;
+            font-size: 36px;
+        }
+        h1 {
+            font-size: 36px;
+            font-weight: 900;
+            color: var(--brand-black);
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+        }
+        .subtitle {
+            font-size: 18px;
+            color: var(--text-gray);
+            margin-bottom: 40px;
+            line-height: 1.5;
+        }
+        /* Next Steps */
+        .next-steps {
+            background: var(--brand-gray);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 24px;
+            text-align: left;
+            margin-bottom: 40px;
+        }
+        .next-steps-title {
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--brand-red);
+            font-weight: 800;
+            margin-bottom: 20px;
+            display: block;
+        }
+        .step-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .step-item:last-child {
+            margin-bottom: 0;
+        }
+        .step-number {
+            color: var(--brand-red);
+            font-weight: 900;
+            font-size: 18px;
+            margin-top: 2px;
+        }
+        .step-content h4 {
+            font-weight: 800;
+            color: var(--brand-black);
+            margin-bottom: 4px;
+            font-size: 18px;
+        }
+        .step-content p {
+            font-size: 16px;
+            color: var(--text-gray);
+            line-height: 1.4;
+        }
+        /* Button */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 16px 24px;
+            font-size: 18px;
+            font-weight: 800;
+            color: white;
+            background: var(--brand-red);
+            border-radius: 6px;
+            text-transform: uppercase;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 0px var(--brand-dark-red);
+            transition: transform 0.1s, box-shadow 0.1s;
+            border: none;
+            cursor: pointer;
+        }
+        .btn:hover {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0px var(--brand-dark-red);
+        }
+        /* Footer */
+        footer {
+            background: #fafafa;
+            padding: 24px 20px;
+            text-align: center;
+            border-top: 1px solid #eee;
+        }
+        .footer-text {
+            font-size: 13px;
+            color: #999;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Mobile Adjustments */
+        @media (min-width: 768px) {
+            h1 {
+                font-size: 44px;
+            }
+            .subtitle {
+                font-size: 20px;
+            }
+            .thank-you-card {
+                padding: 48px;
+            }
+            .btn {
+                width: auto;
+                min-width: 250px;
+            }
+            header {
+                padding: 0 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <!-- Inline SVG for the Truck Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 17h4V5H2v12h3"/><path d="M20 17h2v-3.34a4 4 0 0 0-1.17-2.83L19 9h-5"/><path d="M14 17h1"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>
+                </div>
+                DMG Agency<span>Core</span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="thank-you-card">
+            <div class="success-icon">✔</div>
+            <h1>Application Received</h1>
+            <p class="subtitle">
+                Thank you for applying. We're reviewing your details and will be in touch shortly to get you loaded and moving.
+            </p>
+
+            <div class="next-steps">
+                <span class="next-steps-title">Next Steps</span>
+                
+                <div class="step-item">
+                    <span class="step-number">1.</span>
+                    <div class="step-content">
+                        <h4>Review</h4>
+                        <p>Our team will review your application and carrier profile.</p>
+                    </div>
+                </div>
+                
+                <div class="step-item">
+                    <span class="step-number">2.</span>
+                    <div class="step-content">
+                        <h4>Phone Call</h4>
+                        <p>We'll call you to discuss your preferred lanes and rates.</p>
+                    </div>
+                </div>
+                
+                <div class="step-item">
+                    <span class="step-number">3.</span>
+                    <div class="step-content">
+                        <h4>Onboarding</h4>
+                        <p>Sign the dispatch agreement and start receiving high-paying loads.</p>
+                    </div>
+                </div>
+            </div>
+
+            <a href="https://info.dmgagencycore.com/book-consultation" class="btn">Book Your Call Now</a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-text">
+            © 2026 DMG Agency Core LLC. St. Petersburg, FL. All Rights Reserved.
+        </div>
+    </footer>
+</body>
+</html>

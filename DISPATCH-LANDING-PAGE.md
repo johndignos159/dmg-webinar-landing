@@ -11,34 +11,44 @@ carriers who already haul, rather than people who have not started yet.
 
 ---
 
-## Verdict — do not start ads yet
+## Verdict — one thing left before spend
 
-The page reads well and the offer is clear. One thing blocks launch and two more
-are worth fixing in the same sitting.
+The page reads well, the offer is clear, and the pixel is now on. The remaining
+blocker is the **Lead event**: without it Meta sees page views but never learns
+who applied, so it optimises for the cheapest clicks it can find. Set that, and
+the campaign can run.
+
+The title and og tags are not blockers, but they are ten minutes and they are
+what the ad's link preview is built from.
 
 | | Status |
 | --- | --- |
-| Meta Pixel installed | **No** — blocking |
-| `<title>` tag | **Missing** |
+| Meta Pixel installed | **Yes** — added 2026-08-21, native GHL field |
+| `<title>` tag | Missing on the landing page |
 | og:title / og:description / og:image | **Missing** |
 | Privacy Policy + Terms links | Present |
 | Mobile styles | Present |
 | Copy and offer | Strong |
+| Form creates contact + notifies | Confirmed by John |
+| Redirect goes to the thank-you step | Fixed 2026-08-21 |
 
 ---
 
-## 1. The pixel is not on the page — blocking
+## 1. The pixel — installed 2026-08-21
 
-Fetched the live page and searched it: no `fbq`, no `connect.facebook.net`, no
-occurrence of `2317272492412268`. The only tracking present is GoHighLevel's own.
+An earlier fetch of the live page found no pixel at all, which would have made
+the campaign optimise for cheap clicks rather than applications. It was added the
+same day. A later fetch shows `2317272492412268` in the page config on **both**
+funnel steps.
 
-Running ads to this page today means Meta cannot see who converted. It would
-optimise for the cheapest *clicks* it can find rather than applications, and the
-reporting would show spend against no attributable result.
+It is set through GHL's **native Facebook Pixel field**, not pasted as code. That
+means `connect.facebook.net` does not appear in the raw HTML — GHL initialises
+the pixel from its own JavaScript at runtime. Absence from the page source is
+therefore not evidence it is missing; only Meta Pixel Helper in a real browser
+settles it.
 
-**Where it goes in GHL:** open the funnel, then **Settings** -> **Tracking Code**
--> paste the base pixel code into the **Head** section. That applies it to every
-step of the funnel, which is what you want.
+**Do not also paste the base pixel snippet into Tracking Code.** Two
+installations fire PageView twice and double every number.
 
 ### It needs a conversion event, not just PageView
 
@@ -129,6 +139,40 @@ og:image        a 1200x630 image — the truck photo, or a branded card
 
 ---
 
+## Meta Instant Forms — considered and declined 2026-08-21
+
+Cora asked whether to use a Meta Instant Form instead of this page. Decision: no.
+
+Instant Forms convert better and cost less per lead — no page load, and the
+fields pre-fill from the person's Facebook profile. On mobile that removes the
+single biggest drop-off point.
+
+The reason to decline is specific to this offer. Dispatch is an ongoing
+relationship at 8% of revenue, and the page is doing the persuading: the fee is
+stated openly rather than hidden behind a call, and *"cancel anytime — we earn
+your business every week"* answers the fear carriers actually have about
+dispatchers. An Instant Form shows none of that. The applicant taps through
+pre-filled fields in seconds and arrives not knowing the price.
+
+Cheaper leads, worse conversations — the wrong trade at this price point.
+
+Two further costs worth recording: Instant Form leads never visit the site, so
+the pixel never sees them and there is no audience to retarget; and they go cold
+within minutes precisely because they cost nothing to submit, which demands a
+call-back speed DMG has not committed to.
+
+**Revisit only with data.** If cost per application from this page disappoints
+after two weeks of real spend, test an Instant Form as a *separate* campaign and
+compare on cost per **signed carrier**, not cost per lead. Instant Forms nearly
+always win the first metric and often lose the last. Do not run both at once on a
+small budget — each ad set needs roughly 50 conversions a week to leave the
+learning phase, and splitting the spend teaches you nothing about either.
+
+If it is ever tested, turn on Meta's **"Higher intent"** setting, which adds a
+review step before submit.
+
+---
+
 ## 4. One pixel or two?
 
 Cora now has two: `1752983249236168` (webinar) and `2317272492412268`
@@ -208,15 +252,21 @@ judged on cost per application rather than on filling a room by a date.
 
 ## Checklist before Cora starts
 
-- [ ] Point the form redirect at `go.dmgagencycore.com/dispatch-thankyou`
-- [ ] Change the thank-you page button to **Book Your Call Now** ->
-      `info.dmgagencycore.com/book-consultation`, so the redirect change does
-      not cost a booking
-- [ ] Base pixel in funnel Settings -> Tracking Code -> Head
-- [ ] `Lead` event in the thank-you step -> Tracking Code -> Body
-- [ ] Decide one pixel or two
-- [ ] Set the landing page title
-- [ ] Add og:title, og:description, og:image
-- [ ] Fix "ProDispatch", the 2025 footer year, and the city on the thank-you page
+Done:
+
+- [x] Pixel installed on both funnel steps
+- [x] Form redirect points at `go.dmgagencycore.com/dispatch-thankyou`
+- [x] Form creates a contact in GHL and notifies someone
+- [x] Decided against a Meta Instant Form
+
+Outstanding:
+
+- [ ] Paste the corrected thank-you HTML — `dispatch-thankyou.html` in this repo.
+      Fixes the "ProDispatch" title, the 2025 footer year, adds `noindex`, and
+      turns *Return to Home* into **Book Your Call Now**
+- [ ] Funnel -> **Events** tab -> set the thank-you step to fire **Lead**
+- [ ] Landing page title and SEO fields (gear icon on the Dispatch step)
+- [ ] og image — needs a 1200x630 URL
 - [ ] Test with Meta Pixel Helper: PageView on the landing page, Lead after applying
-- [ ] Confirm the form creates a contact in GHL and notifies someone
+- [ ] Settle the business city — the pages currently say Altamonte Springs,
+      Orlando and St. Petersburg. The corrected file uses St. Petersburg
