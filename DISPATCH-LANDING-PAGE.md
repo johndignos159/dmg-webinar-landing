@@ -43,25 +43,58 @@ step of the funnel, which is what you want.
 ### It needs a conversion event, not just PageView
 
 The base code alone reports page views. Meta needs to know when someone
-*applies*, and that takes a second signal.
+*applies*. The funnel already has the right shape for this — two steps:
 
-Two ways, in order of preference:
+```
+go.dmgagencycore.com/dispatch-only      the landing page
+go.dmgagencycore.com/dispatch-thankyou  "Application Received"
+```
 
-1. **A thank-you page.** Set the form to redirect to a separate funnel step, e.g.
-   `/dispatch-only-thanks`, and put a `Lead` event in that step's tracking code.
-   Same pattern as the webinar funnel, and the most reliable.
-2. **On-click event.** Fire `Lead` when the submit button is clicked. Simpler,
-   but it counts attempts rather than completions, so the numbers run high.
+**Where the code goes:**
 
-Option 1 also gives somewhere to set expectations — "we will call you within one
-business day" — which reduces the number of people who apply and then go cold.
+| Scope | Location | Code |
+| --- | --- | --- |
+| Whole funnel | Settings -> Tracking Code -> **Head** | base pixel + `PageView` |
+| Thank-you step only | that step -> Tracking Code -> **Body** | `if (window.fbq) fbq('track', 'Lead');` |
 
-**Open question for John:** does the form currently redirect anywhere, or does it
-show an inline confirmation message? That decides which route to take.
+Body rather than Head on the second one, so the base pixel has already defined
+`fbq` by the time it runs.
+
+Do **not** also use the "Facebook Pixel ID" field in the form settings. That
+covers the form iframe only, and combined with the page-level pixel it
+double-counts.
+
+### The redirect currently skips the thank-you page — resolved 2026-08-21
+
+The form was set to redirect to `https://info.dmgagencycore.com/book-consultation`,
+bypassing the thank-you step entirely. Changed to the thank-you page so the Lead
+event has somewhere to fire.
+
+**That change has a cost, and it needs compensating for.** Sending applicants
+straight to the booking page captured them at the moment they were most
+motivated. The thank-you page tells them "we will call you" and its only button
+is *Return to Home* — so as built, the redirect change trades a booking
+opportunity for a tracking event.
+
+Fix: change that button to **Book Your Call Now**, pointing at
+`https://info.dmgagencycore.com/book-consultation`. Then the page sets
+expectations, fires the conversion, and still captures the booking.
+
+### Brand errors on the thank-you page
+
+| What | Currently | Should be |
+| --- | --- | --- |
+| Page title | `Application Received - ProDispatch` | `Application Received — DMG Agency Core` |
+| Footer year | 2025 | 2026 |
+| Footer city | Altamonte Springs, FL | Orlando or St. Petersburg — the other pages disagree with each other too |
+
+"ProDispatch" is template residue. Small things, but this is a paid ad
+destination, and inconsistent branding is what makes a carrier hesitate before
+handing over their MC number.
 
 ---
 
-## 2. The page has no title
+## 2. The landing page has no title
 
 There is no `<title>` tag in the HTML at all. Consequences:
 
@@ -175,10 +208,15 @@ judged on cost per application rather than on filling a room by a date.
 
 ## Checklist before Cora starts
 
-- [ ] Install the pixel in funnel Settings -> Tracking Code -> Head
+- [ ] Point the form redirect at `go.dmgagencycore.com/dispatch-thankyou`
+- [ ] Change the thank-you page button to **Book Your Call Now** ->
+      `info.dmgagencycore.com/book-consultation`, so the redirect change does
+      not cost a booking
+- [ ] Base pixel in funnel Settings -> Tracking Code -> Head
+- [ ] `Lead` event in the thank-you step -> Tracking Code -> Body
 - [ ] Decide one pixel or two
-- [ ] Add a `Lead` conversion event — thank-you page preferred
-- [ ] Set the page title
+- [ ] Set the landing page title
 - [ ] Add og:title, og:description, og:image
-- [ ] Test with Meta Pixel Helper: PageView on the page, Lead after applying
+- [ ] Fix "ProDispatch", the 2025 footer year, and the city on the thank-you page
+- [ ] Test with Meta Pixel Helper: PageView on the landing page, Lead after applying
 - [ ] Confirm the form creates a contact in GHL and notifies someone
