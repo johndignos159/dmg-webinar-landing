@@ -59,10 +59,13 @@ Short Intake Form    5vCz4nUIQbx73vumvbFK
 Booking calendar     https://api.leadconnectorhq.com/widget/booking/hu6p9LZ65HxhL9ayiqko
   note               permanent link, not the slug one — survives calendar renames
 
-Webinar Pipeline     H3YdniI3QAKlRDnbCOWd     (created 2026-08-06, 7 stages)
+Webinar Pipeline     H3YdniI3QAKlRDnbCOWd     (created 2026-08-06, 2 stages)
 LLC Formation        xQn1lQyjn4kR8KjxtwZI     (handoff destination)
 
-Phone                321-204-9035
+Phone (display)      321-204-9035
+SMS sender           +1 978-391-2960          A2P 10DLC registered
+  note               the number every workflow SMS sends from. A2P approval is
+                     tied to this number — swapping it means re-registering.
 ```
 
 **Never use the Vercel preview URLs** (`…-git-main-…`, `…-iuvbg2zym-…`). They sit
