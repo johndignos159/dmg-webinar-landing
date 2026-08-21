@@ -15,6 +15,7 @@
 // The pixel ID is not a secret. It ships in the page source of every site that
 // uses one, which is why it lives here rather than in an environment variable.
 //
-// Leave it empty and no tracking code renders at all — no script, no network
-// request, no console noise. That is the current state.
-export const META_PIXEL_ID = '';
+// Set on 2026-08-18. Emptying this string switches all tracking off again —
+// no script, no network request — which is the clean way to disable it without
+// unpicking the components.
+export const META_PIXEL_ID = '1752983249236168';
