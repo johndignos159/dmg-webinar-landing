@@ -11,11 +11,11 @@ type TimeLeft = {
   expired: boolean;
 };
 
-function getTimeLeft(): TimeLeft {
+function getTimeLeft(target: number): TimeLeft {
   // Recomputed from the target timestamp on every tick rather than decrementing
   // a counter, so the clock stays accurate even when a background tab has its
   // timers throttled by the browser.
-  const distance = WEBINAR_TIMESTAMP - Date.now();
+  const distance = target - Date.now();
 
   if (distance <= 0) {
     return { days: 0, hours: 0, minutes: 0, seconds: 0, expired: true };
@@ -48,6 +48,8 @@ function Unit({ value, label }: { value: string; label: string }) {
 }
 
 /**
+ * @param target Epoch ms to count down to. Defaults to the webinar so the
+ *   existing pages need no change; the Spanish training passes its own.
  * @param label  Text above the digits. The default suits the landing page,
  *   where the countdown is a reason to act. On /confirmed the visitor has
  *   already registered, so "registration closes in" reads as a warning about
@@ -55,8 +57,10 @@ function Unit({ value, label }: { value: string; label: string }) {
  */
 export default function CountdownTimer({
   label = 'Registration closes in',
+  target = WEBINAR_TIMESTAMP,
 }: {
   label?: string;
+  target?: number;
 } = {}) {
   // Starts null on purpose. The page is prerendered at build time, so computing
   // the remaining time during SSR would bake stale numbers into the HTML and
@@ -66,10 +70,10 @@ export default function CountdownTimer({
   const [timeLeft, setTimeLeft] = useState<TimeLeft | null>(null);
 
   useEffect(() => {
-    setTimeLeft(getTimeLeft());
+    setTimeLeft(getTimeLeft(target));
 
     const interval = setInterval(() => {
-      const next = getTimeLeft();
+      const next = getTimeLeft(target);
       setTimeLeft(next);
 
       if (next.expired) {
@@ -78,7 +82,7 @@ export default function CountdownTimer({
     }, 1000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [target]);
 
   if (timeLeft?.expired) {
     return (

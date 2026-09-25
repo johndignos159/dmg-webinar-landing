@@ -1,6 +1,12 @@
 import Image from 'next/image';
 
-export default function SiteFooter() {
+export default function SiteFooter({
+  tagline = 'Launch · Operate · Generate Revenue · Protect',
+  rightsText = 'All rights reserved.',
+}: {
+  tagline?: string;
+  rightsText?: string;
+} = {}) {
   return (
     <footer className="bg-[#0d0d0d] text-gray-400 py-12 px-6">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-left">
@@ -17,7 +23,7 @@ export default function SiteFooter() {
               DMG Agency Core
             </p>
             <p className="text-sm mt-1">
-              Launch · Operate · Generate Revenue · Protect
+              {tagline}
             </p>
           </div>
         </div>
@@ -30,7 +36,7 @@ export default function SiteFooter() {
             dmgagencycore.com
           </a>
           <p className="mt-2 text-gray-500">
-            &copy; {new Date().getFullYear()} DMG Agency Core LLC. All rights reserved.
+            &copy; {new Date().getFullYear()} DMG Agency Core LLC. {rightsText}
           </p>
         </div>
       </div>

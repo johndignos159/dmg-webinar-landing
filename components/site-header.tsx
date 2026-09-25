@@ -4,7 +4,13 @@ import Image from 'next/image';
  * Sits transparently over the top of the hero so the background photo shows
  * through, matching the nav treatment on dmgagencycore.com.
  */
-export default function SiteHeader() {
+export default function SiteHeader({
+  ctaLabel = 'Reserve My Seat',
+  ctaHref = '/#register',
+}: {
+  ctaLabel?: string;
+  ctaHref?: string;
+} = {}) {
   return (
     <header className="absolute top-0 left-0 right-0 z-20">
       <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
@@ -30,10 +36,10 @@ export default function SiteHeader() {
         </a>
 
         <a
-          href="/#register"
+          href={ctaHref}
           className="btn-glow-soft hidden sm:inline-flex items-center justify-center border-2 border-brand-red text-white hover:bg-brand-red font-bold text-xs md:text-sm uppercase tracking-wider py-2.5 px-6 rounded-full"
         >
-          Reserve My Seat
+          {ctaLabel}
         </a>
       </div>
     </header>
