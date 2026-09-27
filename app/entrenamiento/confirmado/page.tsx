@@ -7,6 +7,8 @@ import {
   DAY_1_DISPLAY,
   DAY_2_DISPLAY,
   MEETING_URL,
+  MEETING_ID,
+  MEETING_PASSCODE,
   TRAINING_TIMESTAMP,
   TIMES_CONFIRMED,
   START_TIME,
@@ -24,9 +26,11 @@ export const metadata: Metadata = {
 };
 
 const SCHEDULE_LINE =
-  TIMES_CONFIRMED && START_TIME && END_TIME
-    ? `${START_TIME} – ${END_TIME} ${TIMEZONE_LABEL}`
-    : 'Te enviaremos el horario exacto por correo';
+  !TIMES_CONFIRMED || !START_TIME
+    ? 'Te enviaremos el horario exacto por correo'
+    : END_TIME
+      ? `${START_TIME} – ${END_TIME} ${TIMEZONE_LABEL}, ambos días`
+      : `${START_TIME} ${TIMEZONE_LABEL}, ambos días`;
 
 const STEPS = [
   {
@@ -132,7 +136,25 @@ export default function ConfirmadoPage() {
               >
                 {MEETING_URL}
               </a>
-              <p className="text-xs text-gray-500 mt-3">
+              <div className="mt-4 pt-4 border-t border-white/10 grid grid-cols-2 gap-3 text-left">
+                <div>
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-gray-500">
+                    ID de reunión
+                  </p>
+                  <p className="text-sm font-medium text-gray-200 tabular-nums">
+                    {MEETING_ID}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-gray-500">
+                    Código de acceso
+                  </p>
+                  <p className="text-sm font-medium text-gray-200 tabular-nums">
+                    {MEETING_PASSCODE}
+                  </p>
+                </div>
+              </div>
+              <p className="text-xs text-gray-500 mt-4">
                 El mismo enlace los dos días — guárdalo ahora.
               </p>
             </div>

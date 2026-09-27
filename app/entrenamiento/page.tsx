@@ -51,14 +51,16 @@ export const metadata: Metadata = {
   },
 };
 
-// Times are unknown until Cora confirms them. Rather than print a guess or a
-// bracketed placeholder, the page says plainly that the schedule follows by
-// email. A placeholder shipped to a paying customer is the failure we already
-// had once with [MEETING LINK].
+// Start time is confirmed, finish time is not. Render what is known rather
+// than inventing an end time — someone who plans their Saturday around a
+// guessed finish and gets it wrong is worse off than someone simply not told
+// yet. Falls back to "by email" only if the start is unknown too.
 const SCHEDULE_LINE =
-  TIMES_CONFIRMED && START_TIME && END_TIME
-    ? `${START_TIME} – ${END_TIME} ${TIMEZONE_LABEL}`
-    : 'Horario exacto por correo';
+  !TIMES_CONFIRMED || !START_TIME
+    ? 'Horario exacto por correo'
+    : END_TIME
+      ? `${START_TIME} – ${END_TIME} ${TIMEZONE_LABEL}, ambos días`
+      : `${START_TIME} ${TIMEZONE_LABEL}, ambos días`;
 
 const CTA_CLASS =
   'btn-glow w-full sm:w-auto inline-flex items-center justify-center whitespace-nowrap bg-brand-red hover:bg-brand-red-hover text-white font-bold py-4 px-6 sm:px-10 rounded-full max-[359px]:text-sm text-base sm:text-lg';
