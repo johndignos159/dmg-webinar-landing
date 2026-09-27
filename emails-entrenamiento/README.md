@@ -23,13 +23,13 @@ day 2.
 
 | File | GHL template | When it sends |
 | --- | --- | --- |
-| `01-pago-confirmado.html` | ENT - pago confirmado | Inmediato, al completarse el pago |
-| `02-dos-semanas.html` | ENT - 2 semanas | Esperar hasta 17/10/2026 · 10:00 AM |
-| `03-una-semana.html` | ENT - 1 semana | Esperar hasta 24/10/2026 · 10:00 AM |
-| `04-tres-dias.html` | ENT - 3 días | Esperar hasta 28/10/2026 · 10:00 AM |
-| `05-un-dia.html` | ENT - 1 día | Esperar hasta 30/10/2026 · 5:00 PM |
-| `06-hoy-dia-1.html` | ENT - hoy día 1 | Esperar hasta 31/10/2026 · 9:00 AM |
-| `07-hoy-dia-2.html` | ENT - hoy día 2 | Esperar hasta 01/11/2026 · 9:00 AM |
+| `01-pago-confirmado.html` | TRAINING - payment confirmed | Immediately on payment |
+| `02-dos-semanas.html` | TRAINING - 2 weeks before | Wait until 17/10/2026 10:00 AM |
+| `03-una-semana.html` | TRAINING - 1 week before | Wait until 24/10/2026 10:00 AM |
+| `04-tres-dias.html` | TRAINING - 3 days before | Wait until 28/10/2026 10:00 AM |
+| `05-un-dia.html` | TRAINING - 1 day before | Wait until 30/10/2026 5:00 PM |
+| `06-hoy-dia-1.html` | TRAINING - day 1 morning | Wait until 31/10/2026 9:00 AM |
+| `07-hoy-dia-2.html` | TRAINING - day 2 morning | Wait until 01/11/2026 9:00 AM |
 
 ## Track 2 — recovery (3 emails)
 
@@ -39,9 +39,9 @@ unsubscribes.
 
 | File | GHL template | When it sends |
 | --- | --- | --- |
-| `08-recuperacion-1h.html` | ENT - recuperación 1h | Esperar 1 hora tras el registro sin pago |
-| `09-recuperacion-dia-2.html` | ENT - recuperación día 2 | Esperar 2 días |
-| `10-recuperacion-dia-4.html` | ENT - recuperación día 4 | Esperar 2 días más (día 4) |
+| `08-recuperacion-1h.html` | TRAINING - recovery 1 hour | Wait 1 hour after registering |
+| `09-recuperacion-dia-2.html` | TRAINING - recovery day 2 | Wait 2 days |
+| `10-recuperacion-dia-4.html` | TRAINING - recovery day 4 | Wait 2 more days (day 4) |
 
 **The last recovery email promises no further contact about this training.**
 Honour it — do not add them to another sequence for this offer.

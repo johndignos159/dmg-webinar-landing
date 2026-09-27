@@ -56,9 +56,9 @@ export const emails = [
   // ======================================================= PAID TRACK =======
   {
     file: '01-pago-confirmado',
-    ghl: 'ENT - pago confirmado',
+    ghl: 'TRAINING - payment confirmed',
     track: 'paid',
-    trigger: 'Inmediato, al completarse el pago',
+    trigger: 'Immediately on payment',
     subject: 'Estás inscrito — Entrenamiento de Despacho',
     blocks: [
       { p: `${NAME},` },
@@ -90,9 +90,9 @@ export const emails = [
 
   {
     file: '02-dos-semanas',
-    ghl: 'ENT - 2 semanas',
+    ghl: 'TRAINING - 2 weeks before',
     track: 'paid',
-    trigger: 'Esperar hasta 17/10/2026 · 10:00 AM',
+    trigger: 'Wait until 17/10/2026 10:00 AM',
     subject: 'Faltan dos semanas — prepárate así',
     blocks: [
       { p: `${NAME},` },
@@ -111,9 +111,9 @@ export const emails = [
 
   {
     file: '03-una-semana',
-    ghl: 'ENT - 1 semana',
+    ghl: 'TRAINING - 1 week before',
     track: 'paid',
-    trigger: 'Esperar hasta 24/10/2026 · 10:00 AM',
+    trigger: 'Wait until 24/10/2026 10:00 AM',
     subject: 'Una semana — esto es lo que vamos a cubrir',
     blocks: [
       { p: `${NAME},` },
@@ -143,9 +143,9 @@ export const emails = [
 
   {
     file: '04-tres-dias',
-    ghl: 'ENT - 3 días',
+    ghl: 'TRAINING - 3 days before',
     track: 'paid',
-    trigger: 'Esperar hasta 28/10/2026 · 10:00 AM',
+    trigger: 'Wait until 28/10/2026 10:00 AM',
     subject: 'Faltan 3 días — revisa tu enlace',
     blocks: [
       { p: `${NAME},` },
@@ -168,9 +168,9 @@ export const emails = [
 
   {
     file: '05-un-dia',
-    ghl: 'ENT - 1 día',
+    ghl: 'TRAINING - 1 day before',
     track: 'paid',
-    trigger: 'Esperar hasta 30/10/2026 · 5:00 PM',
+    trigger: 'Wait until 30/10/2026 5:00 PM',
     subject: 'Mañana empezamos',
     blocks: [
       { p: `${NAME},` },
@@ -187,9 +187,9 @@ export const emails = [
 
   {
     file: '06-hoy-dia-1',
-    ghl: 'ENT - hoy día 1',
+    ghl: 'TRAINING - day 1 morning',
     track: 'paid',
-    trigger: 'Esperar hasta 31/10/2026 · 9:00 AM',
+    trigger: 'Wait until 31/10/2026 9:00 AM',
     subject: `Hoy a las ${START_TIME} — día 1`,
     blocks: [
       { p: `${NAME},` },
@@ -207,9 +207,9 @@ export const emails = [
 
   {
     file: '07-hoy-dia-2',
-    ghl: 'ENT - hoy día 2',
+    ghl: 'TRAINING - day 2 morning',
     track: 'paid',
-    trigger: 'Esperar hasta 01/11/2026 · 9:00 AM',
+    trigger: 'Wait until 01/11/2026 9:00 AM',
     subject: `Día 2 hoy a las ${START_TIME}`,
     blocks: [
       { p: `${NAME},` },
@@ -237,9 +237,9 @@ export const emails = [
   // decision. A long sequence here reads as pressure and costs unsubscribes.
   {
     file: '08-recuperacion-1h',
-    ghl: 'ENT - recuperación 1h',
+    ghl: 'TRAINING - recovery 1 hour',
     track: 'recovery',
-    trigger: 'Esperar 1 hora tras el registro sin pago',
+    trigger: 'Wait 1 hour after registering',
     subject: 'Tu lugar todavía no está reservado',
     blocks: [
       { p: `${NAME},` },
@@ -257,9 +257,9 @@ export const emails = [
 
   {
     file: '09-recuperacion-dia-2',
-    ghl: 'ENT - recuperación día 2',
+    ghl: 'TRAINING - recovery day 2',
     track: 'recovery',
-    trigger: 'Esperar 2 días',
+    trigger: 'Wait 2 days',
     subject: '¿Te quedó alguna duda?',
     blocks: [
       { p: `${NAME},` },
@@ -279,9 +279,9 @@ export const emails = [
 
   {
     file: '10-recuperacion-dia-4',
-    ghl: 'ENT - recuperación día 4',
+    ghl: 'TRAINING - recovery day 4',
     track: 'recovery',
-    trigger: 'Esperar 2 días más (día 4)',
+    trigger: 'Wait 2 more days (day 4)',
     subject: 'Último aviso sobre tu lugar',
     blocks: [
       { p: `${NAME},` },
