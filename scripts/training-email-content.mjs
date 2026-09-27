@@ -55,7 +55,8 @@ const ACCESS_BOX = {
 export const emails = [
   // ======================================================= PAID TRACK =======
   {
-    file: '01-pago-confirmado',
+    file: '01-payment-confirmed',
+    en: 'You\'re in. Zoom link, meeting ID and passcode. What to bring. No refunds.',
     ghl: 'TRAINING - payment confirmed',
     track: 'paid',
     trigger: 'Immediately on payment',
@@ -89,7 +90,8 @@ export const emails = [
   },
 
   {
-    file: '02-dos-semanas',
+    file: '02-2-weeks-before',
+    en: 'Two weeks out. Calendar nudge, plus go look at a load board to get familiar.',
     ghl: 'TRAINING - 2 weeks before',
     track: 'paid',
     trigger: 'Wait until 17/10/2026 10:00 AM',
@@ -110,7 +112,8 @@ export const emails = [
   },
 
   {
-    file: '03-una-semana',
+    file: '03-1-week-before',
+    en: 'One week out. The full list of what day 1 and day 2 each cover.',
     ghl: 'TRAINING - 1 week before',
     track: 'paid',
     trigger: 'Wait until 24/10/2026 10:00 AM',
@@ -142,7 +145,8 @@ export const emails = [
   },
 
   {
-    file: '04-tres-dias',
+    file: '04-3-days-before',
+    en: 'Three days out. Test your Zoom today, not Saturday morning.',
     ghl: 'TRAINING - 3 days before',
     track: 'paid',
     trigger: 'Wait until 28/10/2026 10:00 AM',
@@ -167,7 +171,8 @@ export const emails = [
   },
 
   {
-    file: '05-un-dia',
+    file: '05-1-day-before',
+    en: 'Tomorrow. Link, ID, passcode, and come with a specific question for Q&A.',
     ghl: 'TRAINING - 1 day before',
     track: 'paid',
     trigger: 'Wait until 30/10/2026 5:00 PM',
@@ -186,7 +191,8 @@ export const emails = [
   },
 
   {
-    file: '06-hoy-dia-1',
+    file: '06-day-1-morning',
+    en: 'Today at 11. Join button, ID, passcode. Bring something to take notes with.',
     ghl: 'TRAINING - day 1 morning',
     track: 'paid',
     trigger: 'Wait until 31/10/2026 9:00 AM',
@@ -206,7 +212,8 @@ export const emails = [
   },
 
   {
-    file: '07-hoy-dia-2',
+    file: '07-day-2-morning',
+    en: 'Day 2 today, same time and link. Today is the business half of the training.',
     ghl: 'TRAINING - day 2 morning',
     track: 'paid',
     trigger: 'Wait until 01/11/2026 9:00 AM',
@@ -236,7 +243,8 @@ export const emails = [
   // Short on purpose: the offer is already understood, what is missing is the
   // decision. A long sequence here reads as pressure and costs unsubscribes.
   {
-    file: '08-recuperacion-1h',
+    file: '08-recovery-1-hour',
+    en: 'Your seat is not reserved — payment did not complete. Finish it here.',
     ghl: 'TRAINING - recovery 1 hour',
     track: 'recovery',
     trigger: 'Wait 1 hour after registering',
@@ -256,7 +264,8 @@ export const emails = [
   },
 
   {
-    file: '09-recuperacion-dia-2',
+    file: '09-recovery-day-2',
+    en: 'Answers the three objections: no experience, no truck or CDL, cannot attend.',
     ghl: 'TRAINING - recovery day 2',
     track: 'recovery',
     trigger: 'Wait 2 days',
@@ -278,7 +287,8 @@ export const emails = [
   },
 
   {
-    file: '10-recuperacion-dia-4',
+    file: '10-recovery-day-4',
+    en: 'Last email about this training. Limited seats. If it is a no, that is fine.',
     ghl: 'TRAINING - recovery day 4',
     track: 'recovery',
     trigger: 'Wait 2 more days (day 4)',

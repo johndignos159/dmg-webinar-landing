@@ -211,19 +211,20 @@ Spanish.** Files are in `emails-entrenamiento/`.
 
 | Create template named | Paste this file |
 | --- | --- |
-| `TRAINING - payment confirmed` | `01-pago-confirmado.html` |
-| `TRAINING - 2 weeks before` | `02-dos-semanas.html` |
-| `TRAINING - 1 week before` | `03-una-semana.html` |
-| `TRAINING - 3 days before` | `04-tres-dias.html` |
-| `TRAINING - 1 day before` | `05-un-dia.html` |
-| `TRAINING - day 1 morning` | `06-hoy-dia-1.html` |
-| `TRAINING - day 2 morning` | `07-hoy-dia-2.html` |
-| `TRAINING - recovery 1 hour` | `08-recuperacion-1h.html` |
-| `TRAINING - recovery day 2` | `09-recuperacion-dia-2.html` |
-| `TRAINING - recovery day 4` | `10-recuperacion-dia-4.html` |
+| `TRAINING - payment confirmed` | `01-payment-confirmed.html` |
+| `TRAINING - 2 weeks before` | `02-2-weeks-before.html` |
+| `TRAINING - 1 week before` | `03-1-week-before.html` |
+| `TRAINING - 3 days before` | `04-3-days-before.html` |
+| `TRAINING - 1 day before` | `05-1-day-before.html` |
+| `TRAINING - day 1 morning` | `06-day-1-morning.html` |
+| `TRAINING - day 2 morning` | `07-day-2-morning.html` |
+| `TRAINING - recovery 1 hour` | `08-recovery-1-hour.html` |
+| `TRAINING - recovery day 2` | `09-recovery-day-2.html` |
+| `TRAINING - recovery day 4` | `10-recovery-day-4.html` |
 
-Subject lines are in `emails-entrenamiento/README.md`. They are Spanish — the
-recipient reads those.
+Subject lines are in `emails-entrenamiento/README.md`, which also carries a
+plain-English summary of what each email says — so you can check one without
+reading Spanish.
 
 **If you ever edit a template, re-select it inside the workflow afterwards.** A
 workflow action holds its own copy taken when the template was first chosen;

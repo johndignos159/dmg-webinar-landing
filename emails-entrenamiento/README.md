@@ -21,15 +21,15 @@ cannot disagree with the landing page.
 Everyone who completes payment. Runs from the receipt through the morning of
 day 2.
 
-| File | GHL template | When it sends |
-| --- | --- | --- |
-| `01-pago-confirmado.html` | TRAINING - payment confirmed | Immediately on payment |
-| `02-dos-semanas.html` | TRAINING - 2 weeks before | Wait until 17/10/2026 10:00 AM |
-| `03-una-semana.html` | TRAINING - 1 week before | Wait until 24/10/2026 10:00 AM |
-| `04-tres-dias.html` | TRAINING - 3 days before | Wait until 28/10/2026 10:00 AM |
-| `05-un-dia.html` | TRAINING - 1 day before | Wait until 30/10/2026 5:00 PM |
-| `06-hoy-dia-1.html` | TRAINING - day 1 morning | Wait until 31/10/2026 9:00 AM |
-| `07-hoy-dia-2.html` | TRAINING - day 2 morning | Wait until 01/11/2026 9:00 AM |
+| File | GHL template | When it sends | What it says (English) |
+| --- | --- | --- | --- |
+| `01-payment-confirmed.html` | TRAINING - payment confirmed | Immediately on payment | You're in. Zoom link, meeting ID and passcode. What to bring. No refunds. |
+| `02-2-weeks-before.html` | TRAINING - 2 weeks before | Wait until 17/10/2026 10:00 AM | Two weeks out. Calendar nudge, plus go look at a load board to get familiar. |
+| `03-1-week-before.html` | TRAINING - 1 week before | Wait until 24/10/2026 10:00 AM | One week out. The full list of what day 1 and day 2 each cover. |
+| `04-3-days-before.html` | TRAINING - 3 days before | Wait until 28/10/2026 10:00 AM | Three days out. Test your Zoom today, not Saturday morning. |
+| `05-1-day-before.html` | TRAINING - 1 day before | Wait until 30/10/2026 5:00 PM | Tomorrow. Link, ID, passcode, and come with a specific question for Q&A. |
+| `06-day-1-morning.html` | TRAINING - day 1 morning | Wait until 31/10/2026 9:00 AM | Today at 11. Join button, ID, passcode. Bring something to take notes with. |
+| `07-day-2-morning.html` | TRAINING - day 2 morning | Wait until 01/11/2026 9:00 AM | Day 2 today, same time and link. Today is the business half of the training. |
 
 ## Track 2 — recovery (3 emails)
 
@@ -37,11 +37,11 @@ Registered but never paid. Short on purpose: they already understand the offer,
 what is missing is the decision. A longer sequence reads as pressure and costs
 unsubscribes.
 
-| File | GHL template | When it sends |
-| --- | --- | --- |
-| `08-recuperacion-1h.html` | TRAINING - recovery 1 hour | Wait 1 hour after registering |
-| `09-recuperacion-dia-2.html` | TRAINING - recovery day 2 | Wait 2 days |
-| `10-recuperacion-dia-4.html` | TRAINING - recovery day 4 | Wait 2 more days (day 4) |
+| File | GHL template | When it sends | What it says (English) |
+| --- | --- | --- | --- |
+| `08-recovery-1-hour.html` | TRAINING - recovery 1 hour | Wait 1 hour after registering | Your seat is not reserved — payment did not complete. Finish it here. |
+| `09-recovery-day-2.html` | TRAINING - recovery day 2 | Wait 2 days | Answers the three objections: no experience, no truck or CDL, cannot attend. |
+| `10-recovery-day-4.html` | TRAINING - recovery day 4 | Wait 2 more days (day 4) | Last email about this training. Limited seats. If it is a no, that is fine. |
 
 **The last recovery email promises no further contact about this training.**
 Honour it — do not add them to another sequence for this offer.
@@ -50,16 +50,16 @@ Honour it — do not add them to another sequence for this offer.
 
 | File | Subject |
 | --- | --- |
-| `01-pago-confirmado.html` | Estás inscrito — Entrenamiento de Despacho |
-| `02-dos-semanas.html` | Faltan dos semanas — prepárate así |
-| `03-una-semana.html` | Una semana — esto es lo que vamos a cubrir |
-| `04-tres-dias.html` | Faltan 3 días — revisa tu enlace |
-| `05-un-dia.html` | Mañana empezamos |
-| `06-hoy-dia-1.html` | Hoy a las 11:00 AM — día 1 |
-| `07-hoy-dia-2.html` | Día 2 hoy a las 11:00 AM |
-| `08-recuperacion-1h.html` | Tu lugar todavía no está reservado |
-| `09-recuperacion-dia-2.html` | ¿Te quedó alguna duda? |
-| `10-recuperacion-dia-4.html` | Último aviso sobre tu lugar |
+| `01-payment-confirmed.html` | Estás inscrito — Entrenamiento de Despacho |
+| `02-2-weeks-before.html` | Faltan dos semanas — prepárate así |
+| `03-1-week-before.html` | Una semana — esto es lo que vamos a cubrir |
+| `04-3-days-before.html` | Faltan 3 días — revisa tu enlace |
+| `05-1-day-before.html` | Mañana empezamos |
+| `06-day-1-morning.html` | Hoy a las 11:00 AM — día 1 |
+| `07-day-2-morning.html` | Día 2 hoy a las 11:00 AM |
+| `08-recovery-1-hour.html` | Tu lugar todavía no está reservado |
+| `09-recovery-day-2.html` | ¿Te quedó alguna duda? |
+| `10-recovery-day-4.html` | Último aviso sobre tu lugar |
 
 ## Loading one into GHL
 

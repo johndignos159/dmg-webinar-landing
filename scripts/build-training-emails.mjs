@@ -162,7 +162,7 @@ for (const e of emails) {
 }
 
 // ---------------------------------------------------------------- readme ----
-const row = (e) => `| \`${e.file}.html\` | ${e.ghl} | ${e.trigger} |`;
+const row = (e) => `| \`${e.file}.html\` | ${e.ghl} | ${e.trigger} | ${e.en} |`;
 const paid = written.filter((e) => e.track === 'paid');
 const recovery = written.filter((e) => e.track === 'recovery');
 
@@ -189,8 +189,8 @@ cannot disagree with the landing page.
 Everyone who completes payment. Runs from the receipt through the morning of
 day 2.
 
-| File | GHL template | When it sends |
-| --- | --- | --- |
+| File | GHL template | When it sends | What it says (English) |
+| --- | --- | --- | --- |
 ${paid.map(row).join('\n')}
 
 ## Track 2 — recovery (${recovery.length} emails)
@@ -199,8 +199,8 @@ Registered but never paid. Short on purpose: they already understand the offer,
 what is missing is the decision. A longer sequence reads as pressure and costs
 unsubscribes.
 
-| File | GHL template | When it sends |
-| --- | --- | --- |
+| File | GHL template | When it sends | What it says (English) |
+| --- | --- | --- | --- |
 ${recovery.map(row).join('\n')}
 
 **The last recovery email promises no further contact about this training.**
