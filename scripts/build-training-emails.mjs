@@ -18,12 +18,13 @@ import { fileURLToPath } from 'node:url';
 
 import { emails } from './training-email-content.mjs';
 import {
-  MEETING_URL,
+  SESSION_1,
+  SESSION_2,
   CHECKOUT_URL,
   DAY_1_DISPLAY,
   DAY_2_DISPLAY,
-  START_TIME,
-  TIMEZONE_LABEL,
+  DAY_1_TIME,
+  DAY_2_TIME,
   PRICE,
 } from '../lib/training-config.mjs';
 
@@ -132,8 +133,8 @@ function shell(subject, blocks) {
 // Refuse to generate rather than produce an email with a dead link in it. An
 // email that fails to build is a problem for one developer; an email with a
 // broken Zoom link is a problem for everyone who paid $197.
-if (!MEETING_URL) {
-  console.error('MEETING_URL is empty in lib/training-config.mjs — refusing to build.');
+if (!SESSION_1.meetingUrl || !SESSION_2.meetingUrl) {
+  console.error('A session is missing its Zoom URL in lib/training-config.mjs — refusing to build.');
   process.exit(1);
 }
 if (!CHECKOUT_URL) {
@@ -181,7 +182,8 @@ cannot disagree with the landing page.
 
 - **Día 1:** ${DAY_1_DISPLAY}
 - **Día 2:** ${DAY_2_DISPLAY}
-- **Hora:** ${START_TIME} ${TIMEZONE_LABEL}, ambos días
+- **Día 1 hora:** ${DAY_1_TIME}
+- **Día 2 hora:** ${DAY_2_TIME}  ← distinta, y sala de Zoom distinta
 - **Precio:** $${PRICE} USD
 
 ## Track 1 — paid (${paid.length} emails)

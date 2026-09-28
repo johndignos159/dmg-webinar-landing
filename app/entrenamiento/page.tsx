@@ -9,6 +9,7 @@ import {
   ShieldCheck,
   AlertTriangle,
   Laptop,
+  Languages,
 } from 'lucide-react';
 import SiteHeader from '@/components/site-header';
 import SiteFooter from '@/components/site-footer';
@@ -16,22 +17,28 @@ import CountdownTimer from '@/components/countdown-timer';
 import Reveal from '@/components/reveal';
 import IlluminatedHeading from '@/components/illuminated-heading';
 import TrainingRegistration from '@/components/training-registration';
-import { DAY_1, DAY_2, AUDIENCE, OBJECTIONS } from '@/lib/training-content.mjs';
+import {
+  DAY_1,
+  DAY_2,
+  AUDIENCE,
+  OBJECTIONS,
+  CURRICULUM_KICKER,
+  LANGUAGE,
+} from '@/lib/training-content.mjs';
 import {
   DAY_1_SHORT,
   DAY_2_SHORT,
   DAY_1_DISPLAY,
+  DAY_2_DISPLAY,
+  DAY_1_TIME,
+  DAY_2_TIME,
   PRICE,
   TRAINING_TIMESTAMP,
-  TIMES_CONFIRMED,
-  START_TIME,
-  END_TIME,
-  TIMEZONE_LABEL,
   REFUND_POLICY_ES,
 } from '@/lib/training-config.mjs';
 
-type Module = { n: string; title: string; body: string };
-type DayContent = { title: string; subtitle: string; modules: Module[] };
+type DayContent = { title: string; intro: string; items: string[] };
+type Objection = { q: string; a: string };
 
 const TITLE = 'Entrenamiento de Despacho en Español | DMG Agency Core';
 const DESCRIPTION = `Entrenamiento en vivo de 2 días para aprender despacho de camiones desde cero. ${DAY_1_SHORT} y ${DAY_2_SHORT} de 2026. $${PRICE} USD.`;
@@ -51,17 +58,6 @@ export const metadata: Metadata = {
   },
 };
 
-// Start time is confirmed, finish time is not. Render what is known rather
-// than inventing an end time — someone who plans their Saturday around a
-// guessed finish and gets it wrong is worse off than someone simply not told
-// yet. Falls back to "by email" only if the start is unknown too.
-const SCHEDULE_LINE =
-  !TIMES_CONFIRMED || !START_TIME
-    ? 'Horario exacto por correo'
-    : END_TIME
-      ? `${START_TIME} – ${END_TIME} ${TIMEZONE_LABEL}, ambos días`
-      : `${START_TIME} ${TIMEZONE_LABEL}, ambos días`;
-
 const CTA_CLASS =
   'btn-glow w-full sm:w-auto inline-flex items-center justify-center whitespace-nowrap bg-brand-red hover:bg-brand-red-hover text-white font-bold py-4 px-6 sm:px-10 rounded-full max-[359px]:text-sm text-base sm:text-lg';
 
@@ -78,27 +74,39 @@ const STATS = [
   { stat: '$0', label: 'en equipo — el despachador trabaja desde una computadora' },
 ];
 
-function Day({ day, label }: { day: DayContent; label: string }) {
+function Day({
+  day,
+  label,
+  time,
+}: {
+  day: DayContent;
+  label: string;
+  time: string;
+}) {
   return (
-    <div className="bg-white rounded-3xl border border-gray-200 shadow-xl p-8 md:p-10 h-full">
-      <p className="text-brand-red font-bold text-sm uppercase tracking-widest mb-2">
-        {label}
-      </p>
-      <h3 className="font-heading text-2xl md:text-3xl font-black uppercase text-brand-navy leading-tight mb-2">
+    <div className="bg-white rounded-3xl border border-gray-200 shadow-xl p-8 md:p-10 h-full flex flex-col">
+      {/* The time sits beside the day label because the two days start at
+          different hours. Putting it only in the details grid lower down
+          would let someone plan around the wrong one. */}
+      <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-3">
+        <p className="text-brand-red font-bold text-sm uppercase tracking-widest">
+          {label}
+        </p>
+        <span className="text-xs font-bold uppercase tracking-widest text-gray-400">
+          {time}
+        </span>
+      </div>
+
+      <h3 className="font-heading text-2xl md:text-3xl font-black uppercase text-brand-navy leading-tight mb-3">
         {day.title}
       </h3>
-      <p className="text-gray-600 mb-8">{day.subtitle}</p>
+      <p className="text-gray-600 mb-8 leading-relaxed">{day.intro}</p>
 
-      <ul className="space-y-6">
-        {day.modules.map((m) => (
-          <li key={m.n} className="flex items-start gap-4">
-            <span className="shrink-0 w-9 h-9 rounded-full bg-brand-navy text-white font-heading font-black text-sm flex items-center justify-center">
-              {m.n}
-            </span>
-            <div>
-              <p className="font-bold text-brand-navy leading-snug">{m.title}</p>
-              <p className="text-gray-600 text-sm leading-relaxed mt-1">{m.body}</p>
-            </div>
+      <ul className="space-y-4 mt-auto">
+        {day.items.map((item) => (
+          <li key={item} className="flex items-start">
+            <CheckCircle2 className="w-5 h-5 text-brand-red mr-3 shrink-0 mt-0.5" />
+            <span className="text-brand-navy font-medium leading-snug">{item}</span>
           </li>
         ))}
       </ul>
@@ -109,17 +117,12 @@ function Day({ day, label }: { day: DayContent; label: string }) {
 export default function TrainingPage() {
   return (
     <div className="min-h-screen bg-white">
-      {/* HERO */}
+      {/* HERO — dusk landscape treatment, see .hero-dusk in globals.css */}
       <section className="hero-dusk relative text-white overflow-hidden">
         <SiteHeader ctaLabel="Reservar mi lugar" ctaHref="/entrenamiento#registro" />
 
-        {/* Four background layers, painted back to front. See .hero-dusk in
-            globals.css for what each one is doing. */}
         <div className="absolute inset-0 z-0">
           <div className="hero-dusk-sky" />
-
-          {/* Anchored low and masked upward so the truck reads as silhouetted
-              ground under the sky, the way the rocks do in the reference. */}
           <Image
             src="/images/hero-truck.jpg"
             alt=""
@@ -129,7 +132,6 @@ export default function TrainingPage() {
             quality={85}
             className="hero-dusk-terrain object-cover object-[40%_bottom] opacity-[0.55]"
           />
-
           <div className="hero-dusk-horizon" />
           <div className="hero-dusk-vignette" />
         </div>
@@ -150,8 +152,7 @@ export default function TrainingPage() {
 
           <p className="text-lg md:text-xl text-gray-300 max-w-2xl mb-10 leading-relaxed">
             Dos días en vivo para aprender cómo encontrar cargas, negociar tarifas,
-            cobrar a tiempo y evitar el fraude que está acabando con los operadores
-            nuevos.
+            cobrar a tiempo y construir tu propia cartera de clientes.
           </p>
 
           <CountdownTimer
@@ -191,20 +192,61 @@ export default function TrainingPage() {
               Lo que vas a aprender
             </h2>
             <div className="w-24 h-1 bg-brand-red mx-auto rounded-full mb-6" />
-            <p className="text-lg text-gray-600">
-              Doce módulos en dos días. El primer día te da la base; el segundo te
-              enseña a operarlo como un negocio.
+            <p className="font-heading text-lg md:text-xl font-bold text-brand-navy uppercase tracking-wide">
+              {CURRICULUM_KICKER}
             </p>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-8">
             <Reveal index={0}>
-              <Day day={DAY_1 as DayContent} label={`Día 1 · ${DAY_1_SHORT}`} />
+              <Day
+                day={DAY_1 as DayContent}
+                label={`Día 1 · ${DAY_1_SHORT}`}
+                time={DAY_1_TIME}
+              />
             </Reveal>
             <Reveal index={1}>
-              <Day day={DAY_2 as DayContent} label={`Día 2 · ${DAY_2_SHORT}`} />
+              <Day
+                day={DAY_2 as DayContent}
+                label={`Día 2 · ${DAY_2_SHORT}`}
+                time={DAY_2_TIME}
+              />
             </Reveal>
           </div>
+
+          {/* LANGUAGE — the objection that stops this audience buying more than
+              price does, so it sits directly under the curriculum rather than
+              among the smaller FAQ cards further down. */}
+          <Reveal index={2} className="mt-8">
+            <div className="bg-brand-navy rounded-3xl p-8 md:p-12 text-white shadow-2xl">
+              <div className="flex items-center gap-3 mb-6 text-brand-red">
+                <Languages className="w-7 h-7" />
+                <span className="font-heading text-sm font-bold uppercase tracking-widest">
+                  Hablemos del idioma
+                </span>
+              </div>
+
+              <h3 className="font-heading text-2xl md:text-4xl font-black uppercase leading-tight mb-4">
+                {LANGUAGE.heading}
+              </h3>
+
+              <p className="font-heading text-xl md:text-2xl text-brand-red font-bold mb-8">
+                {LANGUAGE.lead}
+              </p>
+
+              <div className="grid md:grid-cols-3 gap-6 mb-8">
+                {(LANGUAGE.body as string[]).map((para) => (
+                  <p key={para} className="text-gray-300 leading-relaxed">
+                    {para}
+                  </p>
+                ))}
+              </div>
+
+              <p className="font-heading text-lg md:text-xl font-bold border-t border-white/10 pt-6">
+                {LANGUAGE.close}
+              </p>
+            </div>
+          </Reveal>
         </div>
       </section>
 
@@ -242,9 +284,8 @@ export default function TrainingPage() {
                 nuevos son el blanco número uno.
               </p>
               <p className="text-gray-300 leading-relaxed">
-                El módulo 11 cubre doble corretaje, clonación de MC y cargas falsas,
-                con las señales de alerta que delatan cada uno antes de que te cueste
-                dinero.
+                Aprender a leer un rate confirmation y a verificar con quién estás
+                tratando es parte del día 1, antes de que te cueste dinero.
               </p>
             </div>
           </div>
@@ -297,13 +338,25 @@ export default function TrainingPage() {
 
           <div className="grid sm:grid-cols-2 gap-6">
             {[
-              { icon: Calendar, label: 'Día 1', value: DAY_1_DISPLAY },
-              { icon: Calendar, label: 'Día 2', value: `${DAY_2_SHORT} de 2026` },
-              { icon: Clock, label: 'Horario', value: SCHEDULE_LINE },
+              {
+                icon: Calendar,
+                label: 'Día 1',
+                value: `${DAY_1_DISPLAY} · ${DAY_1_TIME}`,
+              },
+              {
+                icon: Calendar,
+                label: 'Día 2',
+                value: `${DAY_2_DISPLAY} · ${DAY_2_TIME}`,
+              },
+              {
+                icon: Clock,
+                label: 'Ojo con la hora',
+                value: 'Cada día empieza a una hora distinta. Revisa las dos.',
+              },
               {
                 icon: Video,
                 label: 'Dónde',
-                value: 'En vivo por Zoom — recibes el enlace al completar tu pago',
+                value: 'En vivo por Zoom — recibes los enlaces al completar tu pago',
               },
               {
                 icon: Laptop,
@@ -346,7 +399,7 @@ export default function TrainingPage() {
           </div>
 
           <div className="grid sm:grid-cols-2 gap-6">
-            {(OBJECTIONS as { q: string; a: string }[]).map(({ q, a }, i) => (
+            {(OBJECTIONS as Objection[]).map(({ q, a }, i) => (
               <Reveal
                 key={q}
                 index={i}
@@ -364,7 +417,7 @@ export default function TrainingPage() {
 
       <TrainingRegistration />
 
-      {/* DISCLAIMER — mirrors the English one on the webinar page. */}
+      {/* DISCLAIMER */}
       <section className="bg-white py-10 px-6 border-t border-gray-100">
         <p className="max-w-3xl mx-auto text-center text-xs text-gray-500 leading-relaxed">
           DMG Agency Core ofrece educación y consultoría de negocios — no asesoría

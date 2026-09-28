@@ -1,7 +1,8 @@
 # Spanish Dispatch Training — build spec
 
 Spanish Group Dispatch Training · **Saturday 31 October and Sunday 1 November
-2026**, 11:00 AM ET both days · **$197 USD**.
+2026** · **$197 USD**. The two days start at different times and use
+different Zoom rooms — see below.
 
 Companion to the code. The pages and emails are generated from
 `lib/training-config.mjs`; this file covers everything clicked inside
@@ -29,15 +30,29 @@ Payment link      https://link.fastpaydirect.com/payment-link/6ab8697cbaea3cadef
 Product           Entrenamiento de Despacho en Grupo (Español) — 31 Oct y 1 Nov 2026
   price           $197 USD, one-time, LIVE mode                 [confirmed]
 
-Zoom              https://us06web.zoom.us/j/88927881365
+Day 1  Sat 31 Oct  11:00 AM ET
+  zoom            https://us06web.zoom.us/j/88927881365
   meeting id      889 2788 1365
   passcode        331181
-  recurrence      daily 11:00 AM ET — Zoom handles the DST change itself
+
+Day 2  Sun 1 Nov   3:00 PM ET     ← different time AND different room
+  zoom            https://us06web.zoom.us/j/83796003919
+  meeting id      837 9600 3919
+  passcode        190302
 
 Emails            emails-entrenamiento/   (10 templates, Spanish content)
 ```
 
-**The Zoom room is deliberately not the webinar's.** That link sits in five
+**The two days are not interchangeable.** Different start times, different
+rooms. Anyone who saves day 1's link and turns up with it on day 2 lands in an
+empty meeting, having paid $197. Every page and email therefore labels the two
+separately, and the day 2 email leads with the fact that the link changed.
+
+Note the DST boundary: daylight saving ends at 2 AM on 1 November, between the
+sessions. Day 1 is EDT, day 2 is EST. The config carries a per-session offset
+for that reason.
+
+**Neither room is the webinar's.** That link sits in five
 webinar emails already sent to a list that grows with every ad click. Reusing it
 would have let any free registrant walk into a paid training.
 
@@ -281,12 +296,12 @@ the ad gets judged on.
 
 ## 9. Still open
 
-- **Curriculum sign-off.** The twelve modules on the live page are my draft,
-  written from the dispatch page. All sales are final, so a module promised and
-  not taught has no refund route and goes to a card dispute instead. Cora needs
-  to read it.
-- **End time.** Cora gave 11:00 AM with no finish. Pages say "11:00 AM ET, ambos
-  días" rather than inventing one.
+- ~~Curriculum sign-off~~ **DONE 2026-09-28.** Cora supplied the real
+  curriculum: day 1 "Aprende a hacer el trabajo" (7 points), day 2 "Construye
+  tu cartera de clientes" (6 points). My twelve-module draft is gone. A
+  language-barrier section was added under the two day cards.
+- **End times.** Cora gave start times only. Pages and emails print the start
+  for each day rather than inventing a finish.
 - **`&amp;` in the form's consent checkbox** renders as literal text.
 - **DNS** for `entrenamiento.dmgagencycore.com` — CNAME to Vercel, same job as
   the webinar subdomain. The page works at `/entrenamiento` until then.

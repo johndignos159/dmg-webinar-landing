@@ -13,7 +13,8 @@ cannot disagree with the landing page.
 
 - **Día 1:** sábado, 31 de octubre de 2026
 - **Día 2:** domingo, 1 de noviembre de 2026
-- **Hora:** 11:00 AM ET, ambos días
+- **Día 1 hora:** 11:00 AM ET
+- **Día 2 hora:** 3:00 PM ET  ← distinta, y sala de Zoom distinta
 - **Precio:** $197 USD
 
 ## Track 1 — paid (7 emails)
@@ -23,13 +24,13 @@ day 2.
 
 | File | GHL template | When it sends | What it says (English) |
 | --- | --- | --- | --- |
-| `01-payment-confirmed.html` | TRAINING - payment confirmed | Immediately on payment | You're in. Zoom link, meeting ID and passcode. What to bring. No refunds. |
+| `01-payment-confirmed.html` | TRAINING - payment confirmed | Immediately on payment | You're in. Both Zoom links, IDs and passcodes, with a warning that the two days differ. What to bring. No refunds. |
 | `02-2-weeks-before.html` | TRAINING - 2 weeks before | Wait until 17/10/2026 10:00 AM | Two weeks out. Calendar nudge, plus go look at a load board to get familiar. |
 | `03-1-week-before.html` | TRAINING - 1 week before | Wait until 24/10/2026 10:00 AM | One week out. The full list of what day 1 and day 2 each cover. |
-| `04-3-days-before.html` | TRAINING - 3 days before | Wait until 28/10/2026 10:00 AM | Three days out. Test your Zoom today, not Saturday morning. |
-| `05-1-day-before.html` | TRAINING - 1 day before | Wait until 30/10/2026 5:00 PM | Tomorrow. Link, ID, passcode, and come with a specific question for Q&A. |
-| `06-day-1-morning.html` | TRAINING - day 1 morning | Wait until 31/10/2026 9:00 AM | Today at 11. Join button, ID, passcode. Bring something to take notes with. |
-| `07-day-2-morning.html` | TRAINING - day 2 morning | Wait until 01/11/2026 9:00 AM | Day 2 today, same time and link. Today is the business half of the training. |
+| `04-3-days-before.html` | TRAINING - 3 days before | Wait until 28/10/2026 10:00 AM | Three days out. Test your Zoom today, not Saturday morning. Both links repeated. |
+| `05-1-day-before.html` | TRAINING - 1 day before | Wait until 30/10/2026 5:00 PM | Tomorrow. Day 1 link and time, plus come with a specific question for Q&A. |
+| `06-day-1-morning.html` | TRAINING - day 1 morning | Wait until 31/10/2026 9:00 AM | Today at 11:00 AM ET. Join button, ID, passcode. Bring something to take notes with. |
+| `07-day-2-morning.html` | TRAINING - day 2 morning | Wait until 01/11/2026 9:00 AM | Day 2 today at 3:00 PM ET — leads with the fact that the link AND the time are different from yesterday. |
 
 ## Track 2 — recovery (3 emails)
 
@@ -40,7 +41,7 @@ unsubscribes.
 | File | GHL template | When it sends | What it says (English) |
 | --- | --- | --- | --- |
 | `08-recovery-1-hour.html` | TRAINING - recovery 1 hour | Wait 1 hour after registering | Your seat is not reserved — payment did not complete. Finish it here. |
-| `09-recovery-day-2.html` | TRAINING - recovery day 2 | Wait 2 days | Answers the three objections: no experience, no truck or CDL, cannot attend. |
+| `09-recovery-day-2.html` | TRAINING - recovery day 2 | Wait 2 days | Answers four objections: no experience, no truck or CDL, weak English, cannot attend. |
 | `10-recovery-day-4.html` | TRAINING - recovery day 4 | Wait 2 more days (day 4) | Last email about this training. Limited seats. If it is a no, that is fine. |
 
 **The last recovery email promises no further contact about this training.**
@@ -53,10 +54,10 @@ Honour it — do not add them to another sequence for this offer.
 | `01-payment-confirmed.html` | Estás inscrito — Entrenamiento de Despacho |
 | `02-2-weeks-before.html` | Faltan dos semanas — prepárate así |
 | `03-1-week-before.html` | Una semana — esto es lo que vamos a cubrir |
-| `04-3-days-before.html` | Faltan 3 días — revisa tu enlace |
+| `04-3-days-before.html` | Faltan 3 días — revisa tus enlaces |
 | `05-1-day-before.html` | Mañana empezamos |
 | `06-day-1-morning.html` | Hoy a las 11:00 AM — día 1 |
-| `07-day-2-morning.html` | Día 2 hoy a las 11:00 AM |
+| `07-day-2-morning.html` | Día 2 hoy a las 3:00 PM — enlace nuevo |
 | `08-recovery-1-hour.html` | Tu lugar todavía no está reservado |
 | `09-recovery-day-2.html` | ¿Te quedó alguna duda? |
 | `10-recovery-day-4.html` | Último aviso sobre tu lugar |
