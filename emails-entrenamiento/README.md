@@ -13,8 +13,8 @@ cannot disagree with the landing page.
 
 - **Día 1:** sábado, 31 de octubre de 2026
 - **Día 2:** domingo, 1 de noviembre de 2026
-- **Día 1 hora:** 11:00 AM ET
-- **Día 2 hora:** 3:00 PM ET  ← distinta, y sala de Zoom distinta
+- **Día 1 hora:** 11:00 AM – 2:00 PM ET
+- **Día 2 hora:** 3:00 PM – 6:00 PM ET  ← distinta, y sala de Zoom distinta
 - **Precio:** $197 USD
 
 ## Track 1 — paid (7 emails)
@@ -29,8 +29,8 @@ day 2.
 | `03-1-week-before.html` | TRAINING - 1 week before | Wait until 24/10/2026 10:00 AM | One week out. The full list of what day 1 and day 2 each cover. |
 | `04-3-days-before.html` | TRAINING - 3 days before | Wait until 28/10/2026 10:00 AM | Three days out. Test your Zoom today, not Saturday morning. Both links repeated. |
 | `05-1-day-before.html` | TRAINING - 1 day before | Wait until 30/10/2026 5:00 PM | Tomorrow. Day 1 link and time, plus come with a specific question for Q&A. |
-| `06-day-1-morning.html` | TRAINING - day 1 morning | Wait until 31/10/2026 9:00 AM | Today at 11:00 AM ET. Join button, ID, passcode. Bring something to take notes with. |
-| `07-day-2-morning.html` | TRAINING - day 2 morning | Wait until 01/11/2026 9:00 AM | Day 2 today at 3:00 PM ET — leads with the fact that the link AND the time are different from yesterday. |
+| `06-day-1-morning.html` | TRAINING - day 1 morning | Wait until 31/10/2026 9:00 AM | Today at 11:00 AM – 2:00 PM ET. Join button, ID, passcode. Bring something to take notes with. |
+| `07-day-2-morning.html` | TRAINING - day 2 morning | Wait until 01/11/2026 9:00 AM | Day 2 today at 3:00 PM – 6:00 PM ET — leads with the fact that the link AND the time are different from yesterday. |
 
 ## Track 2 — recovery (3 emails)
 

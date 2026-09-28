@@ -24,6 +24,8 @@ import {
   OBJECTIONS,
   CURRICULUM_KICKER,
   LANGUAGE,
+  EARNINGS,
+  BENEFITS,
 } from '@/lib/training-content.mjs';
 import {
   DAY_1_SHORT,
@@ -38,6 +40,12 @@ import {
 } from '@/lib/training-config.mjs';
 
 type DayContent = { title: string; intro: string; items: string[] };
+type EarningStep = {
+  value: string;
+  label: string;
+  op: string | null;
+  highlight?: boolean;
+};
 type Objection = { q: string; a: string };
 
 const TITLE = 'Entrenamiento de Despacho en Español | DMG Agency Core';
@@ -66,12 +74,6 @@ const INCLUDED = [
   'Preguntas y respuestas en vivo los dos días',
   'Todo el material en español',
   'Plantillas y guiones que puedes usar de inmediato',
-];
-
-const STATS = [
-  { stat: '$900 mil M', label: 'tamaño de la industria del transporte en EE. UU.' },
-  { stat: '72%', label: 'de toda la carga en EE. UU. se mueve por camión' },
-  { stat: '$0', label: 'en equipo — el despachador trabaja desde una computadora' },
 ];
 
 function Day({
@@ -170,17 +172,74 @@ export default function TrainingPage() {
         </div>
       </section>
 
-      {/* THE NUMBERS */}
-      <section className="bg-brand-navy border-t border-white/10 py-14 px-6">
-        <div className="max-w-5xl mx-auto grid sm:grid-cols-3 gap-10 text-center">
-          {STATS.map((s) => (
-            <div key={s.label}>
-              <p className="font-heading text-3xl md:text-4xl font-black text-brand-red mb-2">
-                {s.stat}
-              </p>
-              <p className="text-sm text-gray-400 leading-relaxed">{s.label}</p>
-            </div>
-          ))}
+      {/* THE MATHS — Cora's framing. Shows the mechanism rather than asserting
+          an outcome, which is both more persuasive and the only defensible way
+          to put an income figure on a sales page. The disclaimer travels with
+          the number and is not optional. */}
+      <section className="bg-brand-navy border-t border-white/10 py-16 md:py-20 px-6">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-10">
+            <p className="font-heading text-2xl md:text-3xl font-bold text-white leading-tight">
+              {EARNINGS.lead}
+            </p>
+            <p className="font-heading text-5xl md:text-7xl font-black text-white leading-none mt-2">
+              {EARNINGS.amount}{' '}
+              <span className="text-brand-red text-3xl md:text-5xl align-middle">
+                {EARNINGS.period}*
+              </span>
+            </p>
+            <p className="text-gray-400 max-w-2xl mx-auto mt-6 leading-relaxed">
+              {EARNINGS.sub}
+            </p>
+          </div>
+
+          {/* The equation. Wraps to a column on phones rather than shrinking
+              the figures to the point of illegibility. */}
+          <div className="flex flex-wrap items-stretch justify-center gap-3">
+            {(EARNINGS.steps as EarningStep[]).map((step) => (
+              <div key={step.label} className="flex items-stretch gap-3">
+                <div
+                  className={`rounded-2xl px-5 py-4 text-center min-w-[9rem] flex flex-col justify-center ${
+                    step.highlight
+                      ? 'bg-brand-red text-white'
+                      : 'bg-white/[0.06] border border-white/10 text-white'
+                  }`}
+                >
+                  <p className="font-heading text-2xl md:text-3xl font-black leading-none">
+                    {step.value}
+                  </p>
+                  <p
+                    className={`text-[11px] leading-snug mt-2 ${
+                      step.highlight ? 'text-white/85' : 'text-gray-400'
+                    }`}
+                  >
+                    {step.label}
+                  </p>
+                </div>
+
+                {step.op && (
+                  <span className="self-center font-heading text-2xl font-black text-brand-red">
+                    {step.op}
+                  </span>
+                )}
+              </div>
+            ))}
+          </div>
+
+          <p className="text-center text-xs text-gray-500 leading-relaxed max-w-2xl mx-auto mt-8">
+            *{EARNINGS.disclaimer}
+          </p>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-12 max-w-4xl mx-auto">
+            {(BENEFITS as string[]).map((b) => (
+              <div key={b} className="flex items-start gap-3">
+                <CheckCircle2 className="w-5 h-5 text-brand-red shrink-0 mt-0.5" />
+                <span className="text-gray-200 font-medium leading-snug text-sm">
+                  {b}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
