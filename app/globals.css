@@ -465,3 +465,69 @@ html {
     display: none;
   }
 }
+/* ---------------------------------------------------------------------------
+   Dashboard background
+   Sits behind the Spanish training registration section. Modelled on a dark
+   product-UI panel: near-black ground, two very soft ambient pools of light,
+   and a hairline seam top and bottom so the section reads as a discrete panel
+   rather than the page simply going dark.
+
+   Built from gradients rather than an image so it costs nothing to load and
+   scales to any viewport without a second asset to keep in sync.
+   --------------------------------------------------------------------------- */
+
+.dashboard-bg {
+  position: relative;
+  overflow: hidden;
+  background-color: #0a0b0e;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+/* Ambient light. Two pools, cool from the upper left and a trace of brand red
+   from the lower right, both far below the intensity of a "glow" effect — the
+   reference reads as a lit room, not a neon sign. */
+.dashboard-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(
+      55% 45% at 18% 0%,
+      rgba(140, 165, 205, 0.11),
+      transparent 70%
+    ),
+    radial-gradient(
+      45% 40% at 88% 100%,
+      rgba(226, 59, 59, 0.09),
+      transparent 70%
+    );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Vignette. Darkens the corners so the centre column carries the eye, which is
+   what the reference does with its own falloff. */
+.dashboard-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    120% 90% at 50% 45%,
+    transparent 40%,
+    rgba(0, 0, 0, 0.55) 100%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* The panel treatment used on the form wrapper: a hairline border and a soft
+   lift, matching the cards in the reference. */
+.dashboard-panel {
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.02);
+  box-shadow:
+    0 1px 0 0 rgba(255, 255, 255, 0.05) inset,
+    0 24px 60px -20px rgba(0, 0, 0, 0.9);
+}
