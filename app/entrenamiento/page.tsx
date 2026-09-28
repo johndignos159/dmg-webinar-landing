@@ -110,10 +110,16 @@ export default function TrainingPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* HERO */}
-      <section className="relative bg-brand-navy text-white overflow-hidden">
+      <section className="hero-dusk relative text-white overflow-hidden">
         <SiteHeader ctaLabel="Reservar mi lugar" ctaHref="/entrenamiento#registro" />
 
-        <div className="absolute inset-0 z-0 bg-brand-navy">
+        {/* Four background layers, painted back to front. See .hero-dusk in
+            globals.css for what each one is doing. */}
+        <div className="absolute inset-0 z-0">
+          <div className="hero-dusk-sky" />
+
+          {/* Anchored low and masked upward so the truck reads as silhouetted
+              ground under the sky, the way the rocks do in the reference. */}
           <Image
             src="/images/hero-truck.jpg"
             alt=""
@@ -121,9 +127,11 @@ export default function TrainingPage() {
             priority
             sizes="100vw"
             quality={85}
-            className="object-cover object-[35%_center] opacity-40"
+            className="hero-dusk-terrain object-cover object-[40%_bottom] opacity-[0.55]"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-brand-navy via-brand-navy/80 to-brand-navy/40 mix-blend-multiply" />
+
+          <div className="hero-dusk-horizon" />
+          <div className="hero-dusk-vignette" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 pt-32 pb-24 md:pt-40 md:pb-32 lg:pt-44 lg:pb-40 flex flex-col items-center text-center">

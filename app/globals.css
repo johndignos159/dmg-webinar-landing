@@ -531,3 +531,65 @@ html {
     0 1px 0 0 rgba(255, 255, 255, 0.05) inset,
     0 24px 60px -20px rgba(0, 0, 0, 0.9);
 }
+
+/* ---------------------------------------------------------------------------
+   Dusk hero
+   Translates the reference John supplied — a twilight landscape with a
+   luminous sky, silhouetted terrain along the bottom, and the subject centred
+   and backlit — into the existing brand palette. No new colours: the warm sky
+   glow is brand red at low opacity, which reads as dusk without introducing a
+   hue that is not already on the page.
+
+   Four stacked layers, painted back to front:
+     sky      the luminous gradient occupying the upper two thirds
+     terrain  the truck photo, anchored low and masked so it fades upward
+     horizon  a soft band of light where terrain meets sky
+     vignette darkened corners so the centre column carries the eye
+   --------------------------------------------------------------------------- */
+
+.hero-dusk {
+  background-color: #0b0b0e;
+}
+
+.hero-dusk-sky {
+  position: absolute;
+  inset: 0;
+  background-image:
+    /* warm pool, high and central — the sun just below the horizon */
+    radial-gradient(85% 55% at 50% 15%, rgba(226, 59, 59, 0.30), transparent 68%),
+    /* cool upper wash, gives the sky depth above the warm band */
+    radial-gradient(130% 75% at 50% -5%, rgba(74, 78, 102, 0.38), transparent 72%),
+    /* base falloff to near black at the foot */
+    linear-gradient(180deg, #17171f 0%, #101017 48%, #08080b 100%);
+  pointer-events: none;
+}
+
+/* The photo is anchored low and faded upward, so it reads as silhouetted
+   ground rather than a picture behind text. Both prefixes: Safari still wants
+   -webkit-mask-image. */
+.hero-dusk-terrain {
+  -webkit-mask-image: linear-gradient(to top, #000 0%, #000 30%, transparent 76%);
+  mask-image: linear-gradient(to top, #000 0%, #000 30%, transparent 76%);
+}
+
+.hero-dusk-horizon {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    62% 13% at 50% 60%,
+    rgba(226, 59, 59, 0.26),
+    transparent 72%
+  );
+  pointer-events: none;
+}
+
+.hero-dusk-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    115% 85% at 50% 40%,
+    transparent 36%,
+    rgba(0, 0, 0, 0.74) 100%
+  );
+  pointer-events: none;
+}
