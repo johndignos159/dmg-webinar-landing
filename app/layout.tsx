@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Montserrat, Inter } from 'next/font/google';
-import MetaPixel from '@/components/meta-pixel';
+import MetaPixel, { MetaPixelNoScript } from '@/components/meta-pixel';
 import { WEBINAR_DATE_DISPLAY, WEBINAR_TIME_DISPLAY } from '@/lib/webinar-config';
 import './globals.css'; // Global styles
 
@@ -48,12 +48,15 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${montserrat.variable} ${inter.variable}`}>
+      <head>
+        <MetaPixel />
+      </head>
       <body
         className="font-sans antialiased text-[#1a1a1a] bg-white"
         suppressHydrationWarning
       >
         {children}
-        <MetaPixel />
+        <MetaPixelNoScript />
       </body>
     </html>
   );

@@ -18,4 +18,10 @@
 // Set on 2026-08-18. Emptying this string switches all tracking off again —
 // no script, no network request — which is the clean way to disable it without
 // unpicking the components.
-export const META_PIXEL_ID = '1752983249236168';
+// Keep both datasets initialized globally. One fbq('track', 'PageView') call
+// sends the event to each initialized dataset without duplicating the call.
+export const META_PIXEL_IDS = ['1752983249236168', '1650730799896868'] as const;
+
+// Kept for the existing webinar Lead-event component, which only needs to
+// know whether the original webinar pixel is enabled.
+export const META_PIXEL_ID = META_PIXEL_IDS[0];
