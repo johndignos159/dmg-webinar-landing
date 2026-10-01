@@ -1,0 +1,52 @@
+{
+  "name": "META CAPI - Error Alert",
+  "nodes": [
+    {
+      "id": "et1",
+      "name": "Error Trigger",
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {}
+    },
+    {
+      "id": "em1",
+      "name": "Email Me the Error",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        240,
+        0
+      ],
+      "parameters": {
+        "fromEmail": "REPLACE_WITH_SENDER_EMAIL",
+        "toEmail": "REPLACE_WITH_YOUR_EMAIL",
+        "subject": "={{ '\u26a0 Meta Purchase tracking FAILED - ' + $json.workflow.name }}",
+        "emailFormat": "text",
+        "text": "={{ 'A $197 training purchase may NOT have been reported to Meta.\n\nWorkflow: ' + $json.workflow.name + '\nFailed step: ' + ($json.execution.lastNodeExecuted || 'unknown') + '\nError: ' + (($json.execution.error && $json.execution.error.message) || 'unknown') + '\nWhen: ' + $now.setZone('America/New_York').toFormat('ff') + ' ET\n\nOpen the failed run: ' + ($json.execution.url || 'n/a') + '\n\nTo resend the purchase after fixing the cause: open that run, click the retry arrow, choose Retry with currently saved workflow.\n\nCommon causes:\n- Meta error 190 / 401: the access token expired or was revoked. Generate a new one in Events Manager and update the Header Auth credential.\n- Missing Email: GHL sent a payload with no email. Check the webhook action in GHL Workflow 2.\n- Meta 400: read the error above for the field Meta rejected.' }}",
+        "options": {}
+      },
+      "notes": "Needs an SMTP credential. Set From and To before activating."
+    }
+  ],
+  "connections": {
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Email Me the Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/New_York"
+  }
+}

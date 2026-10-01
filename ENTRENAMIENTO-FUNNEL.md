@@ -294,7 +294,165 @@ the ad gets judged on.
 
 ---
 
-## 9. Still open
+## 9. Meta `Purchase` tracking for the $197 order
+
+**Status as of 2026-09-30: the n8n relay is built, nothing else is.** Step 3's
+workflow exists and is wired; it is inactive and has no access token yet. Steps
+1, 2 and 4, and the GHL webhook action, are still to do — and none of them live
+in this repo, they are clicked in Meta Events Manager, GoHighLevel and n8n.
+
+### The one fact that decides the design
+
+Checkout is **not** on a page we control. The form redirects to
+`link.fastpaydirect.com/payment-link/6ab8697cbaea3cadef54f885` — GHL's own
+payment domain. A *pixel* is browser JavaScript, and it can only run on pages we
+can put code into. We cannot put code on that domain, and a standalone GHL
+payment link has no tracking-code field.
+
+So the browser pixel cannot see the payment. `Purchase` has to be reported
+**server-side** instead: GHL tells a server the order succeeded, and that server
+tells Meta. Meta calls this the **Conversions API**, or **CAPI** — the same
+events as the pixel, sent machine-to-machine rather than from the visitor's
+browser.
+
+Two consequences worth knowing before you start:
+
+- **Do not put a `Purchase` on `/entrenamiento/confirmado`.** That page is a
+  plain URL. Anyone can open it without paying, and every visit would report a
+  $197 sale that never happened. The confirmation page is not proof of payment;
+  only GHL's payment event is.
+- **A "dataset" and a "pixel" are now the same object in Meta.** Events Manager
+  renamed pixels to datasets when CAPI arrived. Dataset ID `1650730799896868` is
+  the same number as the pixel ID already in the site's `<head>`. Sending
+  `Purchase` to that same ID is what lets Meta join the ad click, the page view
+  and the sale into one attributed conversion.
+
+### Which pixel
+
+Use **`1650730799896868`** — Cora's dataset, already initialized globally by
+`components/meta-pixel.tsx`. Not `1752983249236168`; that one is the original
+webinar dataset, and mixing a paid Spanish training into it corrupts the
+cost-per-registration figure the webinar is judged on.
+
+### Step 1 — get the two values from Meta
+
+In **Events Manager → Data Sources → the `1650730799896868` dataset**:
+
+| Value | Where | Looks like |
+| --- | --- | --- |
+| Dataset ID | under the dataset name | `1650730799896868` |
+| Access token | **Settings → Conversions API → Generate access token** | long `EAA…` string |
+
+The access token **is** a secret, unlike the pixel ID. It can write events into
+the ad account. It goes in the n8n credential store in step 3 and nowhere else —
+never in this repo, never in a GHL custom value, never in a browser.
+
+### Step 2 — check whether GHL can do it natively first
+
+Some GHL versions ship a Meta Conversions API integration. Look in
+**Settings → Integrations**, and in the funnel's own settings, for anything
+naming *Conversions API* or *Meta dataset*. If it is there, connect dataset
+`1650730799896868` with the token from step 1 and **filter it to this product
+only** — same trap as Workflow 2's trigger, or every sale in the account reports
+as a $197 training purchase.
+
+If it is not there — which is the likely case, since the checkout is a payment
+link rather than a funnel step — use step 3.
+
+### Step 3 — the n8n relay  ·  **BUILT 2026-09-30**
+
+n8n is already in this stack (`kapitalempire1.app.n8n.cloud`, see
+`N8N-ZOOM-ATTENDANCE.md`). It sits between GHL and Meta because Meta requires an
+`event_time` as a Unix timestamp and requires the buyer's email to be
+SHA-256 hashed, and a GHL webhook action can produce neither.
+
+```
+GHL Workflow 2  ──webhook──▶  n8n  ──Conversions API──▶  Meta dataset
+"TRAINING - Payment & Reminders"     hash email,          1650730799896868
+                                     add event_time
+```
+
+**The workflow exists.** `META CAPI - Training Purchase ($197)`, id
+`XGuxFenrxJUq2R83`, five nodes, **left inactive on purpose** — see the two
+to-dos below.
+
+| Node | Does |
+| --- | --- |
+| `GHL Purchase Webhook` | POST listener, path `ghl-training-purchase` |
+| `Has Buyer Email` | guard — no email means no usable event |
+| `Hash Email` | SHA-256 hex of the lowercased, trimmed email → `em_hash` |
+| `Send Purchase to Meta` | POST to the Conversions API · 3 retries, 5s apart |
+| `Missing Email - Fail Loudly` | throws, so a bad payload is a red execution |
+
+The guard matters. Meta rejects an event carrying no identifier, and a silently
+dropped `Purchase` looks identical to a funnel that simply made no sales. If GHL
+ever sends a payload without an email, this workflow fails visibly instead.
+
+The raw email never leaves n8n — only the hash does. That is Meta's requirement,
+and it is also why a leaked payload would not expose your buyer list.
+
+#### Still to do by hand
+
+1. **Create the credential.** n8n → Credentials → new **Header Auth**, name it
+   `Meta CAPI - DMG dataset`. Name `Authorization`, Value `Bearer ` followed by
+   the access token from step 1. Then open `Send Purchase to Meta` and select it.
+   The token belongs here and nowhere else — not in the node's fields, not in
+   this repo, not in a GHL custom value.
+2. **API version — settled.** The URL uses `v26.0`, Meta's current Graph API
+   version per its changelog (released 2026-07-29). Nothing to check. Older
+   versions stay usable for about two years, so this only needs revisiting if
+   the workflow starts returning a version error.
+
+Then **activate** the workflow. Not before the credential exists — an active
+workflow without it turns every real purchase into a 401, and Meta does not
+accept the event late.
+
+**In GHL:** add a **Webhook** action to Workflow 2 (§5) — after step 3
+`Create or Update Opportunity`, so it only fires on a real confirmed payment.
+POST to the production webhook URL n8n shows on the `GHL Purchase Webhook` node.
+The payload must include the buyer's email as `email`; `orderId` is used as the
+deduplication key when present.
+
+The event sent:
+
+```
+event_name        "Purchase"
+event_time        Unix seconds, at the moment of the webhook
+action_source     "website"
+value             197
+currency          "USD"
+event_id          the GHL order ID, or training-<email hash> as a fallback
+user_data.em      SHA-256 of the lowercased, trimmed buyer email
+```
+
+`event_id` matters. It is Meta's **deduplication** key: if a browser `Purchase`
+ever also fires for the same order, Meta collapses the two into one conversion
+instead of reporting two $197 sales. It is never random — with no order ID it
+falls back to the email hash, which is still stable for that buyer.
+
+Only the email is sent as an identifier. Adding a hashed phone would raise
+Meta's match rate, at the cost of a second hashing node. Worth doing if match
+quality turns out poor; not worth doing before there is any data.
+
+### Step 4 — test it
+
+Meta Events Manager → the dataset → **Test Events** gives you a temporary
+`test_event_code`. Add it to the `Send Purchase to Meta` node's JSON body as a
+sibling of `data` — `"test_event_code": "TEST12345",` on its own line above
+`"data"` — then run one real purchase through
+§8's end-to-end test, and the `Purchase` should appear in Test Events within
+seconds, showing `value 197` and `currency USD`.
+
+**Remove `test_event_code` afterwards.** Events sent with it are discarded —
+they show in Test Events and never reach reporting or ad optimisation, so
+leaving it in means a funnel that looks perfectly wired and attributes nothing.
+
+Then refund the test payment in Stripe, as §8 already says, and expect the
+test `Purchase` to stay in reporting — a refund does not retract a sent event.
+
+---
+
+## 10. Still open
 
 - ~~Curriculum sign-off~~ **DONE 2026-09-28.** Cora supplied the real
   curriculum: day 1 "Aprende a hacer el trabajo" (7 points), day 2 "Construye
@@ -305,5 +463,14 @@ the ad gets judged on.
 - **`&amp;` in the form's consent checkbox** renders as literal text.
 - **DNS** for `entrenamiento.dmgagencycore.com` — CNAME to Vercel, same job as
   the webinar subdomain. The page works at `/entrenamiento` until then.
-- **Meta pixel** for this funnel — which pixel, and a `Purchase` event on the
-  confirmation page rather than `Lead`, since this one takes money.
+- ~~**Meta pixel** for this funnel — a `Purchase` event on the confirmation
+  page~~ **Superseded 2026-09-30, see §9.** The pixel part is done: dataset
+  `1650730799896868` is initialized site-wide in `app/layout.tsx`, so
+  `/entrenamiento` already reports `PageView`. The `Purchase` part cannot be
+  done the way this line assumed — checkout is on GHL's `link.fastpaydirect.com`
+  domain, so no pixel can see the payment, and the confirmation page is a plain
+  URL that anyone can open without paying. It needs server-side CAPI instead.
+- **Meta `Purchase` via CAPI** — the §9 build. The n8n relay is done
+  (`META CAPI - Training Purchase ($197)`, id `XGuxFenrxJUq2R83`). Still open:
+  the Meta access token into a Header Auth credential, activating that workflow,
+  the webhook action on GHL Workflow 2, and the Test Events run.
