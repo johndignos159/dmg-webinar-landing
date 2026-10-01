@@ -1,0 +1,298 @@
+{
+  "name": "META CAPI - Training EN Purchase ($197)",
+  "nodes": [
+    {
+      "id": "wh1",
+      "name": "GHL Purchase Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -440,
+        0
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "ghl-training-en-purchase-5208373ae36a9e3a7b2c501e",
+        "responseMode": "onReceived"
+      },
+      "notes": "Called by the ENGLISH training's GHL payment workflow. Its own path, separate from the Spanish relay, so the two trainings can never cross. The long random path is the only lock on this URL - treat it like a password. Add ?test=YOURCODE to send a Test Events purchase."
+    },
+    {
+      "id": "if1",
+      "name": "Has Buyer Email",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -220,
+        0
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "email-present",
+              "leftValue": "={{ $json.body.email }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "set1",
+      "name": "Clean Buyer Details",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        -100
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a1",
+              "name": "email",
+              "value": "={{ String($json.body.email).toLowerCase().trim() }}",
+              "type": "string"
+            },
+            {
+              "id": "a2",
+              "name": "phone",
+              "value": "={{ (() => { const d = String($json.body.phone || '').replace(/\\D/g, ''); return d.length === 10 ? '1' + d : d; })() }}",
+              "type": "string"
+            },
+            {
+              "id": "a3",
+              "name": "first_name",
+              "value": "={{ String($json.body.name || '').trim().split(/\\s+/)[0].toLowerCase() }}",
+              "type": "string"
+            },
+            {
+              "id": "a4",
+              "name": "last_name",
+              "value": "={{ String($json.body.name || '').trim().split(/\\s+/).slice(1).join(' ').toLowerCase() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "notes": "Meta wants lowercase, trimmed values; phone as digits with country code (US assumed for 10 digits)."
+    },
+    {
+      "id": "cr1",
+      "name": "Hash Email",
+      "type": "n8n-nodes-base.crypto",
+      "typeVersion": 2,
+      "position": [
+        220,
+        -100
+      ],
+      "parameters": {
+        "action": "hash",
+        "type": "SHA256",
+        "binaryData": false,
+        "value": "={{ $json.email }}",
+        "dataPropertyName": "em_hash",
+        "encoding": "hex"
+      }
+    },
+    {
+      "id": "cr2",
+      "name": "Hash Phone",
+      "type": "n8n-nodes-base.crypto",
+      "typeVersion": 2,
+      "position": [
+        440,
+        -100
+      ],
+      "parameters": {
+        "action": "hash",
+        "type": "SHA256",
+        "binaryData": false,
+        "value": "={{ $json.phone }}",
+        "dataPropertyName": "ph_hash",
+        "encoding": "hex"
+      }
+    },
+    {
+      "id": "cr3",
+      "name": "Hash First Name",
+      "type": "n8n-nodes-base.crypto",
+      "typeVersion": 2,
+      "position": [
+        660,
+        -100
+      ],
+      "parameters": {
+        "action": "hash",
+        "type": "SHA256",
+        "binaryData": false,
+        "value": "={{ $json.first_name }}",
+        "dataPropertyName": "fn_hash",
+        "encoding": "hex"
+      }
+    },
+    {
+      "id": "cr4",
+      "name": "Hash Last Name",
+      "type": "n8n-nodes-base.crypto",
+      "typeVersion": 2,
+      "position": [
+        880,
+        -100
+      ],
+      "parameters": {
+        "action": "hash",
+        "type": "SHA256",
+        "binaryData": false,
+        "value": "={{ $json.last_name }}",
+        "dataPropertyName": "ln_hash",
+        "encoding": "hex"
+      }
+    },
+    {
+      "id": "http1",
+      "name": "Send Purchase to Meta",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1100,
+        -100
+      ],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 5000,
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v26.0/1650730799896868/events",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ ...($json.query && $json.query.test ? { test_event_code: $json.query.test } : {}), data: [{ event_name: 'Purchase', event_time: Math.floor(Date.now() / 1000), action_source: 'website', event_id: String($json.body.orderId || $json.body.id || ('training-en-' + $json.em_hash)), event_source_url: 'https://training.dmgagencycore.com/', user_data: { em: [$json.em_hash], ...($json.phone ? { ph: [$json.ph_hash] } : {}), ...($json.first_name ? { fn: [$json.fn_hash] } : {}), ...($json.last_name ? { ln: [$json.ln_hash] } : {}) }, custom_data: { currency: 'USD', value: 197, content_name: 'DMG Group Dispatch Training (English) - 14 and 15 Nov 2026' } }] }) }}"
+      },
+      "notes": "Meta Conversions API, same dataset as the Spanish training. content_name is what tells the two trainings apart in reporting. Reuses the existing 'Meta CAPI - DMG dataset' Header Auth credential - no new token needed."
+    },
+    {
+      "id": "err1",
+      "name": "Missing Email - Fail Loudly",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        0,
+        120
+      ],
+      "parameters": {
+        "errorType": "errorMessage",
+        "errorMessage": "GHL sent an ENGLISH training purchase with no email. No Purchase was reported to Meta. Check the webhook payload mapping in the English payment workflow."
+      }
+    }
+  ],
+  "connections": {
+    "GHL Purchase Webhook": {
+      "main": [
+        [
+          {
+            "node": "Has Buyer Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Has Buyer Email": {
+      "main": [
+        [
+          {
+            "node": "Clean Buyer Details",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Missing Email - Fail Loudly",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Clean Buyer Details": {
+      "main": [
+        [
+          {
+            "node": "Hash Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Hash Email": {
+      "main": [
+        [
+          {
+            "node": "Hash Phone",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Hash Phone": {
+      "main": [
+        [
+          {
+            "node": "Hash First Name",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Hash First Name": {
+      "main": [
+        [
+          {
+            "node": "Hash Last Name",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Hash Last Name": {
+      "main": [
+        [
+          {
+            "node": "Send Purchase to Meta",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/New_York",
+    "saveDataErrorExecution": "all",
+    "saveDataSuccessExecution": "all"
+  }
+}
