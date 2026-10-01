@@ -53,11 +53,9 @@ separately, and the day 2 email leads with the fact that the link changed.
 Both days fall after daylight saving ends on 1 November, so both are EST. The
 Spanish training straddled that boundary; this one does not.
 
-**⚠ END TIMES ARE ASSUMED.** You supplied start times only. The three-hour
-length is copied from the Spanish sessions, which Cora confirmed. The pages and
-emails print `11:00 AM – 2:00 PM` and `3:00 PM – 6:00 PM`. **Get these
-confirmed before the page goes live** — change `end` on each session in
-`lib/training-en-config.mjs` and re-run the email generator.
+**Each session is three hours**, confirmed 2026-10-01. The pages and emails
+print `11:00 AM – 2:00 PM` and `3:00 PM – 6:00 PM`. To change it, edit `end` on
+each session in `lib/training-en-config.mjs` and re-run the email generator.
 
 ---
 
@@ -316,12 +314,22 @@ thrown away.
 
 ## 7. DNS
 
-`training.dmgagencycore.com` → CNAME to Vercel, same job as the webinar and
-Spanish subdomains. **Cloudflare must be grey-cloud** (DNS only, not proxied).
+`training.dmgagencycore.com`. DNS for this domain is edited **inside GoHighLevel**
+(GHL is both the registrar and the DNS host; the Cloudflare nameservers are just
+GHL's backend, and there is no separate Cloudflare login). Same job as the
+Spanish and webinar subdomains.
+
+1. **Vercel** → project `dmg-webinar-landing` → **Domains** (left sidebar, not
+   under Settings) → **Connect an existing domain** → `training.dmgagencycore.com`.
+   Not the search box — that one sells new domains. Decline any offer to switch
+   to Vercel nameservers.
+2. **GHL** → Settings → Domains → `dmgagencycore.com` → **Manage** → **DNS
+   records** → add a **CNAME**: name `training`, value `cname.vercel-dns.com`.
+3. Back in Vercel, wait for the green check (usually under a minute).
 
 The middleware already routes the subdomain to `/training`, and the page works
-at `/training` on the main domain until the record exists — so you can test
-everything before DNS propagates.
+at `/training` on the main domain until the record exists, so everything can be
+tested before DNS propagates.
 
 ---
 
@@ -373,9 +381,6 @@ reporting — a refund does not retract a sent event.
 
 ## 9. Still open
 
-- **End times unconfirmed.** 3 hours per day is assumed from the Spanish
-  sessions. Confirm with Cora, then edit `end` on each session in
-  `lib/training-en-config.mjs` and re-run the email generator.
 - **GHL product, payment link and form** — none exist yet. §2.
 - **`CHECKOUT_URL` and `REGISTRATION_FORM_ID`** are empty in
   `lib/training-en-config.mjs`. The page and emails degrade safely until they
