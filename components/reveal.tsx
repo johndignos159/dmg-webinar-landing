@@ -55,9 +55,10 @@ export default function Reveal({ children, index = 0, className = '' }: Props) {
       style={{ transitionDelay: `${index * 140}ms` }}
     >
       {/* Without JS the items would sit at opacity 0 forever. This only
-          applies when scripting is disabled. */}
+          applies when scripting is disabled. .stagger-item is the same case:
+          it waits on .reveal-shown, which never arrives. */}
       <noscript>
-        <style>{`.reveal{opacity:1!important;transform:none!important}`}</style>
+        <style>{`.reveal,.stagger-item{opacity:1!important;transform:none!important}`}</style>
       </noscript>
       {children}
     </div>

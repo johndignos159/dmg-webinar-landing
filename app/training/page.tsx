@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import {
@@ -14,6 +15,7 @@ import SiteHeader from '@/components/site-header';
 import SiteFooter from '@/components/site-footer';
 import CountdownTimer from '@/components/countdown-timer';
 import Reveal from '@/components/reveal';
+import TiltCard from '@/components/tilt-card';
 import IlluminatedHeading from '@/components/illuminated-heading';
 import TrainingEnRegistration from '@/components/training-en-registration';
 import {
@@ -74,43 +76,78 @@ const INCLUDED = [
   'Time to ask about your own situation',
 ];
 
+// Accent per detail card. Red for the two dates, amber for the warning about
+// start times, then one hue each for where, equipment and language, so the six
+// can be told apart at a glance.
+const DETAIL_COLORS = {
+  day1: '#DC143C',
+  day2: '#E0452B',
+  time: '#D97706',
+  where: '#1B6B8F',
+  need: '#4B5FBD',
+  language: '#0F8A5F',
+};
+
 function Day({
   day,
   label,
   time,
+  number,
+  alt = false,
 }: {
   day: DayContent;
   label: string;
   time: string;
+  /** Watermark numeral behind the card. */
+  number: string;
+  /** Second card: offsets its glow so the pair do not pulse together. */
+  alt?: boolean;
 }) {
   return (
-    <div className="bg-white rounded-3xl border border-gray-200 shadow-xl p-8 md:p-10 h-full flex flex-col">
-      {/* The time sits beside the day label because the two days start at
-          different hours. Putting it only in the details grid lower down
-          would let someone plan around the wrong one. */}
-      <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-3">
-        <p className="text-brand-red font-bold text-sm uppercase tracking-widest">
-          {label}
-        </p>
-        <span className="text-xs font-bold uppercase tracking-widest text-gray-400">
-          {time}
+    <TiltCard max={5} className={`glow-card h-full ${alt ? 'glow-card-alt' : ''}`}>
+      {/* Inner wrapper clips the watermark. The clip cannot live on .glow-card
+          itself: its halo is painted outside the box and would be cut off. */}
+      <div className="relative h-full overflow-hidden rounded-3xl p-8 md:p-10 flex flex-col">
+        <span
+          aria-hidden="true"
+          className="pointer-events-none select-none absolute -top-5 right-5 font-heading text-[8.5rem] md:text-[10rem] font-black leading-none text-white/[0.05]"
+        >
+          {number}
         </span>
+
+        {/* The time sits beside the day label because the two days start at
+            different hours. Putting it only in the details grid lower down
+            would let someone plan around the wrong one. */}
+        <div className="relative flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-3">
+          <p className="text-brand-red font-bold text-sm uppercase tracking-widest">
+            {label}
+          </p>
+          <span className="text-xs font-bold uppercase tracking-widest text-gray-400">
+            {time}
+          </span>
+        </div>
+
+        <h3 className="relative font-heading text-2xl md:text-3xl font-black uppercase text-white leading-tight mb-3">
+          {day.title}
+        </h3>
+        <p className="relative text-gray-400 mb-8 leading-relaxed">{day.intro}</p>
+
+        <ul className="relative space-y-4 mt-auto">
+          {day.items.map((item, i) => (
+            <li
+              key={item}
+              className="stagger-item flex items-start"
+              // The second card lands 140ms after the first, so its items
+              // start two steps later to keep the cascade in order.
+              style={{ '--s': i + (alt ? 2 : 0) } as CSSProperties}
+            >
+              <CheckCircle2 className="w-5 h-5 text-brand-red mr-3 shrink-0 mt-0.5" />
+              <span className="text-gray-100 font-medium leading-snug">{item}</span>
+            </li>
+          ))}
+        </ul>
       </div>
-
-      <h3 className="font-heading text-2xl md:text-3xl font-black uppercase text-brand-navy leading-tight mb-3">
-        {day.title}
-      </h3>
-      <p className="text-gray-600 mb-8 leading-relaxed">{day.intro}</p>
-
-      <ul className="space-y-4 mt-auto">
-        {day.items.map((item) => (
-          <li key={item} className="flex items-start">
-            <CheckCircle2 className="w-5 h-5 text-brand-red mr-3 shrink-0 mt-0.5" />
-            <span className="text-brand-navy font-medium leading-snug">{item}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
+    </TiltCard>
   );
 }
 
@@ -244,31 +281,37 @@ export default function TrainingEnPage() {
       {/* CURRICULUM — the centrepiece. Someone deciding on $197 decides here.
           Unlike the Spanish page there is no language-barrier section below
           this: that objection belongs to that audience, not this one. */}
-      <section className="py-20 md:py-28 bg-brand-gray">
-        <div className="max-w-7xl mx-auto px-6">
+      {/* Dark, like "What You'll Walk Away With" on the webinar page: the glow
+          on the heading and on the card rims only reads against black. The
+          section's overflow is hidden (.illuminated-bg), which the side-entry
+          reveals rely on. */}
+      <section className="illuminated-bg py-24 md:py-32 bg-black">
+        <div className="relative z-10 max-w-7xl mx-auto px-6">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="font-heading text-3xl md:text-4xl font-bold uppercase text-brand-navy mb-4">
-              What you will learn
+            <h2 className="font-heading text-3xl md:text-5xl font-black uppercase text-white mb-6 leading-tight">
+              <IlluminatedHeading text="What you will learn" />
             </h2>
-            <div className="w-24 h-1 bg-brand-red mx-auto rounded-full mb-6" />
-            <p className="font-heading text-lg md:text-xl font-bold text-brand-navy uppercase tracking-wide">
+            <p className="font-heading text-lg md:text-xl font-bold text-gray-300 uppercase tracking-wide">
               {CURRICULUM_KICKER}
             </p>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-8">
-            <Reveal index={0}>
+            <Reveal index={0} className="reveal-left h-full">
               <Day
                 day={DAY_1 as DayContent}
                 label={`Day 1 · ${DAY_1_SHORT}`}
                 time={DAY_1_TIME}
+                number="01"
               />
             </Reveal>
-            <Reveal index={1}>
+            <Reveal index={1} className="reveal-right h-full">
               <Day
                 day={DAY_2 as DayContent}
                 label={`Day 2 · ${DAY_2_SHORT}`}
                 time={DAY_2_TIME}
+                number="02"
+                alt
               />
             </Reveal>
           </div>
@@ -367,54 +410,66 @@ export default function TrainingEnPage() {
                 icon: Calendar,
                 label: 'Day 1',
                 value: `${DAY_1_DISPLAY} · ${DAY_1_TIME}`,
+                color: DETAIL_COLORS.day1,
               },
               {
                 icon: Calendar,
                 label: 'Day 2',
                 value: `${DAY_2_DISPLAY} · ${DAY_2_TIME}`,
+                color: DETAIL_COLORS.day2,
               },
               {
                 icon: Clock,
                 label: 'Watch the time',
                 value: 'Each day starts at a different hour. Check both.',
+                color: DETAIL_COLORS.time,
               },
               {
                 icon: Video,
                 label: 'Where',
                 value: 'Live on Zoom — you get the links as soon as payment clears',
+                color: DETAIL_COLORS.where,
               },
               {
                 icon: Laptop,
                 label: 'What you need',
                 value: 'A computer and internet. That is it.',
+                color: DETAIL_COLORS.need,
               },
               {
                 icon: ShieldCheck,
                 label: 'Language',
                 value: 'The entire training is in English',
+                color: DETAIL_COLORS.language,
               },
-            ].map(({ icon: Icon, label, value }) => (
-              <div
-                key={label}
-                className="flex items-start gap-4 bg-brand-gray rounded-2xl p-6"
-              >
-                <div className="mt-0.5 shrink-0 text-brand-teal">
-                  <Icon className="w-6 h-6" />
+            ].map(({ icon: Icon, label, value, color }, i) => (
+              // The hover lift sits on the inner card, not on Reveal: Reveal
+              // carries an inline transition-delay for the cascade, and a
+              // hover on that element would wait out the same delay.
+              <Reveal key={label} index={i} className="h-full">
+                <div
+                  className="detail-card"
+                  style={{ '--c': color } as CSSProperties}
+                >
+                  <div className="detail-icon">
+                    <Icon className="w-5 h-5" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="detail-label text-xs font-bold uppercase tracking-widest mb-1">
+                      {label}
+                    </p>
+                    <p className="font-medium text-brand-navy leading-snug">{value}</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-xs font-bold uppercase tracking-widest text-gray-500 mb-1">
-                    {label}
-                  </p>
-                  <p className="font-medium text-brand-navy leading-snug">{value}</p>
-                </div>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
       {/* OBJECTIONS */}
-      <section className="py-20 md:py-28 bg-brand-gray">
+      {/* overflow-hidden: the cards enter from off to either side. */}
+      <section className="py-20 md:py-28 bg-brand-gray overflow-hidden">
         <div className="max-w-4xl mx-auto px-6">
           <div className="text-center max-w-3xl mx-auto mb-14">
             <h2 className="font-heading text-3xl md:text-4xl font-bold uppercase text-brand-navy mb-4">
@@ -425,15 +480,33 @@ export default function TrainingEnPage() {
 
           <div className="grid sm:grid-cols-2 gap-6">
             {(OBJECTIONS as Objection[]).map(({ q, a }, i) => (
+              // Left column enters from the left, right column from the right.
               <Reveal
                 key={q}
                 index={i}
-                className="bg-white rounded-2xl p-7 border border-gray-200 h-full"
+                className={`h-full ${i % 2 === 0 ? 'reveal-left' : 'reveal-right'}`}
               >
-                <p className="font-heading text-lg font-bold text-brand-navy mb-3">
-                  {q}
-                </p>
-                <p className="text-gray-600 leading-relaxed">{a}</p>
+                <div className="think-card">
+                  <span aria-hidden="true" className="think-mark">
+                    ?
+                  </span>
+                  <p className="relative text-brand-red font-heading text-xs font-bold tracking-widest mb-3">
+                    {String(i + 1).padStart(2, '0')}
+                  </p>
+                  {/* The question lands first, the answer a beat later. */}
+                  <p
+                    className="stagger-item relative font-heading text-lg font-bold text-brand-navy mb-3"
+                    style={{ '--s': i } as CSSProperties}
+                  >
+                    {q}
+                  </p>
+                  <p
+                    className="stagger-item relative text-gray-600 leading-relaxed"
+                    style={{ '--s': i + 2 } as CSSProperties}
+                  >
+                    {a}
+                  </p>
+                </div>
               </Reveal>
             ))}
           </div>

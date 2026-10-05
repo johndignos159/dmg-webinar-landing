@@ -593,3 +593,314 @@ html {
   );
   pointer-events: none;
 }
+
+/* ---------------------------------------------------------------------------
+   Directional reveal
+
+   Modifiers for .reveal: the card swings in from one side with a slight turn
+   instead of rising. Used where two columns should arrive from opposite edges.
+   The parent section needs overflow hidden, or the off-screen start position
+   gives phones a horizontal scrollbar.
+
+   Scoped to no-preference: with reduced motion the base rule already shows the
+   content in place, and this selector would otherwise out-rank it.
+   --------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: no-preference) {
+  .reveal.reveal-left:not(.reveal-shown) {
+    transform: perspective(1200px) translateX(-64px) rotateY(9deg) scale(0.95);
+  }
+  .reveal.reveal-right:not(.reveal-shown) {
+    transform: perspective(1200px) translateX(64px) rotateY(-9deg) scale(0.95);
+  }
+}
+
+/* Children of a revealed block that arrive one after another. --s is the
+   position in the sequence; the 380ms head start lets the card itself land
+   before its contents begin. */
+.stagger-item {
+  opacity: 0;
+  transform: translateX(-14px);
+  transition:
+    opacity 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(var(--s, 0) * 80ms + 380ms);
+}
+
+.reveal-shown .stagger-item {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stagger-item {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Glow card
+
+   Glass card for dark sections. Two effects, both compositor-only:
+
+     rim   a conic gradient masked down to a 1.5px ring. Rotating the start
+           angle of the gradient sends a red highlight travelling around the
+           border. The unlit part of the ring is a faint white hairline, so the
+           card always has an edge.
+     halo  a red box-shadow on ::after whose opacity breathes. Animating opacity
+           rather than the shadow itself avoids repainting the blur every frame.
+
+   @property makes the angle animatable. Browsers without it simply show a
+   static lit corner.
+   --------------------------------------------------------------------------- */
+
+@property --glow-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.glow-card {
+  position: relative;
+  isolation: isolate;
+  border-radius: 1.5rem;
+  background: linear-gradient(
+    160deg,
+    rgba(255, 255, 255, 0.075),
+    rgba(255, 255, 255, 0.02) 58%
+  );
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+
+.glow-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: conic-gradient(
+    from var(--glow-angle),
+    rgba(255, 255, 255, 0.1) 0deg,
+    rgba(255, 255, 255, 0.1) 205deg,
+    rgba(220, 20, 60, 0.95) 268deg,
+    #ffc2cd 292deg,
+    rgba(220, 20, 60, 0.95) 316deg,
+    rgba(255, 255, 255, 0.1) 360deg
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  animation: glow-spin 7s linear infinite;
+  pointer-events: none;
+}
+
+/* The second card runs half a turn behind so the pair never pulse in unison. */
+.glow-card-alt::before {
+  animation-delay: -3.5s;
+}
+
+.glow-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  z-index: -1;
+  box-shadow:
+    0 0 26px rgba(220, 20, 60, 0.26),
+    0 0 78px rgba(220, 20, 60, 0.14);
+  animation: glow-breathe 4.6s ease-in-out infinite;
+  pointer-events: none;
+  transition: box-shadow 400ms ease;
+}
+
+.glow-card-alt::after {
+  animation-delay: -2.3s;
+}
+
+.glow-card:hover::after {
+  box-shadow:
+    0 0 34px rgba(220, 20, 60, 0.5),
+    0 0 110px rgba(220, 20, 60, 0.28);
+}
+
+@keyframes glow-spin {
+  to {
+    --glow-angle: 360deg;
+  }
+}
+
+@keyframes glow-breathe {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glow-card::before,
+  .glow-card::after {
+    animation: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Detail cards
+
+   Each card carries its own accent in --c: a solid left edge, a faint wash of
+   the same hue, and a matching icon tile. On hover the card lifts and throws a
+   shadow in its own colour. The plain declarations ahead of each color-mix()
+   are the fallback for browsers that do not support it.
+   --------------------------------------------------------------------------- */
+
+.detail-card {
+  --c: var(--color-brand-red);
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  height: 100%;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  background: #fff;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--c) 9%, #fff),
+    #fff 62%
+  );
+  border: 1px solid #e5e7eb;
+  border: 1px solid color-mix(in srgb, var(--c) 26%, #e5e7eb);
+  border-left: 4px solid var(--c);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  transition:
+    transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.detail-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 34px -18px rgba(0, 0, 0, 0.35);
+  box-shadow:
+    0 18px 38px -18px color-mix(in srgb, var(--c) 62%, transparent),
+    0 0 0 1px color-mix(in srgb, var(--c) 34%, transparent);
+}
+
+.detail-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 0.75rem;
+  color: var(--c);
+  background: #f5f5f5;
+  background: color-mix(in srgb, var(--c) 13%, #fff);
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.detail-card:hover .detail-icon {
+  transform: scale(1.08) rotate(-5deg);
+}
+
+/* The label takes the accent darkened toward black. The raw amber and green
+   are too light for 12px text on a near-white card. */
+.detail-label {
+  color: #6b7280;
+  color: color-mix(in srgb, var(--c) 72%, #000);
+}
+
+/* ---------------------------------------------------------------------------
+   Objection cards
+
+   A red bar draws itself across the top once the card has landed, the oversized
+   question mark sits behind the text as a watermark, and hover lifts the card
+   into a red glow.
+   --------------------------------------------------------------------------- */
+
+.think-card {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  padding: 1.75rem;
+  border-radius: 1rem;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  transition:
+    transform 340ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 340ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 200ms ease;
+}
+
+.think-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-brand-red), #ff8fa3);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1) 380ms;
+}
+
+.reveal-shown .think-card::before {
+  transform: scaleX(1);
+}
+
+.think-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(220, 20, 60, 0.45);
+  box-shadow:
+    0 22px 46px -24px rgba(220, 20, 60, 0.5),
+    0 0 0 1px rgba(220, 20, 60, 0.12);
+}
+
+.think-mark {
+  position: absolute;
+  top: -0.9rem;
+  right: 0.9rem;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 7.5rem;
+  line-height: 1;
+  color: rgba(220, 20, 60, 0.07);
+  pointer-events: none;
+  user-select: none;
+  transition:
+    color 340ms ease,
+    transform 340ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.think-card:hover .think-mark {
+  color: rgba(220, 20, 60, 0.16);
+  transform: translateY(5px) rotate(7deg) scale(1.06);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .detail-card,
+  .detail-icon,
+  .think-card,
+  .think-mark {
+    transition: none;
+  }
+  .detail-card:hover,
+  .detail-card:hover .detail-icon,
+  .think-card:hover,
+  .think-card:hover .think-mark {
+    transform: none;
+  }
+  .think-card::before {
+    transform: scaleX(1);
+    transition: none;
+  }
+}
