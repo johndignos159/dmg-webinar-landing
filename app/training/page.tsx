@@ -16,6 +16,8 @@ import SiteFooter from '@/components/site-footer';
 import CountdownTimer from '@/components/countdown-timer';
 import Reveal from '@/components/reveal';
 import TiltCard from '@/components/tilt-card';
+import RollGroup from '@/components/roll-group';
+import RollingNumber from '@/components/rolling-number';
 import IlluminatedHeading from '@/components/illuminated-heading';
 import TrainingEnRegistration from '@/components/training-en-registration';
 import {
@@ -211,41 +213,52 @@ export default function TrainingEnPage() {
           an outcome, which is both more persuasive and the only defensible way
           to put an income figure on a sales page. The disclaimer travels with
           the number and is not optional. */}
-      <section className="bg-brand-navy border-t border-white/10 py-16 md:py-20 px-6">
+      {/* White, between the dark hero above and the dark curriculum below, so
+          the three do not run together and the arithmetic gets clean contrast.
+          The figures roll into place as the calculation plays left to right:
+          see RollGroup and "Earnings equation" in globals.css. */}
+      <section className="bg-white py-16 md:py-24 px-6">
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-10">
-            <p className="font-heading text-2xl md:text-3xl font-bold text-white leading-tight">
+          <div className="text-center mb-12">
+            <p className="font-heading text-2xl md:text-3xl font-bold text-brand-navy leading-tight">
               {EARNINGS.lead}
             </p>
-            <p className="font-heading text-5xl md:text-7xl font-black text-white leading-none mt-2">
-              {EARNINGS.amount}{' '}
-              <span className="text-brand-red text-3xl md:text-5xl align-middle">
-                {EARNINGS.period}*
-              </span>
-            </p>
-            <p className="text-gray-400 max-w-2xl mx-auto mt-6 leading-relaxed">
+            <RollGroup className="mt-2">
+              <p className="font-heading text-5xl md:text-7xl font-black text-brand-navy leading-none">
+                <RollingNumber value={EARNINGS.amount} />{' '}
+                <span className="text-brand-red text-3xl md:text-5xl align-middle">
+                  {EARNINGS.period}*
+                </span>
+              </p>
+            </RollGroup>
+            <p className="text-gray-600 max-w-2xl mx-auto mt-6 leading-relaxed">
               {EARNINGS.sub}
             </p>
           </div>
 
           {/* The equation. Wraps to a column on phones rather than shrinking
               the figures to the point of illegibility. */}
-          <div className="flex flex-wrap items-stretch justify-center gap-3">
-            {(EARNINGS.steps as EarningStep[]).map((step) => (
-              <div key={step.label} className="flex items-stretch gap-3">
+          <RollGroup className="flex flex-wrap items-stretch justify-center gap-3">
+            {(EARNINGS.steps as EarningStep[]).map((step, i) => (
+              <div
+                key={step.label}
+                className="flex items-stretch gap-3"
+                // --i orders the sequence: card, number, operator, next card.
+                style={{ '--i': i } as CSSProperties}
+              >
                 <div
-                  className={`rounded-2xl px-5 py-4 text-center min-w-[9rem] flex flex-col justify-center ${
+                  className={`eq-step rounded-2xl px-5 py-4 text-center min-w-[9rem] flex flex-col justify-center ${
                     step.highlight
-                      ? 'bg-brand-red text-white'
-                      : 'bg-white/[0.06] border border-white/10 text-white'
+                      ? 'eq-total bg-brand-red text-white'
+                      : 'bg-brand-gray border border-gray-200 text-brand-navy'
                   }`}
                 >
                   <p className="font-heading text-2xl md:text-3xl font-black leading-none">
-                    {step.value}
+                    <RollingNumber value={step.value} />
                   </p>
                   <p
                     className={`text-[11px] leading-snug mt-2 ${
-                      step.highlight ? 'text-white/85' : 'text-gray-400'
+                      step.highlight ? 'text-white/85' : 'text-gray-500'
                     }`}
                   >
                     {step.label}
@@ -253,13 +266,13 @@ export default function TrainingEnPage() {
                 </div>
 
                 {step.op && (
-                  <span className="self-center font-heading text-2xl font-black text-brand-red">
+                  <span className="eq-op self-center font-heading text-2xl font-black text-brand-red">
                     {step.op}
                   </span>
                 )}
               </div>
             ))}
-          </div>
+          </RollGroup>
 
           <p className="text-center text-xs text-gray-500 leading-relaxed max-w-2xl mx-auto mt-8">
             *{EARNINGS.disclaimer}
@@ -269,7 +282,7 @@ export default function TrainingEnPage() {
             {(BENEFITS as string[]).map((b) => (
               <div key={b} className="flex items-start gap-3">
                 <CheckCircle2 className="w-5 h-5 text-brand-red shrink-0 mt-0.5" />
-                <span className="text-gray-200 font-medium leading-snug text-sm">
+                <span className="text-brand-navy font-medium leading-snug text-sm">
                   {b}
                 </span>
               </div>

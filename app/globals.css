@@ -886,6 +886,122 @@ html {
   transform: translateY(5px) rotate(7deg) scale(1.06);
 }
 
+/* ---------------------------------------------------------------------------
+   Rolling numbers
+
+   Odometer digits, driven by the phase class a RollGroup puts on an ancestor:
+
+     roll-static  the figure as written. This is what the server renders, and
+                  what stays on screen with no JavaScript or with reduced motion.
+     roll-armed   every column wound back to its first row, ready to spin.
+     roll-play    columns travel to their digit. --i is the step the number
+                  belongs to (set on the step, inherited down) and --k is the
+                  digit's position, so steps play in order and each number
+                  settles left to right.
+
+   Each column is 1.1em tall, a touch over the glyph height, so the tops of the
+   heavy display digits are not shaved by the clip. Only transform animates.
+   --------------------------------------------------------------------------- */
+
+.roll-number {
+  display: inline-block;
+  font-variant-numeric: tabular-nums;
+}
+
+.roll-number-inner {
+  display: inline-flex;
+  align-items: flex-end;
+  line-height: 1.1;
+}
+
+.roll-char,
+.roll-digit {
+  display: inline-block;
+  height: 1.1em;
+  line-height: 1.1;
+}
+
+.roll-digit {
+  overflow: hidden;
+}
+
+.roll-strip {
+  display: flex;
+  flex-direction: column;
+  transform: translateY(calc(var(--row) * -1.1em));
+}
+
+.roll-cell {
+  display: block;
+  height: 1.1em;
+  line-height: 1.1;
+  text-align: center;
+}
+
+.roll-armed .roll-strip {
+  transform: translateY(0);
+}
+
+.roll-play .roll-strip {
+  transition: transform 1250ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: calc(var(--i, 0) * 380ms + var(--k, 0) * 70ms);
+}
+
+/* ---------------------------------------------------------------------------
+   Earnings equation
+
+   The calculation plays out left to right: each card arrives, its number
+   rolls, the operator after it snaps in, then the next card. The total lands
+   last and sends out one red ring, the only moment the section raises its
+   voice. Step timing shares the 380ms beat used by the digits above.
+   --------------------------------------------------------------------------- */
+
+.roll-armed .eq-step {
+  opacity: 0;
+  transform: translateY(18px) scale(0.95);
+}
+
+.roll-play .eq-step {
+  transition:
+    opacity 560ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 560ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(var(--i, 0) * 380ms);
+}
+
+.roll-armed .eq-op {
+  opacity: 0;
+  transform: scale(0.3) rotate(-90deg);
+}
+
+.roll-play .eq-op {
+  transition:
+    opacity 320ms ease,
+    transform 420ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition-delay: calc(var(--i, 0) * 380ms + 300ms);
+}
+
+.eq-total {
+  box-shadow: 0 14px 34px -14px rgba(220, 20, 60, 0.6);
+}
+
+.roll-play .eq-total {
+  animation: eq-land 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  /* After its own number has finished rolling. */
+  animation-delay: calc(var(--i, 0) * 380ms + 1100ms);
+}
+
+@keyframes eq-land {
+  0% {
+    box-shadow: 0 0 0 0 rgba(220, 20, 60, 0.55);
+  }
+  60% {
+    box-shadow: 0 0 0 18px rgba(220, 20, 60, 0);
+  }
+  100% {
+    box-shadow: 0 14px 34px -14px rgba(220, 20, 60, 0.6);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .detail-card,
   .detail-icon,
