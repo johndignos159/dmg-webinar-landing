@@ -179,10 +179,10 @@ export default function ConfirmedPage() {
               <p className="text-gray-600 text-sm leading-relaxed">
                 Email{' '}
                 <a
-                  href="mailto:admin@dmgagencycore.com"
+                  href="mailto:admin@dmgagencycorellc.com"
                   className="text-brand-red font-medium hover:underline"
                 >
-                  admin@dmgagencycore.com
+                  admin@dmgagencycorellc.com
                 </a>{' '}
                 and we will get your seat sorted.
               </p>
