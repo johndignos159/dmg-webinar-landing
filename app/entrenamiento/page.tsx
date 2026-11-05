@@ -14,6 +14,7 @@ import {
 import SiteHeader from '@/components/site-header';
 import SiteFooter from '@/components/site-footer';
 import CountdownTimer from '@/components/countdown-timer';
+import { UNITS_ES } from '@/lib/ui-text-es';
 import Reveal from '@/components/reveal';
 import IlluminatedHeading from '@/components/illuminated-heading';
 import TrainingRegistration from '@/components/training-registration';
@@ -160,6 +161,8 @@ export default function TrainingPage() {
           <CountdownTimer
             target={TRAINING_TIMESTAMP}
             label="El entrenamiento empieza en"
+            units={UNITS_ES}
+            liveText="El entrenamiento está en vivo ahora"
           />
 
           <a href="#registro" className={CTA_CLASS}>

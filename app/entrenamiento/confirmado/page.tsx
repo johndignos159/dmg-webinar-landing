@@ -3,6 +3,7 @@ import { CheckCircle2, Calendar, AlertTriangle, Mail } from 'lucide-react';
 import SiteHeader from '@/components/site-header';
 import SiteFooter from '@/components/site-footer';
 import CountdownTimer from '@/components/countdown-timer';
+import { UNITS_ES } from '@/lib/ui-text-es';
 import {
   SESSION_1,
   SESSION_2,
@@ -159,6 +160,8 @@ export default function ConfirmadoPage() {
           <CountdownTimer
             target={TRAINING_TIMESTAMP}
             label="El día 1 empieza en"
+            units={UNITS_ES}
+            liveText="El entrenamiento está en vivo ahora"
           />
         </div>
       </section>

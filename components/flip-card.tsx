@@ -13,6 +13,14 @@ type Props = {
   body: string;
   /** Back face — what this lane requires before it can operate. */
   requirements: string[];
+  /** Fixed wording on the card. Spanish pages pass FLIP_TEXT_ES (lib/ui-text-es.ts). */
+  text?: { cta: string; back: string; hint: string };
+};
+
+const FLIP_TEXT_EN = {
+  cta: 'What it takes →',
+  back: 'What it takes to start',
+  hint: 'Show what it takes to start.',
 };
 
 /**
@@ -25,7 +33,7 @@ type Props = {
  * Height is fixed because both faces are absolutely positioned; without it the
  * card would collapse to zero.
  */
-export default function FlipCard({ icon, name, body, requirements }: Props) {
+export default function FlipCard({ icon, name, body, requirements, text = FLIP_TEXT_EN }: Props) {
   const [flipped, setFlipped] = useState(false);
 
   return (
@@ -33,7 +41,7 @@ export default function FlipCard({ icon, name, body, requirements }: Props) {
       type="button"
       onClick={() => setFlipped((f) => !f)}
       aria-expanded={flipped}
-      aria-label={`${name}. ${body} Show what it takes to start.`}
+      aria-label={`${name}. ${body} ${text.hint}`}
       className={`flip-card h-64 w-full text-left ${flipped ? 'is-flipped' : ''}`}
     >
       <div className="flip-inner">
@@ -45,14 +53,14 @@ export default function FlipCard({ icon, name, body, requirements }: Props) {
           <h3 className="font-heading text-lg font-bold text-brand-navy mb-2">{name}</h3>
           <p className="text-gray-600 text-sm leading-relaxed">{body}</p>
           <span className="mt-auto text-xs font-bold uppercase tracking-widest text-brand-red">
-            What it takes →
+            {text.cta}
           </span>
         </div>
 
         {/* BACK */}
         <div className="flip-face flip-back rounded-2xl p-6 bg-brand-navy border border-brand-red">
           <p className="text-xs font-bold uppercase tracking-widest text-brand-red mb-4">
-            What it takes to start
+            {text.back}
           </p>
           <ul className="space-y-2.5">
             {requirements.map((r) => (

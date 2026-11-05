@@ -54,13 +54,19 @@ function Unit({ value, label }: { value: string; label: string }) {
  *   where the countdown is a reason to act. On /confirmed the visitor has
  *   already registered, so "registration closes in" reads as a warning about
  *   something they have done — pass a label that counts down to the session.
+ * @param units  The four digit labels. Spanish pages pass UNITS_ES (lib/ui-text-es.ts).
+ * @param liveText Shown once the countdown reaches zero.
  */
 export default function CountdownTimer({
   label = 'Registration closes in',
   target = WEBINAR_TIMESTAMP,
+  units = ['Days', 'Hours', 'Minutes', 'Seconds'],
+  liveText = 'The masterclass is live now',
 }: {
   label?: string;
   target?: number;
+  units?: readonly [string, string, string, string];
+  liveText?: string;
 } = {}) {
   // Starts null on purpose. The page is prerendered at build time, so computing
   // the remaining time during SSR would bake stale numbers into the HTML and
@@ -93,7 +99,7 @@ export default function CountdownTimer({
             <span className="relative inline-flex h-3 w-3 rounded-full bg-brand-red" />
           </span>
           <span className="font-heading text-lg md:text-xl font-black uppercase tracking-wide text-white">
-            The masterclass is live now
+            {liveText}
           </span>
         </div>
       </div>
@@ -108,10 +114,10 @@ export default function CountdownTimer({
         {label}
       </p>
       <div className="flex gap-2 sm:gap-3 md:gap-5">
-        <Unit value={timeLeft ? String(timeLeft.days) : '--'} label="Days" />
-        <Unit value={timeLeft ? pad(timeLeft.hours) : '--'} label="Hours" />
-        <Unit value={timeLeft ? pad(timeLeft.minutes) : '--'} label="Minutes" />
-        <Unit value={timeLeft ? pad(timeLeft.seconds) : '--'} label="Seconds" />
+        <Unit value={timeLeft ? String(timeLeft.days) : '--'} label={units[0]} />
+        <Unit value={timeLeft ? pad(timeLeft.hours) : '--'} label={units[1]} />
+        <Unit value={timeLeft ? pad(timeLeft.minutes) : '--'} label={units[2]} />
+        <Unit value={timeLeft ? pad(timeLeft.seconds) : '--'} label={units[3]} />
       </div>
     </div>
   );
