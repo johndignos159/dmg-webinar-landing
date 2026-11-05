@@ -11,3 +11,10 @@ not edit the `.html` files.
 | `03-manana.html` | WEBINAR ES | 03 Mañana | Mañana — cuatro formas de entrar, un primer paso |
 | `04-falta-1-hora.html` | WEBINAR ES | 04 Falta 1 hora | Falta una hora |
 | `05-empezamos.html` | WEBINAR ES | 05 Empezamos | Empezamos ya |
+| `06-tu-siguiente-paso.html` | WEBINAR ES | 06 Día 1 · Tu siguiente paso | El Blueprint — tu siguiente paso |
+| `08-el-orden-equivocado.html` | WEBINAR ES | 08 Día 3 · El orden equivocado | Construir en el orden equivocado |
+| `09-la-puerta-de-entrada.html` | WEBINAR ES | 09 Día 5 · La puerta de entrada | No puedes hacer nada de esto hasta que tu negocio exista legalmente |
+| `10-fraude.html` | WEBINAR ES | 10 Día 7 · Fraude | $725 millones desaparecieron el año pasado. Las autoridades nuevas eran el blanco. |
+| `11-que-pilar-falta.html` | WEBINAR ES | 11 Día 10 · Qué pilar falta | ¿Cuál de los cuatro pilares te falta? |
+| `12-preguntas-frecuentes.html` | WEBINAR ES | 12 Día 14 · Preguntas frecuentes | Las preguntas que más me hacen |
+| `13-dos-caminos.html` | WEBINAR ES | 13 Día 21 · Dos caminos | Dos caminos desde aquí |
