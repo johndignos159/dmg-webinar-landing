@@ -1,0 +1,129 @@
+/**
+ * Builds the Spanish webinar emails.
+ *
+ *   node scripts/build-webinar-es-emails.mjs
+ *
+ * Same look as build-emails.mjs (the English webinar emails): tables and
+ * inline styles, which is what survives Outlook and Gmail. Copy lives in
+ * webinar-es-email-content.mjs. Output: emails-webinar-es/, one email per
+ * file, for GHL templates of type "html".
+ */
+
+import { writeFileSync, mkdirSync } from 'node:fs';
+import { join, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { emails } from './webinar-es-email-content.mjs';
+
+const OUT = join(dirname(fileURLToPath(import.meta.url)), '..', 'emails-webinar-es');
+mkdirSync(OUT, { recursive: true });
+
+const RED = '#DC143C';
+const NAVY = '#1a1a1a';
+const FONT =
+  "-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,Helvetica,Arial,sans-serif";
+
+const SITE = 'https://webinar.dmgagencycore.com';
+const LOGO = `${SITE}/images/dmg-logo-email.png`;
+
+const p = (t) =>
+  `<p style="margin:0 0 16px;font-family:${FONT};font-size:16px;line-height:1.65;color:${NAVY};">${t}</p>`;
+
+const h = (t) =>
+  `<p style="margin:28px 0 12px;font-family:${FONT};font-size:13px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:${RED};">${t}</p>`;
+
+const small = (t) =>
+  `<p style="margin:0 0 16px;font-family:${FONT};font-size:14px;line-height:1.6;color:#666;">${t}</p>`;
+
+const list = (items) =>
+  `<table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 0 16px;">${items
+    .map(
+      (i) =>
+        `<tr><td valign="top" style="padding:0 10px 10px 0;font-family:${FONT};font-size:16px;color:${RED};line-height:1.65;">&bull;</td><td style="padding:0 0 10px;font-family:${FONT};font-size:16px;line-height:1.65;color:${NAVY};">${i}</td></tr>`,
+    )
+    .join('')}</table>`;
+
+const btn = ({ text, url }) =>
+  `<table role="presentation" cellpadding="0" cellspacing="0" style="margin:8px 0 24px;"><tr><td style="background:${RED};border-radius:999px;"><a href="${url}" style="display:inline-block;padding:15px 34px;font-family:${FONT};font-size:15px;font-weight:700;color:#ffffff;text-decoration:none;letter-spacing:0.4px;">${text}</a></td></tr></table>`;
+
+const box = (rows) =>
+  `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 20px;background:#f7f7f7;border-left:3px solid ${RED};border-radius:4px;"><tr><td style="padding:18px 20px;">${rows
+    .map(
+      ([k, v]) =>
+        `<p style="margin:0 0 6px;font-family:${FONT};font-size:15px;line-height:1.5;color:${NAVY};"><strong>${k}</strong> ${v}</p>`,
+    )
+    .join('')}</td></tr></table>`;
+
+const RENDER = { p, h, small, list, btn, box };
+
+function shell(subject, blocks) {
+  const body = blocks
+    .map((b) => {
+      const [kind, value] = Object.entries(b)[0];
+      if (!RENDER[kind]) throw new Error(`Unknown block type "${kind}" in "${subject}"`);
+      return RENDER[kind](value);
+    })
+    .join('\n        ');
+
+  // No unsubscribe link: GHL appends a per-recipient one on send (see
+  // build-emails.mjs for why one must never be pasted into a template).
+  return `<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>${subject}</title>
+</head>
+<body style="margin:0;padding:0;background:#f0f0f0;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f0f0f0;">
+  <tr><td align="center" style="padding:24px 12px;">
+    <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:#ffffff;border-radius:10px;overflow:hidden;">
+
+      <tr><td align="center" style="background:${NAVY};padding:22px;">
+        <a href="${SITE}/es" style="text-decoration:none;">
+          <img src="${LOGO}" width="58" height="58" alt="DMG Agency Core"
+               style="display:block;margin:0 auto 10px;border:0;outline:none;text-decoration:none;">
+          <span style="font-family:${FONT};font-size:15px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#ffffff;">DMG Agency Core</span>
+        </a>
+      </td></tr>
+
+      <tr><td style="padding:32px 28px 12px;">
+        ${body}
+      </td></tr>
+
+      <tr><td style="padding:20px 28px 28px;border-top:1px solid #eee;">
+        <p style="margin:0;font-family:${FONT};font-size:12px;line-height:1.6;color:#999;">
+          DMG Agency Core LLC &nbsp;&middot;&nbsp; 321-204-9035<br>
+          7901 4th St N #22791, St. Petersburg, FL 33702<br>
+          <a href="https://dmgagencycore.com" style="color:#999;">dmgagencycore.com</a>
+        </p>
+      </td></tr>
+
+    </table>
+  </td></tr>
+</table>
+</body>
+</html>`;
+}
+
+const rows = [];
+for (const e of emails) {
+  writeFileSync(join(OUT, `${e.file}.html`), shell(e.subject, e.blocks), 'utf8');
+  rows.push(`| \`${e.file}.html\` | ${e.ghl} | ${e.subject} |`);
+}
+
+writeFileSync(
+  join(OUT, 'README.md'),
+  `# Spanish webinar emails (Nov 18, 2026)
+
+Generated by \`scripts/build-webinar-es-emails.mjs\` from
+\`scripts/webinar-es-email-content.mjs\`. Edit the content file and re-run; do
+not edit the \`.html\` files.
+
+| File | GHL template | Subject |
+| --- | --- | --- |
+${rows.join('\n')}
+`,
+  'utf8',
+);
+
+console.log(`Wrote ${emails.length} emails + README to emails-webinar-es/`);
