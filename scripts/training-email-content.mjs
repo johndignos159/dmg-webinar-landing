@@ -101,7 +101,7 @@ export const emails = [
     ghl: 'TRAINING - 2 weeks before',
     en: 'Two weeks out. Calendar nudge, plus go look at a load board to get familiar.',
     track: 'paid',
-    trigger: 'Wait until 17/10/2026 10:00 AM',
+    trigger: 'Wait until 28/11/2026 10:00 AM',
     subject: 'Faltan dos semanas — prepárate así',
     blocks: [
       { p: `${NAME},` },
@@ -125,7 +125,7 @@ export const emails = [
     ghl: 'TRAINING - 1 week before',
     en: 'One week out. The full list of what day 1 and day 2 each cover.',
     track: 'paid',
-    trigger: 'Wait until 24/10/2026 10:00 AM',
+    trigger: 'Wait until 05/12/2026 10:00 AM',
     subject: 'Una semana — esto es lo que vamos a cubrir',
     blocks: [
       { p: `${NAME},` },
@@ -163,7 +163,7 @@ export const emails = [
     ghl: 'TRAINING - 3 days before',
     en: 'Three days out. Test your Zoom today, not Saturday morning. Both links repeated.',
     track: 'paid',
-    trigger: 'Wait until 28/10/2026 10:00 AM',
+    trigger: 'Wait until 09/12/2026 10:00 AM',
     subject: 'Faltan 3 días — revisa tus enlaces',
     blocks: [
       { p: `${NAME},` },
@@ -192,7 +192,7 @@ export const emails = [
     ghl: 'TRAINING - 1 day before',
     en: 'Tomorrow. Day 1 link and time, plus come with a specific question for Q&A.',
     track: 'paid',
-    trigger: 'Wait until 30/10/2026 5:00 PM',
+    trigger: 'Wait until 11/12/2026 5:00 PM',
     subject: 'Mañana empezamos',
     blocks: [
       { p: `${NAME},` },
@@ -216,7 +216,7 @@ export const emails = [
     ghl: 'TRAINING - day 1 morning',
     en: `Today at ${DAY_1_TIME}. Join button, ID, passcode. Bring something to take notes with.`,
     track: 'paid',
-    trigger: 'Wait until 31/10/2026 9:00 AM',
+    trigger: 'Wait until 12/12/2026 9:00 AM',
     subject: `Hoy a las ${SESSION_1.start} — día 1`,
     blocks: [
       { p: `${NAME},` },
@@ -237,7 +237,7 @@ export const emails = [
     ghl: 'TRAINING - day 2 morning',
     en: `Day 2 today at ${DAY_2_TIME} — leads with the fact that the link AND the time are different from yesterday.`,
     track: 'paid',
-    trigger: 'Wait until 01/11/2026 9:00 AM',
+    trigger: 'Wait until 13/12/2026 9:00 AM',
     subject: `Día 2 hoy a las ${SESSION_2.start} — enlace nuevo`,
     blocks: [
       { p: `${NAME},` },

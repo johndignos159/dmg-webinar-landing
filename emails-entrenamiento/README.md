@@ -11,8 +11,8 @@ node scripts/build-training-emails.mjs
 Every date, time and link comes from `lib/training-config.mjs`, so the emails
 cannot disagree with the landing page.
 
-- **Día 1:** sábado, 31 de octubre de 2026
-- **Día 2:** domingo, 1 de noviembre de 2026
+- **Día 1:** sábado, 12 de diciembre de 2026
+- **Día 2:** domingo, 13 de diciembre de 2026
 - **Día 1 hora:** 11:00 AM – 2:00 PM ET
 - **Día 2 hora:** 3:00 PM – 6:00 PM ET  ← distinta, y sala de Zoom distinta
 - **Precio:** $197 USD
@@ -25,12 +25,12 @@ day 2.
 | File | GHL template | When it sends | What it says (English) |
 | --- | --- | --- | --- |
 | `01-payment-confirmed.html` | TRAINING - payment confirmed | Immediately on payment | You're in. Both Zoom links, IDs and passcodes, with a warning that the two days differ. What to bring. No refunds. |
-| `02-2-weeks-before.html` | TRAINING - 2 weeks before | Wait until 17/10/2026 10:00 AM | Two weeks out. Calendar nudge, plus go look at a load board to get familiar. |
-| `03-1-week-before.html` | TRAINING - 1 week before | Wait until 24/10/2026 10:00 AM | One week out. The full list of what day 1 and day 2 each cover. |
-| `04-3-days-before.html` | TRAINING - 3 days before | Wait until 28/10/2026 10:00 AM | Three days out. Test your Zoom today, not Saturday morning. Both links repeated. |
-| `05-1-day-before.html` | TRAINING - 1 day before | Wait until 30/10/2026 5:00 PM | Tomorrow. Day 1 link and time, plus come with a specific question for Q&A. |
-| `06-day-1-morning.html` | TRAINING - day 1 morning | Wait until 31/10/2026 9:00 AM | Today at 11:00 AM – 2:00 PM ET. Join button, ID, passcode. Bring something to take notes with. |
-| `07-day-2-morning.html` | TRAINING - day 2 morning | Wait until 01/11/2026 9:00 AM | Day 2 today at 3:00 PM – 6:00 PM ET — leads with the fact that the link AND the time are different from yesterday. |
+| `02-2-weeks-before.html` | TRAINING - 2 weeks before | Wait until 28/11/2026 10:00 AM | Two weeks out. Calendar nudge, plus go look at a load board to get familiar. |
+| `03-1-week-before.html` | TRAINING - 1 week before | Wait until 05/12/2026 10:00 AM | One week out. The full list of what day 1 and day 2 each cover. |
+| `04-3-days-before.html` | TRAINING - 3 days before | Wait until 09/12/2026 10:00 AM | Three days out. Test your Zoom today, not Saturday morning. Both links repeated. |
+| `05-1-day-before.html` | TRAINING - 1 day before | Wait until 11/12/2026 5:00 PM | Tomorrow. Day 1 link and time, plus come with a specific question for Q&A. |
+| `06-day-1-morning.html` | TRAINING - day 1 morning | Wait until 12/12/2026 9:00 AM | Today at 11:00 AM – 2:00 PM ET. Join button, ID, passcode. Bring something to take notes with. |
+| `07-day-2-morning.html` | TRAINING - day 2 morning | Wait until 13/12/2026 9:00 AM | Day 2 today at 3:00 PM – 6:00 PM ET — leads with the fact that the link AND the time are different from yesterday. |
 
 ## Track 2 — recovery (3 emails)
 
