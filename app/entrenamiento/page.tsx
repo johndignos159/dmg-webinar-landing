@@ -79,6 +79,7 @@ const INCLUDED = [
   'Preguntas y respuestas en vivo los dos días',
   'Todo el material en español',
   'Plantillas y guiones que puedes usar de inmediato',
+  'Invitación a nuestra comunidad privada para apoyo continuo',
 ];
 
 // Tarjeta uno a uno. Texto aprobado por Cora el 2026-11-11. Sin la línea de la
@@ -86,6 +87,7 @@ const INCLUDED = [
 const PRIVATE_INCLUDED = [
   'Todo lo de la clase en grupo',
   'Respuestas a tus propias preguntas',
+  'Invitación a nuestra comunidad privada para apoyo continuo',
 ];
 
 // One price card. The group class and the one-on-one share this shell so the

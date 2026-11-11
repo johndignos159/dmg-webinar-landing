@@ -80,13 +80,15 @@ const INCLUDED = [
   'Templates and scripts you can use immediately',
   'Time to ask about your own situation',
   '30-day access to the class recording',
+  'Invite to our private community for ongoing support',
 ];
 
-// One-on-one card. Wording approved by Cora on 2026-11-11.
+// One-on-one card. Wording approved by Cora on 2026-11-11; the community line is hers (same day).
 const PRIVATE_INCLUDED = [
   'Everything in the group class',
   'Your own questions answered',
   '30-day access to the class recording',
+  'Invite to our private community for ongoing support',
 ];
 
 // One price card. The group class and the one-on-one share this shell so the
