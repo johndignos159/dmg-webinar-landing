@@ -1,4 +1,4 @@
-import type { CSSProperties } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import {
@@ -20,6 +20,7 @@ import RollGroup from '@/components/roll-group';
 import RollingNumber from '@/components/rolling-number';
 import IlluminatedHeading from '@/components/illuminated-heading';
 import TrainingEnRegistration from '@/components/training-en-registration';
+import PrivateCheckoutLink from '@/components/private-checkout-link';
 import {
   DAY_1,
   DAY_2,
@@ -37,6 +38,8 @@ import {
   DAY_1_TIME,
   DAY_2_TIME,
   PRICE,
+  PRIVATE_PRICE,
+  PRIVATE_CHECKOUT_URL,
   TRAINING_TIMESTAMP,
   REFUND_POLICY,
 } from '@/lib/training-en-config.mjs';
@@ -76,7 +79,65 @@ const INCLUDED = [
   'Live Q&A on both days',
   'Templates and scripts you can use immediately',
   'Time to ask about your own situation',
+  '30-day access to the class recording',
 ];
+
+// One-on-one card. Wording approved by Cora on 2026-11-11.
+const PRIVATE_INCLUDED = [
+  'Everything in the group class',
+  'Your own questions answered',
+  '30-day access to the class recording',
+];
+
+// One price card. The group class and the one-on-one share this shell so the
+// two read as a choice; the button and the line under it come in as children.
+function PriceCard({
+  title,
+  subtitle,
+  price,
+  priceNote,
+  items,
+  children,
+}: {
+  title: string;
+  subtitle: string;
+  price: string;
+  priceNote: string;
+  items: string[];
+  children: ReactNode;
+}) {
+  return (
+    // On desktop each card spans the parent's 4 rows as a subgrid, so the
+    // title block, price, list and button sit at the same height in both
+    // cards even when one title wraps. On phones it is a plain column.
+    <div className="flex flex-col md:grid md:grid-rows-subgrid md:row-span-4 md:gap-y-0 bg-white/[0.04] backdrop-blur-sm border border-white/10 rounded-3xl p-8 md:p-10 text-center">
+      <div>
+        <h3 className="font-heading text-2xl md:text-3xl font-black uppercase text-white leading-tight">
+          {title}
+        </h3>
+        <p className="text-gray-300 mt-3 leading-relaxed">{subtitle}</p>
+      </div>
+      <div className="mt-8">
+        <p className="font-heading text-6xl md:text-7xl font-black text-brand-red leading-none">
+          ${price}
+        </p>
+        <p className="text-sm font-bold uppercase tracking-widest text-gray-400 mt-3 mb-8">
+          {priceNote}
+        </p>
+      </div>
+      <ul className="space-y-4 text-left max-w-sm w-full mx-auto mb-10">
+        {items.map((i) => (
+          <li key={i} className="flex items-start">
+            <CheckCircle2 className="w-5 h-5 text-brand-red mr-3 shrink-0 mt-0.5" />
+            <span className="text-gray-200 leading-relaxed">{i}</span>
+          </li>
+        ))}
+      </ul>
+      <div className="mt-auto">{children}</div>
+    </div>
+  );
+}
+
 
 // Accent per detail card. Red for the two dates, amber for the warning about
 // start times, then one hue each for where, equipment and language, so the six
@@ -205,6 +266,15 @@ export default function TrainingEnPage() {
           </a>
           <p className="mt-4 text-sm text-gray-400 font-medium">
             {DAY_1_SHORT} and {DAY_2_SHORT} &middot; limited seats
+          </p>
+          <p className="mt-2 text-sm text-gray-400 font-medium">
+            Prefer one-on-one?{' '}
+            <a
+              href="#options"
+              className="text-white underline underline-offset-4 decoration-brand-red hover:text-brand-red"
+            >
+              See private training
+            </a>
           </p>
         </div>
       </section>
@@ -373,39 +443,58 @@ export default function TrainingEnPage() {
         </div>
       </section>
 
-      {/* PRICE */}
-      <section className="illuminated-bg py-24 md:py-32 bg-black">
-        <div className="relative z-10 max-w-3xl mx-auto px-6 text-center">
+      {/* PRICE — two ways to take the training. Group is the live class with a
+          date; one-on-one is the DMG Shop private product, so it keeps selling
+          between classes. The hero links here with #options. */}
+      <section id="options" className="illuminated-bg py-24 md:py-32 bg-black scroll-mt-8">
+        <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
           <h2 className="font-heading text-3xl md:text-5xl font-black uppercase text-white mb-6 leading-tight">
-            <IlluminatedHeading text="One price. Everything included." />
+            <IlluminatedHeading text="Choose how you learn" />
           </h2>
 
-          <div className="mt-12 bg-white/[0.04] backdrop-blur-sm border border-white/10 rounded-3xl p-10 md:p-12">
-            <p className="font-heading text-6xl md:text-7xl font-black text-brand-red leading-none">
-              ${PRICE}
-            </p>
-            <p className="text-sm font-bold uppercase tracking-widest text-gray-400 mt-3 mb-10">
-              USD &middot; one-time payment
-            </p>
+          <div className="mt-12 grid gap-6 md:grid-cols-2 md:gap-y-0">
+            <PriceCard
+              title="Group class"
+              subtitle="Live 2-day class on Zoom"
+              price={PRICE}
+              priceNote="USD · one-time payment"
+              items={INCLUDED}
+            >
+              <a href="#register" className={CTA_CLASS}>
+                RESERVE MY SEAT
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </a>
+              <p className="text-sm text-gray-400 mt-4 leading-relaxed">
+                {DAY_1_SHORT} and {DAY_2_SHORT} · limited seats
+              </p>
+            </PriceCard>
 
-            <ul className="space-y-4 text-left max-w-md mx-auto mb-10">
-              {INCLUDED.map((i) => (
-                <li key={i} className="flex items-start">
-                  <CheckCircle2 className="w-5 h-5 text-brand-red mr-3 shrink-0 mt-0.5" />
-                  <span className="text-gray-200 leading-relaxed">{i}</span>
-                </li>
-              ))}
-            </ul>
-
-            <a href="#register" className={CTA_CLASS}>
-              RESERVE MY SEAT
-              <ArrowRight className="ml-2 w-5 h-5" />
-            </a>
-
-            <p className="text-xs text-gray-500 mt-6 leading-relaxed">
-              {REFUND_POLICY}
-            </p>
+            <PriceCard
+              title="One-on-one with Cora"
+              subtitle="2 private sessions with Cora, 4 hours total, on days that suit you"
+              price={PRIVATE_PRICE}
+              priceNote="USD · one-time payment"
+              items={PRIVATE_INCLUDED}
+            >
+              <PrivateCheckoutLink
+                href={PRIVATE_CHECKOUT_URL}
+                price={PRIVATE_PRICE}
+                name="Private training EN"
+                className={CTA_CLASS}
+              >
+                BOOK ONE-ON-ONE
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </PrivateCheckoutLink>
+              <p className="text-sm text-gray-400 mt-4 leading-relaxed">
+                After you pay, Cora contacts you within 1 business day to schedule
+                both sessions.
+              </p>
+            </PriceCard>
           </div>
+
+          <p className="text-xs text-gray-500 mt-8 leading-relaxed">
+            {REFUND_POLICY}
+          </p>
         </div>
       </section>
 
