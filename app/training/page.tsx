@@ -21,6 +21,7 @@ import RollingNumber from '@/components/rolling-number';
 import IlluminatedHeading from '@/components/illuminated-heading';
 import TrainingEnRegistration from '@/components/training-en-registration';
 import PrivateCheckoutLink from '@/components/private-checkout-link';
+import PromoVideo from '@/components/promo-video';
 import {
   DAY_1,
   DAY_2,
@@ -70,6 +71,10 @@ export const metadata: Metadata = {
     type: 'website',
   },
 };
+
+// GHL Media → Dispatch Training (web copy, 720x1280, 10 MB).
+const PROMO_VIDEO =
+  'https://files.leadconnectorhq.com/file/6af4f7b5fbdd54a827cbf885/dmg-promo-en.mp4';
 
 const CTA_CLASS =
   'btn-glow w-full sm:w-auto inline-flex items-center justify-center whitespace-nowrap bg-brand-red hover:bg-brand-red-hover text-white font-bold py-4 px-6 sm:px-10 rounded-full max-[359px]:text-sm text-base sm:text-lg';
@@ -256,6 +261,16 @@ export default function TrainingEnPage() {
             Two live days to learn how to find loads, negotiate rates, get paid on
             time and build your own book of clients.
           </p>
+
+          {/* Cora's promo video (approved Nov 11, 2026). Source files and the
+              edit script: docs/cora-resources/promo-videos-2026-11/. */}
+          <PromoVideo
+            src={PROMO_VIDEO}
+            poster="/images/promo-en-poster.jpg"
+            label="Cora Matzek explains the 2-day dispatch training"
+            cta="Watch the 1-min video"
+            language="en"
+          />
 
           <CountdownTimer
             target={TRAINING_TIMESTAMP}

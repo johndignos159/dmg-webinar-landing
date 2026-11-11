@@ -20,6 +20,7 @@ import Reveal from '@/components/reveal';
 import IlluminatedHeading from '@/components/illuminated-heading';
 import TrainingRegistration from '@/components/training-registration';
 import PrivateCheckoutLink from '@/components/private-checkout-link';
+import PromoVideo from '@/components/promo-video';
 import {
   DAY_1,
   DAY_2,
@@ -70,6 +71,10 @@ export const metadata: Metadata = {
     type: 'website',
   },
 };
+
+// GHL Media → Dispatch Training (web copy, 720x1280, 10 MB).
+const PROMO_VIDEO =
+  'https://files.leadconnectorhq.com/file/6af4f7b7421749dec7d6e619/dmg-promo-es.mp4';
 
 const CTA_CLASS =
   'btn-glow w-full sm:w-auto inline-flex items-center justify-center whitespace-nowrap bg-brand-red hover:bg-brand-red-hover text-white font-bold py-4 px-6 sm:px-10 rounded-full max-[359px]:text-sm text-base sm:text-lg';
@@ -220,6 +225,16 @@ export default function TrainingPage() {
             Dos días en vivo para aprender cómo encontrar cargas, negociar tarifas,
             cobrar a tiempo y construir tu propia cartera de clientes.
           </p>
+
+          {/* Video promocional de Cora (aprobado el 11 de nov. de 2026). Archivos
+              y script de edición: docs/cora-resources/promo-videos-2026-11/. */}
+          <PromoVideo
+            src={PROMO_VIDEO}
+            poster="/images/promo-es-poster.jpg"
+            label="Cora Matzek explica la capacitación de despacho de 2 días"
+            cta="Mira el video de 1 min"
+            language="es"
+          />
 
           <CountdownTimer
             target={TRAINING_TIMESTAMP}
