@@ -22,6 +22,7 @@ import IlluminatedHeading from '@/components/illuminated-heading';
 import TrainingEnRegistration from '@/components/training-en-registration';
 import PrivateCheckoutLink from '@/components/private-checkout-link';
 import PromoVideo from '@/components/promo-video';
+import CertificateSection from '@/components/certificate-section';
 import {
   DAY_1,
   DAY_2,
@@ -84,6 +85,7 @@ const INCLUDED = [
   'Live Q&A on both days',
   'Templates and scripts you can use immediately',
   'Time to ask about your own situation',
+  'Certificate of completion',
   '30-day access to the class recording',
   'Invite to our private community for ongoing support',
 ];
@@ -459,6 +461,24 @@ export default function TrainingEnPage() {
           </div>
         </div>
       </section>
+
+      {/* CERTIFICATE — what a student walks away with, just before the price.
+          Copy checked against the live certificate flow on 2026-11-13. */}
+      <CertificateSection
+        kicker="Certificate of completion"
+        heading="Finish with a certificate in your name"
+        body="When you finish the training, we email you a certificate of completion with your name on it. It comes with the group class and with one-on-one."
+        points={[
+          'Signed by Cora Matzek, CEO of DMG Agency Core',
+          'Your name and the date you completed the training',
+          'Download it as a PDF or add it to your LinkedIn profile',
+          'A credential link anyone can use to verify it',
+        ]}
+        note="The certificate recognizes completion of a DMG Agency Core training course. It is not a license or a government certification."
+        image="/images/certificate-sample-en.jpg"
+        imageAlt="Sample DMG Agency Core certificate of completion for the Freight Dispatch Training, signed by Cora Matzek"
+        caption="Sample certificate"
+      />
 
       {/* PRICE — two ways to take the training. Group is the live class with a
           date; one-on-one is the DMG Shop private product, so it keeps selling

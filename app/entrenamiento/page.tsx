@@ -21,6 +21,7 @@ import IlluminatedHeading from '@/components/illuminated-heading';
 import TrainingRegistration from '@/components/training-registration';
 import PrivateCheckoutLink from '@/components/private-checkout-link';
 import PromoVideo from '@/components/promo-video';
+import CertificateSection from '@/components/certificate-section';
 import {
   DAY_1,
   DAY_2,
@@ -84,6 +85,7 @@ const INCLUDED = [
   'Preguntas y respuestas en vivo los dos días',
   'Todo el material en español',
   'Plantillas y guiones que puedes usar de inmediato',
+  'Certificado de finalización',
   'Invitación a nuestra comunidad privada para apoyo continuo',
 ];
 
@@ -440,6 +442,24 @@ export default function TrainingPage() {
           </div>
         </div>
       </section>
+
+      {/* CERTIFICADO — lo que el alumno se lleva, justo antes del precio.
+          Texto revisado contra el flujo real del certificado el 2026-11-13. */}
+      <CertificateSection
+        kicker="Certificado de finalización"
+        heading="Termina con un certificado a tu nombre"
+        body="Al terminar el entrenamiento te enviamos por correo un certificado de finalización con tu nombre. Viene con la clase en grupo y con el uno a uno."
+        points={[
+          'Firmado por Cora Matzek, CEO de DMG Agency Core',
+          'Con tu nombre y la fecha en que terminaste',
+          'Descárgalo en PDF o agrégalo a tu perfil de LinkedIn',
+          'Un enlace con el que cualquiera puede verificarlo',
+        ]}
+        note="El certificado reconoce que completaste un curso de capacitación de DMG Agency Core. No es una licencia ni una certificación del gobierno."
+        image="/images/certificate-sample-es.jpg"
+        imageAlt="Certificado de finalización de muestra de DMG Agency Core para la Capacitación de Despacho de Carga, firmado por Cora Matzek"
+        caption="Certificado de muestra"
+      />
 
       {/* PRICE — dos formas de tomar el entrenamiento. La clase en grupo tiene
           fecha; el uno a uno es el producto privado de DMG Shop y sigue
