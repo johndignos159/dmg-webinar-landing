@@ -86,14 +86,16 @@ const INCLUDED = [
   'Todo el material en español',
   'Plantillas y guiones que puedes usar de inmediato',
   'Certificado de finalización',
+  'Acceso de 30 días a la grabación de la clase',
   'Invitación a nuestra comunidad privada para apoyo continuo',
 ];
 
-// Tarjeta uno a uno. Texto aprobado por Cora el 2026-11-11. Sin la línea de la
-// grabación de 30 días hasta que exista el curso en español.
+// Tarjeta uno a uno. Texto aprobado por Cora el 2026-11-11. La línea de la
+// grabación se agregó el 2026-11-18, cuando el curso en español quedó listo.
 const PRIVATE_INCLUDED = [
   'Todo lo de la clase en grupo',
   'Respuestas a tus propias preguntas',
+  'Acceso de 30 días a la grabación de la clase',
   'Invitación a nuestra comunidad privada para apoyo continuo',
 ];
 
