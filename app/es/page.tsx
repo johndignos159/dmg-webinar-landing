@@ -27,6 +27,7 @@ import Reveal from '@/components/reveal';
 import FlipCard from '@/components/flip-card';
 import TiltCard from '@/components/tilt-card';
 import IlluminatedHeading from '@/components/illuminated-heading';
+import { ComingSoonBadge, ComingSoonSection } from '@/components/coming-soon';
 import { UNITS_ES, FLIP_TEXT_ES } from '@/lib/ui-text-es';
 import {
   WEBINAR_ES_DATE_DISPLAY,
@@ -34,14 +35,29 @@ import {
   WEBINAR_ES_TIME_PACIFIC,
   WEBINAR_ES_DURATION_MINUTES,
   WEBINAR_ES_TIMESTAMP,
+  NEXT_DATE_ANNOUNCED_ES,
+  COMING_SOON_SHOP_URL_ES,
 } from '@/lib/webinar-es-config';
 
 // The English webinar page (app/page.tsx) in Spanish: same masterclass, same
 // sections, same order. Copy is Cora's, translated; she reviews it before ads run.
 
+// Used while NEXT_DATE_ANNOUNCED_ES is false (the last webinar is over and the
+// next date is not set). Written by Claude, not Cora; she may reword it.
+const SOON = {
+  badge: 'Próxima masterclass: fecha muy pronto',
+  cta: 'IR A LA TIENDA DMG',
+  ctaNote: 'La próxima fecha se publicará en esta página.',
+  date: 'Muy pronto',
+  time: 'Por anunciar',
+  heading: 'La fecha de la próxima masterclass se anunciará muy pronto',
+  body: 'Nuestra última masterclass en vivo ya terminó, y la próxima fecha se publicará aquí. ¿Quieres empezar a aprender ahora? Nuestras guías de despacho, la capacitación grabada y la capacitación privada uno a uno están en la tienda DMG.',
+};
+
 const TITLE = 'El Blueprint del Emprendedor en Transporte™ | Webinar gratis en español';
-const DESCRIPTION =
-  'Masterclass gratis en español: cómo construir un negocio de transporte en el orden correcto. Miércoles 18 de noviembre, 6:00 PM hora del Este.';
+const DESCRIPTION = NEXT_DATE_ANNOUNCED_ES
+  ? 'Masterclass gratis en español: cómo construir un negocio de transporte en el orden correcto. Miércoles 18 de noviembre, 6:00 PM hora del Este.'
+  : 'Masterclass gratis en español: cómo construir un negocio de transporte en el orden correcto. Próxima fecha muy pronto.';
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -184,7 +200,11 @@ export default function WebinarEsPage() {
     <div className="min-h-screen bg-white">
       {/* HERO */}
       <section className="relative bg-brand-navy text-white overflow-hidden">
-        <SiteHeader ctaLabel="Reservar mi lugar" ctaHref="/es#registro" />
+        {NEXT_DATE_ANNOUNCED_ES ? (
+          <SiteHeader ctaLabel="Reservar mi lugar" ctaHref="/es#registro" />
+        ) : (
+          <SiteHeader ctaLabel="Ir a la tienda" ctaHref={COMING_SOON_SHOP_URL_ES} />
+        )}
 
         <div className="absolute inset-0 z-0 bg-brand-navy">
           <Image
@@ -220,20 +240,36 @@ export default function WebinarEsPage() {
             porque nadie les enseñó el orden correcto para construir.
           </p>
 
-          <CountdownTimer
-            target={WEBINAR_ES_TIMESTAMP}
-            label="Las inscripciones cierran en"
-            units={UNITS_ES}
-            liveText="La masterclass está en vivo ahora"
-          />
+          {NEXT_DATE_ANNOUNCED_ES ? (
+            <CountdownTimer
+              target={WEBINAR_ES_TIMESTAMP}
+              label="Las inscripciones cierran en"
+              units={UNITS_ES}
+              liveText="La masterclass está en vivo ahora"
+            />
+          ) : (
+            <ComingSoonBadge text={SOON.badge} />
+          )}
 
-          <a href="#registro" className={CTA_CLASS}>
-            REGÍSTRATE GRATIS
-            <ArrowRight className="ml-2 w-5 h-5" />
-          </a>
-          <p className="mt-4 text-sm text-gray-400 font-medium">
-            No necesitas tarjeta de crédito. Los lugares son limitados.
-          </p>
+          {NEXT_DATE_ANNOUNCED_ES ? (
+            <>
+              <a href="#registro" className={CTA_CLASS}>
+                REGÍSTRATE GRATIS
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </a>
+              <p className="mt-4 text-sm text-gray-400 font-medium">
+                No necesitas tarjeta de crédito. Los lugares son limitados.
+              </p>
+            </>
+          ) : (
+            <>
+              <a href={COMING_SOON_SHOP_URL_ES} className={CTA_CLASS}>
+                {SOON.cta}
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </a>
+              <p className="mt-4 text-sm text-gray-400 font-medium">{SOON.ctaNote}</p>
+            </>
+          )}
         </div>
       </section>
 
@@ -260,7 +296,18 @@ export default function WebinarEsPage() {
         </p>
       </section>
 
-      <WebinarEsRegistration />
+      {NEXT_DATE_ANNOUNCED_ES ? (
+        <WebinarEsRegistration />
+      ) : (
+        <ComingSoonSection
+          id="registro"
+          heading={SOON.heading}
+          body={SOON.body}
+          ctaLabel={SOON.cta}
+          ctaHref={COMING_SOON_SHOP_URL_ES}
+          ctaClassName={CTA_CLASS}
+        />
+      )}
 
       {/* WHAT YOU'LL WALK AWAY WITH */}
       <section className="illuminated-bg py-24 md:py-32 bg-black">
@@ -458,7 +505,9 @@ export default function WebinarEsPage() {
                   </div>
                   <div>
                     <h4 className="font-bold text-brand-navy text-lg">Fecha</h4>
-                    <p className="text-gray-600 font-medium">{WEBINAR_ES_DATE_DISPLAY}</p>
+                    <p className="text-gray-600 font-medium">
+                      {NEXT_DATE_ANNOUNCED_ES ? WEBINAR_ES_DATE_DISPLAY : SOON.date}
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-start">
@@ -468,12 +517,14 @@ export default function WebinarEsPage() {
                   <div>
                     <h4 className="font-bold text-brand-navy text-lg">Hora</h4>
                     <p className="text-gray-600 font-medium">
-                      {WEBINAR_ES_TIME_DISPLAY}{' '}
+                      {NEXT_DATE_ANNOUNCED_ES ? WEBINAR_ES_TIME_DISPLAY : SOON.time}{' '}
                       <span className="text-gray-500 font-normal">
                         ({WEBINAR_ES_DURATION_MINUTES} min)
                       </span>
                     </p>
-                    <p className="text-gray-500 text-sm">{WEBINAR_ES_TIME_PACIFIC}</p>
+                    {NEXT_DATE_ANNOUNCED_ES && (
+                      <p className="text-gray-500 text-sm">{WEBINAR_ES_TIME_PACIFIC}</p>
+                    )}
                   </div>
                 </div>
               </div>
@@ -543,21 +594,24 @@ export default function WebinarEsPage() {
             No hacer nada también es una decisión — y tiene un precio. Cada mes sin
             formar tu negocio es dinero que no puedes cobrar.
           </p>
-          <a href="#registro" className={CTA_CLASS}>
-            REGÍSTRATE GRATIS
+          <a href={NEXT_DATE_ANNOUNCED_ES ? '#registro' : COMING_SOON_SHOP_URL_ES} className={CTA_CLASS}>
+            {NEXT_DATE_ANNOUNCED_ES ? 'REGÍSTRATE GRATIS' : SOON.cta}
             <ArrowRight className="ml-2 w-5 h-5" />
           </a>
-          <div className="mt-8 flex flex-wrap justify-center items-center gap-8 text-gray-400 font-medium text-sm">
-            <span className="flex items-center">
-              <ShieldCheck className="w-5 h-5 mr-2 text-brand-teal" /> 100% gratis
-            </span>
-            <span className="flex items-center">
-              <Users className="w-5 h-5 mr-2 text-brand-teal" /> Lugares limitados
-            </span>
-            <span className="flex items-center">
-              <Star className="w-5 h-5 mr-2 text-brand-teal" /> Preguntas en vivo
-            </span>
-          </div>
+          {/* About the free webinar, so hidden while the button goes to the (paid) shop. */}
+          {NEXT_DATE_ANNOUNCED_ES && (
+            <div className="mt-8 flex flex-wrap justify-center items-center gap-8 text-gray-400 font-medium text-sm">
+              <span className="flex items-center">
+                <ShieldCheck className="w-5 h-5 mr-2 text-brand-teal" /> 100% gratis
+              </span>
+              <span className="flex items-center">
+                <Users className="w-5 h-5 mr-2 text-brand-teal" /> Lugares limitados
+              </span>
+              <span className="flex items-center">
+                <Star className="w-5 h-5 mr-2 text-brand-teal" /> Preguntas en vivo
+              </span>
+            </div>
+          )}
         </div>
       </section>
 

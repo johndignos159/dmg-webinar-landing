@@ -1,7 +1,11 @@
 import type { Metadata } from 'next';
 import { Montserrat, Inter } from 'next/font/google';
 import MetaPixel, { MetaPixelNoScript } from '@/components/meta-pixel';
-import { WEBINAR_DATE_DISPLAY, WEBINAR_TIME_DISPLAY } from '@/lib/webinar-config';
+import {
+  WEBINAR_DATE_DISPLAY,
+  WEBINAR_TIME_DISPLAY,
+  NEXT_DATE_ANNOUNCED,
+} from '@/lib/webinar-config';
 import './globals.css'; // Global styles
 
 const montserrat = Montserrat({
@@ -17,7 +21,9 @@ const inter = Inter({
 });
 
 const TITLE = 'The Transportation Entrepreneur Blueprint | DMG Agency Core';
-const DESCRIPTION = `A free live masterclass on building a transportation business in the right order. ${WEBINAR_DATE_DISPLAY} at ${WEBINAR_TIME_DISPLAY}. No recording — live only.`;
+const DESCRIPTION = NEXT_DATE_ANNOUNCED
+  ? `A free live masterclass on building a transportation business in the right order. ${WEBINAR_DATE_DISPLAY} at ${WEBINAR_TIME_DISPLAY}. No recording — live only.`
+  : 'A free live masterclass on building a transportation business in the right order. Next date coming soon.';
 
 export const metadata: Metadata = {
   // Needed for the relative openGraph image below to resolve to an absolute

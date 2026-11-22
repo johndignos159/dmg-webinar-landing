@@ -14,6 +14,16 @@ export const WEBINAR_ES_DATE_ISO = '2026-11-18T18:00:00-05:00';
 /** How long the session runs, in minutes. Same deck as the English webinar. */
 export const WEBINAR_ES_DURATION_MINUTES = 45;
 
+// false = the date above has passed and no new date is set yet. /es then shows
+// "Próxima fecha muy pronto" in place of the countdown, the date and time, and
+// the registration form, and its buttons go to the DMG Shop in Spanish.
+// Set it back to true when you put the new date in WEBINAR_ES_DATE_ISO.
+export const NEXT_DATE_ANNOUNCED_ES = false;
+
+/** Where the buttons go while NEXT_DATE_ANNOUNCED_ES is false. */
+export const COMING_SOON_SHOP_URL_ES =
+  'https://shop.dmgagencycore.com/?lang=es&utm_source=webinar.dmgagencycore.com&utm_medium=webinar-page-es&utm_campaign=next-date-coming-soon';
+
 // ---------------------------------------------------------------------------
 // 2. ZOOM — Cora's room for Nov 18 (sent Nov 5). Shown on /es/confirmado and
 // used in every reminder email.

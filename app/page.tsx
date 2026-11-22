@@ -26,11 +26,26 @@ import Reveal from '@/components/reveal';
 import FlipCard from '@/components/flip-card';
 import TiltCard from '@/components/tilt-card';
 import IlluminatedHeading from '@/components/illuminated-heading';
+import { ComingSoonBadge, ComingSoonSection } from '@/components/coming-soon';
 import {
   WEBINAR_DATE_DISPLAY,
   WEBINAR_TIME_DISPLAY,
   WEBINAR_DURATION_MINUTES,
+  NEXT_DATE_ANNOUNCED,
+  COMING_SOON_SHOP_URL,
 } from '@/lib/webinar-config';
+
+// Used while NEXT_DATE_ANNOUNCED is false (the last webinar is over and the next
+// date is not set). Written by Claude, not Cora; she may reword it.
+const SOON = {
+  badge: 'Next masterclass: date coming soon',
+  cta: 'VISIT THE DMG SHOP',
+  ctaNote: 'The next date will be posted on this page.',
+  date: 'Coming soon',
+  time: 'To be announced',
+  heading: 'The next masterclass date is coming soon',
+  body: 'Our last live masterclass has ended, and the next date will be posted here. Want to start learning now? Our dispatch guides, recorded training and private one-on-one training are in the DMG Shop.',
+};
 
 // The four promises made on the "What you'll walk away with" slide. These are
 // the open loops the session pays off, so the page should make exactly these
@@ -191,7 +206,11 @@ export default function LandingPage() {
     <div className="min-h-screen bg-white">
       {/* HERO */}
       <section className="relative bg-brand-navy text-white overflow-hidden">
-        <SiteHeader />
+        {NEXT_DATE_ANNOUNCED ? (
+          <SiteHeader />
+        ) : (
+          <SiteHeader ctaLabel="Visit the Shop" ctaHref={COMING_SOON_SHOP_URL} />
+        )}
 
         <div className="absolute inset-0 z-0 bg-brand-navy">
           {/* Freightliner Cascadia on a US highway. Unsplash, free for
@@ -234,15 +253,27 @@ export default function LandingPage() {
             showed them the right order to build in.
           </p>
 
-          <CountdownTimer />
+          {NEXT_DATE_ANNOUNCED ? <CountdownTimer /> : <ComingSoonBadge text={SOON.badge} />}
 
-          <a href="#register" className={CTA_CLASS}>
-            REGISTER FOR FREE WEBINAR
-            <ArrowRight className="ml-2 w-5 h-5" />
-          </a>
-          <p className="mt-4 text-sm text-gray-400 font-medium">
-            No credit card required. Spaces are strictly limited.
-          </p>
+          {NEXT_DATE_ANNOUNCED ? (
+            <>
+              <a href="#register" className={CTA_CLASS}>
+                REGISTER FOR FREE WEBINAR
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </a>
+              <p className="mt-4 text-sm text-gray-400 font-medium">
+                No credit card required. Spaces are strictly limited.
+              </p>
+            </>
+          ) : (
+            <>
+              <a href={COMING_SOON_SHOP_URL} className={CTA_CLASS}>
+                {SOON.cta}
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </a>
+              <p className="mt-4 text-sm text-gray-400 font-medium">{SOON.ctaNote}</p>
+            </>
+          )}
         </div>
       </section>
 
@@ -268,7 +299,18 @@ export default function LandingPage() {
         </p>
       </section>
 
-      <RegistrationForm />
+      {NEXT_DATE_ANNOUNCED ? (
+        <RegistrationForm />
+      ) : (
+        <ComingSoonSection
+          id="register"
+          heading={SOON.heading}
+          body={SOON.body}
+          ctaLabel={SOON.cta}
+          ctaHref={COMING_SOON_SHOP_URL}
+          ctaClassName={CTA_CLASS}
+        />
+      )}
 
       {/* WHAT YOU'LL WALK AWAY WITH — dark, because an illuminated glow only
           reads against black. Cards become translucent glass so the red pool
@@ -474,7 +516,9 @@ export default function LandingPage() {
                   </div>
                   <div>
                     <h4 className="font-bold text-brand-navy text-lg">Date</h4>
-                    <p className="text-gray-600 font-medium">{WEBINAR_DATE_DISPLAY}</p>
+                    <p className="text-gray-600 font-medium">
+                      {NEXT_DATE_ANNOUNCED ? WEBINAR_DATE_DISPLAY : SOON.date}
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-start">
@@ -484,7 +528,7 @@ export default function LandingPage() {
                   <div>
                     <h4 className="font-bold text-brand-navy text-lg">Time</h4>
                     <p className="text-gray-600 font-medium">
-                      {WEBINAR_TIME_DISPLAY}{' '}
+                      {NEXT_DATE_ANNOUNCED ? WEBINAR_TIME_DISPLAY : SOON.time}{' '}
                       <span className="text-gray-500 font-normal">
                         ({WEBINAR_DURATION_MINUTES} min)
                       </span>
@@ -558,21 +602,24 @@ export default function LandingPage() {
             Doing nothing is a decision too — and it has a price. Every month unformed
             is income you cannot collect.
           </p>
-          <a href="#register" className={CTA_CLASS}>
-            REGISTER FOR FREE WEBINAR
+          <a href={NEXT_DATE_ANNOUNCED ? '#register' : COMING_SOON_SHOP_URL} className={CTA_CLASS}>
+            {NEXT_DATE_ANNOUNCED ? 'REGISTER FOR FREE WEBINAR' : SOON.cta}
             <ArrowRight className="ml-2 w-5 h-5" />
           </a>
-          <div className="mt-8 flex flex-wrap justify-center items-center gap-8 text-gray-400 font-medium text-sm">
-            <span className="flex items-center">
-              <ShieldCheck className="w-5 h-5 mr-2 text-brand-teal" /> 100% Free Training
-            </span>
-            <span className="flex items-center">
-              <Users className="w-5 h-5 mr-2 text-brand-teal" /> Limited Seats Available
-            </span>
-            <span className="flex items-center">
-              <Star className="w-5 h-5 mr-2 text-brand-teal" /> Live Q&amp;A
-            </span>
-          </div>
+          {/* About the free webinar, so hidden while the button goes to the (paid) shop. */}
+          {NEXT_DATE_ANNOUNCED && (
+            <div className="mt-8 flex flex-wrap justify-center items-center gap-8 text-gray-400 font-medium text-sm">
+              <span className="flex items-center">
+                <ShieldCheck className="w-5 h-5 mr-2 text-brand-teal" /> 100% Free Training
+              </span>
+              <span className="flex items-center">
+                <Users className="w-5 h-5 mr-2 text-brand-teal" /> Limited Seats Available
+              </span>
+              <span className="flex items-center">
+                <Star className="w-5 h-5 mr-2 text-brand-teal" /> Live Q&amp;A
+              </span>
+            </div>
+          )}
         </div>
       </section>
 

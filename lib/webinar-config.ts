@@ -26,6 +26,20 @@ export const WEBINAR_DATE_ISO = '2026-09-30T19:00:00-04:00';
 export const JOIN_URL = 'https://us05web.zoom.us/j/81236507956';
 
 // ---------------------------------------------------------------------------
+// IS THE NEXT DATE SET?
+//
+// false = the date above has passed and no new date is set yet. The page then
+// shows "Next date coming soon" in place of the countdown, the date and time,
+// and the registration form, and its buttons go to the DMG Shop.
+// Set it back to true when you put the new date in WEBINAR_DATE_ISO.
+// ---------------------------------------------------------------------------
+export const NEXT_DATE_ANNOUNCED = false;
+
+/** Where the buttons go while NEXT_DATE_ANNOUNCED is false. */
+export const COMING_SOON_SHOP_URL =
+  'https://shop.dmgagencycore.com/?utm_source=webinar.dmgagencycore.com&utm_medium=webinar-page&utm_campaign=next-date-coming-soon';
+
+// ---------------------------------------------------------------------------
 // 2. HOW THE DATE/TIME READS ON THE PAGE
 // Change the label if you ever run a webinar outside Eastern Time.
 // ---------------------------------------------------------------------------
