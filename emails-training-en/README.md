@@ -11,8 +11,8 @@ node scripts/build-training-en-emails.mjs
 Every date, time and link comes from `lib/training-en-config.mjs`, so the
 emails cannot disagree with the landing page.
 
-- **Day 1:** Saturday, November 14, 2026
-- **Day 2:** Sunday, November 15, 2026
+- **Day 1:** Saturday, January 2, 2027
+- **Day 2:** Sunday, January 3, 2027
 - **Day 1 time:** 11:00 AM – 2:00 PM ET
 - **Day 2 time:** 3:00 PM – 6:00 PM ET  ← different, and a different Zoom room
 - **Price:** $197 USD
