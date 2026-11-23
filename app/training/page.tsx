@@ -56,7 +56,8 @@ type EarningStep = {
 type Objection = { q: string; a: string };
 
 const TITLE = 'Group Dispatch Training | DMG Agency Core';
-const DESCRIPTION = `Live 2-day training to learn truck dispatching from scratch. ${DAY_1_SHORT} and ${DAY_2_SHORT}, 2026. $${PRICE} USD.`;
+// DAY_2_DISPLAY carries the year ("Sunday, January 3, 2027"), so the text stays right when a class crosses into a new year.
+const DESCRIPTION = `Live 2-day training to learn truck dispatching from scratch. ${DAY_1_SHORT} and ${DAY_2_DISPLAY}. $${PRICE} USD.`;
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://training.dmgagencycore.com'),
@@ -70,6 +71,13 @@ export const metadata: Metadata = {
     images: [{ url: '/images/hero-truck.jpg', width: 2400, height: 1600 }],
     locale: 'en_US',
     type: 'website',
+  },
+  // Without this block the page inherits the webinar's twitter: tags from app/layout.tsx.
+  twitter: {
+    card: 'summary_large_image',
+    title: TITLE,
+    description: DESCRIPTION,
+    images: ['/images/hero-truck.jpg'],
   },
 };
 

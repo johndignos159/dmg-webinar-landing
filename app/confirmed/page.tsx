@@ -13,9 +13,23 @@ import {
   JOIN_URL,
 } from '@/lib/webinar-config';
 
+const TITLE = "You're Registered | DMG Agency Core";
+const DESCRIPTION = 'Your seat for the DMG Agency Core trucking masterclass is confirmed.';
+
 export const metadata: Metadata = {
-  title: "You're Registered | DMG Agency Core",
-  description: 'Your seat for the DMG Agency Core trucking masterclass is confirmed.',
+  title: TITLE,
+  description: DESCRIPTION,
+  // Own preview tags; otherwise the link preview repeats the landing page's (app/layout.tsx).
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: '/confirmed',
+    siteName: 'DMG Agency Core',
+    images: [{ url: '/images/hero-truck.jpg', width: 2400, height: 1600 }],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: { card: 'summary_large_image', title: TITLE, description: DESCRIPTION, images: ['/images/hero-truck.jpg'] },
   // Thank-you pages should never appear in search results — anyone landing here
   // from Google would skip the form entirely and never become a lead.
   robots: { index: false, follow: false },

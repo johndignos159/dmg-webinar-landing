@@ -14,9 +14,24 @@ import {
   SUPPORT_EMAIL,
 } from '@/lib/training-en-config.mjs';
 
+const TITLE = "You're in | DMG Agency Core";
+const DESCRIPTION = 'Your seat at the Group Dispatch Training is confirmed.';
+
 export const metadata: Metadata = {
-  title: "You're in | DMG Agency Core",
-  description: 'Your seat at the Group Dispatch Training is confirmed.',
+  metadataBase: new URL('https://training.dmgagencycore.com'),
+  title: TITLE,
+  description: DESCRIPTION,
+  // Own preview tags; otherwise the link preview shows the webinar's (app/layout.tsx).
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: '/confirmed',
+    siteName: 'DMG Agency Core',
+    images: [{ url: '/images/hero-truck.jpg', width: 2400, height: 1600 }],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: { card: 'summary_large_image', title: TITLE, description: DESCRIPTION, images: ['/images/hero-truck.jpg'] },
   // Never index a confirmation page. Anyone arriving from a search result
   // would skip both the form and the payment, and both Zoom links are on it.
   robots: { index: false, follow: false },

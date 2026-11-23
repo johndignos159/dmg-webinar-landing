@@ -56,7 +56,8 @@ type EarningStep = {
 type Objection = { q: string; a: string };
 
 const TITLE = 'Entrenamiento de Despacho en Español | DMG Agency Core';
-const DESCRIPTION = `Entrenamiento en vivo de 2 días para aprender despacho de camiones desde cero. ${DAY_1_SHORT} y ${DAY_2_SHORT} de 2026. $${PRICE} USD.`;
+// DAY_2_DISPLAY lleva el año ("domingo, 13 de diciembre de 2026"), así el texto sigue bien si una clase cae en otro año.
+const DESCRIPTION = `Entrenamiento en vivo de 2 días para aprender despacho de camiones desde cero. ${DAY_1_SHORT} y ${DAY_2_DISPLAY}. $${PRICE} USD.`;
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://entrenamiento.dmgagencycore.com'),
@@ -70,6 +71,13 @@ export const metadata: Metadata = {
     images: [{ url: '/images/hero-truck.jpg', width: 2400, height: 1600 }],
     locale: 'es_US',
     type: 'website',
+  },
+  // Sin este bloque la página hereda las etiquetas twitter: del webinar (app/layout.tsx).
+  twitter: {
+    card: 'summary_large_image',
+    title: TITLE,
+    description: DESCRIPTION,
+    images: ['/images/hero-truck.jpg'],
   },
 };
 

@@ -18,9 +18,23 @@ import {
   ZOOM_PASSCODE_ES,
 } from '@/lib/webinar-es-config';
 
+const TITLE = '¡Ya estás registrado! | DMG Agency Core';
+const DESCRIPTION = 'Tu lugar en la masterclass en español de DMG Agency Core está confirmado.';
+
 export const metadata: Metadata = {
-  title: '¡Ya estás registrado! | DMG Agency Core',
-  description: 'Tu lugar en la masterclass en español de DMG Agency Core está confirmado.',
+  title: TITLE,
+  description: DESCRIPTION,
+  // Etiquetas de vista previa propias; sin ellas el enlace muestra las del webinar en inglés (app/layout.tsx).
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: '/es/confirmado',
+    siteName: 'DMG Agency Core',
+    images: [{ url: '/images/hero-truck.jpg', width: 2400, height: 1600 }],
+    locale: 'es_US',
+    type: 'website',
+  },
+  twitter: { card: 'summary_large_image', title: TITLE, description: DESCRIPTION, images: ['/images/hero-truck.jpg'] },
   // Thank-you pages stay out of search results: a visitor from Google would skip the form.
   robots: { index: false, follow: false },
 };

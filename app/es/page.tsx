@@ -63,8 +63,18 @@ export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: '/es' },
-  openGraph: { title: TITLE, description: DESCRIPTION, url: '/es', locale: 'es_US' },
-  twitter: { title: TITLE, description: DESCRIPTION },
+  // The image has to be listed again here: a page's openGraph replaces the layout's
+  // as a whole, so without it /es shared with no picture.
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: '/es',
+    siteName: 'DMG Agency Core',
+    images: [{ url: '/images/hero-truck.jpg', width: 2400, height: 1600 }],
+    locale: 'es_US',
+    type: 'website',
+  },
+  twitter: { card: 'summary_large_image', title: TITLE, description: DESCRIPTION, images: ['/images/hero-truck.jpg'] },
 };
 
 const PROMISES = [
